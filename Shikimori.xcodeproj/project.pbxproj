@@ -7,12 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1EDE20A52C5637B132508831 /* ServiceAccessURLRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessURLRequestFactory.swift */; };
+		1EDE2153C5AF4938CB868FB8 /* AuthConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE261B412147EE76277602 /* AuthConfigProvider.swift */; };
 		1EDE221446A7D18D6BD22697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE2516E723B235129B26A7 /* Assets.xcassets */; };
+		1EDE233DAE711D695FC442FA /* AuthCodeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE292B7D01115BD318A72C /* AuthCodeStorage.swift */; };
 		1EDE241A51EA2CD4A2AF91BA /* ShikimoriTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */; };
+		1EDE24F5FFFDB070BDB26638 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */; };
+		1EDE25C62612326F92BD5F89 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */; };
 		1EDE26F9FBB2FFAEF6B79D23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE280DEDC0C3B27B89ADEC /* Main.storyboard */; };
+		1EDE278449F940FAF4183185 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2120515869CE14B06D54 /* Request.swift */; };
+		1EDE287D67C46D2298E6F658 /* HttpMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE266FDE4D1950834CE0B3 /* HttpMapper.swift */; };
+		1EDE289B3D6FFF02C7577AB4 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */; };
 		1EDE28A4CC97C35A56552F26 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2FA96A39398AEC283149 /* MainViewController.swift */; };
 		1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */; };
+		1EDE2979557C8A4A6EFDA9F7 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE28B003054D5BB984F1BE /* HttpRequest.swift */; };
+		1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */; };
+		1EDE2DA5979E3ED938C6EBD7 /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2AB4D86ACE3289280FA9 /* UserToken.swift */; };
+		1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27C0EC545DE688A0BB5F /* Promise.swift */; };
+		1EDE2E8E05F3825C76020AC1 /* TokenRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2A42B8E7C721EEE47AF3 /* TokenRequestFactory.swift */; };
 		1EDE2EA391830D09E87D5F47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE29DD7C2309485E49D68B /* AppDelegate.swift */; };
+		C412AA4F2091CB4200ECC3AB /* Auth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C412AA4E2091CB4200ECC3AB /* Auth.plist */; };
+		C45AAB3C2090DCE4006D62CF /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C45AAB3B2090DCE4006D62CF /* Auth.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +43,29 @@
 /* Begin PBXFileReference section */
 		1EDE20222F2070A7677F864A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		1EDE208E4F1EC0D9C8AF9567 /* Shikimori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shikimori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EDE2120515869CE14B06D54 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1EDE2516E723B235129B26A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1EDE261B412147EE76277602 /* AuthConfigProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthConfigProvider.swift; sourceTree = "<group>"; };
+		1EDE266FDE4D1950834CE0B3 /* HttpMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMapper.swift; sourceTree = "<group>"; };
+		1EDE27C0EC545DE688A0BB5F /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		1EDE280DEDC0C3B27B89ADEC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1EDE2871A0E913C2BE1BC75A /* ShikimoriTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShikimoriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EDE28B003054D5BB984F1BE /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		1EDE292B7D01115BD318A72C /* AuthCodeStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCodeStorage.swift; sourceTree = "<group>"; };
 		1EDE29DD7C2309485E49D68B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1EDE2A42B8E7C721EEE47AF3 /* TokenRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequestFactory.swift; sourceTree = "<group>"; };
+		1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
+		1EDE2AB4D86ACE3289280FA9 /* UserToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikimoriTests.swift; sourceTree = "<group>"; };
+		1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1EDE2CEA5AD80EDF0995C942 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
+		1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
+		1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessURLRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAccessURLRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE2FA96A39398AEC283149 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C412AA4E2091CB4200ECC3AB /* Auth.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth.plist; sourceTree = "<group>"; };
+		C45AAB3B2090DCE4006D62CF /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,11 +86,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EDE21F914E3F7B5FDEFDF39 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				C45AAB3B2090DCE4006D62CF /* Auth.storyboard */,
+				1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */,
+			);
+			name = Auth;
+			sourceTree = "<group>";
+		};
 		1EDE229C29F319BFC866A7F3 /* ShikimoriTests */ = {
 			isa = PBXGroup;
 			children = (
 				1EDE20222F2070A7677F864A /* Info.plist */,
 				1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */,
+				1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */,
 			);
 			path = ShikimoriTests;
 			sourceTree = "<group>";
@@ -69,8 +109,22 @@
 			isa = PBXGroup;
 			children = (
 				1EDE29FD516FEEEC7A299CFD /* UI */,
+				1EDE2D6B874CB7479F397F58 /* Network */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		1EDE25E036E9098B129C1A89 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1EDE27C0EC545DE688A0BB5F /* Promise.swift */,
+				1EDE28B003054D5BB984F1BE /* HttpRequest.swift */,
+				1EDE2120515869CE14B06D54 /* Request.swift */,
+				1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */,
+				1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */,
+				1EDE266FDE4D1950834CE0B3 /* HttpMapper.swift */,
+			);
+			name = Core;
 			sourceTree = "<group>";
 		};
 		1EDE26213D6FA41789CA71EA /* Assets */ = {
@@ -94,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				1EDE2CEA5AD80EDF0995C942 /* Info.plist */,
+				C412AA4E2091CB4200ECC3AB /* Auth.plist */,
 				1EDE29DD7C2309485E49D68B /* AppDelegate.swift */,
 			);
 			path = Config;
@@ -104,6 +159,7 @@
 			children = (
 				1EDE2EF3C2330CFB0807CD9F /* Launch */,
 				1EDE26F50857B622BDCB2C4A /* Main */,
+				1EDE21F914E3F7B5FDEFDF39 /* Auth */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -116,6 +172,17 @@
 				1EDE275C9B4A31B58FCDAB14 /* Config */,
 			);
 			path = Shikimori;
+			sourceTree = "<group>";
+		};
+		1EDE2D6B874CB7479F397F58 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1EDE25E036E9098B129C1A89 /* Core */,
+				1EDE2FD06F0599811174BE69 /* Api */,
+				1EDE2AB4D86ACE3289280FA9 /* UserToken.swift */,
+				1EDE292B7D01115BD318A72C /* AuthCodeStorage.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		1EDE2E88BE480A6D533114CB = {
@@ -142,6 +209,16 @@
 				1EDE2871A0E913C2BE1BC75A /* ShikimoriTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1EDE2FD06F0599811174BE69 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				1EDE261B412147EE76277602 /* AuthConfigProvider.swift */,
+				1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessURLRequestFactory.swift */,
+				1EDE2A42B8E7C721EEE47AF3 /* TokenRequestFactory.swift */,
+			);
+			name = Api;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,7 +265,12 @@
 		1EDE208D72083E9B47988000 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				ORGANIZATIONNAME = shikimori.org;
+				ORGANIZATIONNAME = "Aziz L";
+				TargetAttributes = {
+					1EDE229A03535292B1A8B01C = {
+						ProvisioningStyle = Manual;
+					};
+				};
 			};
 			buildConfigurationList = 1EDE2340E087BB1CD61403F1 /* Build configuration list for PBXProject "Shikimori" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -220,6 +302,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C412AA4F2091CB4200ECC3AB /* Auth.plist in Resources */,
+				C45AAB3C2090DCE4006D62CF /* Auth.storyboard in Resources */,
 				1EDE221446A7D18D6BD22697 /* Assets.xcassets in Resources */,
 				1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */,
 				1EDE26F9FBB2FFAEF6B79D23 /* Main.storyboard in Resources */,
@@ -235,6 +319,18 @@
 			files = (
 				1EDE2EA391830D09E87D5F47 /* AppDelegate.swift in Sources */,
 				1EDE28A4CC97C35A56552F26 /* MainViewController.swift in Sources */,
+				1EDE24F5FFFDB070BDB26638 /* AuthViewController.swift in Sources */,
+				1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */,
+				1EDE2979557C8A4A6EFDA9F7 /* HttpRequest.swift in Sources */,
+				1EDE278449F940FAF4183185 /* Request.swift in Sources */,
+				1EDE25C62612326F92BD5F89 /* URLBuilder.swift in Sources */,
+				1EDE289B3D6FFF02C7577AB4 /* RequestBuilder.swift in Sources */,
+				1EDE2153C5AF4938CB868FB8 /* AuthConfigProvider.swift in Sources */,
+				1EDE20A52C5637B132508831 /* ServiceAccessURLRequestFactory.swift in Sources */,
+				1EDE2DA5979E3ED938C6EBD7 /* UserToken.swift in Sources */,
+				1EDE233DAE711D695FC442FA /* AuthCodeStorage.swift in Sources */,
+				1EDE287D67C46D2298E6F658 /* HttpMapper.swift in Sources */,
+				1EDE2E8E05F3825C76020AC1 /* TokenRequestFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EDE241A51EA2CD4A2AF91BA /* ShikimoriTests.swift in Sources */,
+				1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,10 +358,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Shikimori/Config/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SKM.Shikimori;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -355,10 +455,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Shikimori/Config/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SKM.Shikimori;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
