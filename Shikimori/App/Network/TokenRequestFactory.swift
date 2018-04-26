@@ -9,19 +9,32 @@ import Foundation
 class TokenRequestFactory: RequestFactory {
 
     func getTokenRequest(authConfig config: AppConfig, authCode: String) -> HttpRequest<SessionToken> {
+        return self.requestWithForm(form: [
+            "grant_type": "authorization_code",
+            "code": authCode,
+            "client_id": config.clientID,
+            "client_secret": config.clientSecret,
+            "redirect_uri": config.redirectURI,
+        ])
+    }
 
+    func refreshTokenRequest(authConfig config: AppConfig, refreshToken: String) -> HttpRequest<SessionToken> {
+        return self.requestWithForm(form: [
+            "grant_type": "refresh_token",
+            "refresh_token": refreshToken,
+            "client_id": config.clientID,
+            "client_secret": config.clientSecret,
+            "redirect_uri": config.redirectURI,
+        ])
+    }
+
+    private func requestWithForm(form: [String:String]) -> HttpRequest<SessionToken> {
         let components = urlBuilder.components(withPath: "/oauth/token")
         var request: URLRequest = requestBuilder.request(.POST, url: components.url)
 
         let boundary = "BOUNDARY"
         let formEncoder = FormEncoder(boundary: boundary)
-        let body = formEncoder.encode(form: [
-            "grant_type": "authorization_code",
-            "client_id": config.clientID,
-            "client_secret": config.clientSecret,
-            "code": authCode,
-            "redirect_uri": config.redirectURI,
-        ])
+        let body = formEncoder.encode(form: form)
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.httpBody = body.data(using: .utf8)
 
@@ -30,6 +43,7 @@ class TokenRequestFactory: RequestFactory {
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
+
 
     struct FormEncoder {
 

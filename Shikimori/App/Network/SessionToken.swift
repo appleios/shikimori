@@ -18,4 +18,8 @@ struct SessionToken: Codable {
     let expireDate: Date
     let tokenType: TokenType
 
+    func expired(now: Date = Date()) -> Bool {
+        return now.timeIntervalSince(expireDate) >= 0
+    }
+
 }

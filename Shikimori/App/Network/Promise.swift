@@ -46,6 +46,14 @@ class Promise<T> {
         }
     }
 
+    func isResolved() -> Bool {
+        switch state {
+        case .fulfilled(_): return true
+        case .error(_): return true
+        default: return false
+        }
+    }
+
     func isCancelled() -> Bool {
         switch state {
         case .cancelled: return true
