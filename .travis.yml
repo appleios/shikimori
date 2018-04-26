@@ -1,0 +1,6 @@
+os: osx
+osx_image: xcode9.3
+language: objective-c
+script:
+- cp Tools/Auth.plist Shikimori/Config/Auth.plist
+- xcodebuild test -sdk iphonesimulator -project Shikimori.xcodeproj -scheme Shikimori CODE_SIGNING_REQUIRED=NO -destination 'platform=iOS Simulator,name=iPhone SE'
