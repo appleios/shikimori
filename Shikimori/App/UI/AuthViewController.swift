@@ -22,7 +22,7 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet weak var goForwardItem: UIBarButtonItem!
 
     let serviceAccessRequestFactory = ServiceAccessURLRequestFactory()
-    let authCodeStorage: AuthCodeStorage = AuthCodeStorage()
+    let authCodeStorage: AuthCodeStorage = AuthCodeStorage.default
 
     weak var delegate: AuthViewControllerDelegate?
 

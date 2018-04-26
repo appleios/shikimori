@@ -9,31 +9,39 @@ import Foundation
 class HttpRequest<T>: Request {
 
     let urlRequest: URLRequest
+    let mapper: HttpMapper<T>
     let session: URLSession
 
     private (set) var promise: Promise<T>?
     private var dataTask: URLSessionDataTask?
 
-    init(urlRequest: URLRequest, session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
+    init(urlRequest: URLRequest, mapper: HttpMapper<T>, session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         self.urlRequest = urlRequest
+        self.mapper = mapper
         self.session = session
     }
 
-    func execute() {
+    func load() -> Promise<T> {
         let promise = Promise<T>()
         let handler = { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error = error {
                 promise.reject(error) // TODO enrich error with HTTP Status Code
                 return
             }
-            if let data = data as? T {
-                promise.fulfill(data)
-                return
+            if let data = data {
+                if let result = self.mapper.map(data) {
+                    promise.fulfill(result)
+                    return
+                }
             }
         }
 
+        let dataTask: URLSessionDataTask = self.session.dataTask(with: self.urlRequest, completionHandler: handler)
+        dataTask.resume()
+
         self.promise = promise
-        self.dataTask = self.session.dataTask(with: self.urlRequest, completionHandler: handler)
+        self.dataTask = dataTask
+        return getPromise()!
     }
 
     func cancel() {

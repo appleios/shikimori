@@ -8,11 +8,16 @@ import Foundation
 
 class AuthCodeStorage {
 
+    static let AuthCodeDidChangeNotification = Notification.Name("authCodeDidChange")
+
+    static var `default` =  AuthCodeStorage()
+
     static var AuthCode: String? // TODO store on disk
 
     var authCode: String? {
         set {
             AuthCodeStorage.AuthCode = newValue
+            NotificationCenter.default.post(name: AuthCodeStorage.AuthCodeDidChangeNotification, object: self)
         }
         get {
             return AuthCodeStorage.AuthCode

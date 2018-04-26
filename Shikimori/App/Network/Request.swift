@@ -10,6 +10,6 @@ protocol Request {
     associatedtype T
     func getPromise() -> Promise<T>?
 
-    func execute()
+    func load() -> Promise<T>
     func cancel()
 }

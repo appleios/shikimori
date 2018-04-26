@@ -16,8 +16,10 @@
 		1EDE25C62612326F92BD5F89 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */; };
 		1EDE26F9FBB2FFAEF6B79D23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE280DEDC0C3B27B89ADEC /* Main.storyboard */; };
 		1EDE278449F940FAF4183185 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2120515869CE14B06D54 /* Request.swift */; };
+		1EDE287D67C46D2298E6F658 /* HttpMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE266FDE4D1950834CE0B3 /* HttpMapper.swift */; };
 		1EDE289B3D6FFF02C7577AB4 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */; };
 		1EDE28A4CC97C35A56552F26 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2FA96A39398AEC283149 /* MainViewController.swift */; };
+		1EDE294A99EEF208D2D3FE1F /* UserTokenMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27F957033FC46CAFD3AE /* UserTokenMapper.swift */; };
 		1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */; };
 		1EDE2979557C8A4A6EFDA9F7 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE28B003054D5BB984F1BE /* HttpRequest.swift */; };
 		1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */; };
@@ -46,7 +48,9 @@
 		1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1EDE2516E723B235129B26A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1EDE261B412147EE76277602 /* AuthConfigProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthConfigProvider.swift; sourceTree = "<group>"; };
+		1EDE266FDE4D1950834CE0B3 /* HttpMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMapper.swift; sourceTree = "<group>"; };
 		1EDE27C0EC545DE688A0BB5F /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		1EDE27F957033FC46CAFD3AE /* UserTokenMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTokenMapper.swift; sourceTree = "<group>"; };
 		1EDE280DEDC0C3B27B89ADEC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1EDE2871A0E913C2BE1BC75A /* ShikimoriTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShikimoriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EDE28B003054D5BB984F1BE /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 				1EDE2120515869CE14B06D54 /* Request.swift */,
 				1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */,
 				1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */,
+				1EDE266FDE4D1950834CE0B3 /* HttpMapper.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -147,6 +152,14 @@
 				1EDE29DD7C2309485E49D68B /* AppDelegate.swift */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		1EDE294C3F0F47EA65579F60 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				1EDE27F957033FC46CAFD3AE /* UserTokenMapper.swift */,
+			);
+			name = Mappers;
 			sourceTree = "<group>";
 		};
 		1EDE29FD516FEEEC7A299CFD /* UI */ = {
@@ -211,6 +224,7 @@
 			children = (
 				1EDE261B412147EE76277602 /* AuthConfigProvider.swift */,
 				1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessURLRequestFactory.swift */,
+				1EDE294C3F0F47EA65579F60 /* Mappers */,
 			);
 			name = Api;
 			sourceTree = "<group>";
@@ -323,6 +337,8 @@
 				1EDE20A52C5637B132508831 /* ServiceAccessURLRequestFactory.swift in Sources */,
 				1EDE2DA5979E3ED938C6EBD7 /* UserToken.swift in Sources */,
 				1EDE233DAE711D695FC442FA /* AuthCodeStorage.swift in Sources */,
+				1EDE287D67C46D2298E6F658 /* HttpMapper.swift in Sources */,
+				1EDE294A99EEF208D2D3FE1F /* UserTokenMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

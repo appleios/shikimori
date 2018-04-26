@@ -8,7 +8,13 @@ import Foundation
 
 struct UserToken {
 
-    let authCode: String
-    let accessToken: String
+    enum TokenType: String {
+        case bearer = "bearer"
+    }
 
+    let accessToken: String
+    let refreshToken: String
+    let createdAt: Date
+    let expireDate: Date
+    let tokenType: TokenType
 }
