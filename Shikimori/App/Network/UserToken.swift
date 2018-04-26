@@ -6,6 +6,9 @@
 import Foundation
 
 
-protocol ServiceAccessRequestFactory {
+struct UserToken {
+
+    let authCode: String
+    let accessToken: String
 
 }

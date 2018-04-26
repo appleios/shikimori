@@ -9,10 +9,15 @@ import Foundation
 class URLBuilder {
 
     func url(withPath path: String, queryItems: [URLQueryItem]?) -> URL? {
+        var comp: URLComponents = components(withPath: path)
+        comp.queryItems = queryItems
+        return comp.url
+    }
+
+    func components(withPath path: String) -> URLComponents {
         var components: URLComponents = createComponents()
         components.path = path
-        components.queryItems = queryItems
-        return components.url
+        return components
     }
 
     private let host: String

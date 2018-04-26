@@ -8,6 +8,12 @@ import Foundation
 
 class RequestBuilder {
 
+    let userAgent: String
+
+    init(userAgent: String) {
+        self.userAgent = userAgent
+    }
+
     private enum HTTPMethod: String {
         case get = "GET"
         case post = "POST"
@@ -24,6 +30,7 @@ class RequestBuilder {
     private func request(method: HTTPMethod, url: URL?) -> URLRequest {
         var request = URLRequest(url: url!)
         request.httpMethod = method.rawValue
+        request.setValue("User-Agent", forHTTPHeaderField: userAgent)
         return request
     }
 
