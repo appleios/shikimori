@@ -11,6 +11,8 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    let accountProvider = AccountProvider.main
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +22,14 @@ class MainViewController: UIViewController {
         }
         sessionP.error { error in
             print("Unexpected error while fetching Session: \(error)")
+        }
+
+        let accountP = self.accountProvider.getAccount(sessionP: sessionP)
+        accountP.then { (account: Account) in
+            print("account {id: \(account.id), name: \(account.nickname), avatar: \(account.avatar)")
+        }
+        accountP.error { error in
+            print("Unexpected error while fetching Account: \(error)")
         }
 
         NotificationCenter.default.addObserver(self,

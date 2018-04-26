@@ -6,24 +6,12 @@
 import Foundation
 
 
-class TokenRequestFactory {
-
-    private let urlBuilder: URLBuilder
-    private let requestBuilder: RequestBuilder
-    private let session: URLSession
-    private var jsonDecoder: JSONDecoder
-
-    init(urlBuilder: URLBuilder, requestBuilder: RequestBuilder, session: URLSession, jsonDecoder: JSONDecoder) {
-        self.urlBuilder = urlBuilder
-        self.requestBuilder = requestBuilder
-        self.session = session
-        self.jsonDecoder = jsonDecoder
-    }
+class TokenRequestFactory: RequestFactory {
 
     func getTokenRequest(authConfig config: AppConfig, authCode: String) -> HttpRequest<SessionToken> {
 
         let components = urlBuilder.components(withPath: "/oauth/token")
-        var request: URLRequest = requestBuilder.post(url: components.url)
+        var request: URLRequest = requestBuilder.request(.POST, url: components.url)
 
         let boundary = "BOUNDARY"
         let formEncoder = FormEncoder(boundary: boundary)
@@ -39,7 +27,7 @@ class TokenRequestFactory {
 
         return HttpRequest(urlRequest: request,
                 mapper: UserTokenMapper(jsonDecoder: jsonDecoder),
-                session: session)
+                urlSession: urlSession)
     }
 
     struct FormEncoder {

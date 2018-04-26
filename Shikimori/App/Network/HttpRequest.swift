@@ -9,16 +9,16 @@ import Foundation
 class HttpRequest<T>: Request {
 
     let urlRequest: URLRequest
+    let urlSession: URLSession
     let mapper: HttpMapper<T>
-    let session: URLSession
 
     private (set) var promise: Promise<T>?
     private var dataTask: URLSessionDataTask?
 
-    init(urlRequest: URLRequest, mapper: HttpMapper<T>, session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
+    init(urlRequest: URLRequest, mapper: HttpMapper<T>, urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         self.urlRequest = urlRequest
         self.mapper = mapper
-        self.session = session
+        self.urlSession = urlSession
     }
 
     func load() -> Promise<T> {
@@ -34,9 +34,10 @@ class HttpRequest<T>: Request {
                     return
                 }
             }
+            // TODO reject with error decoded from json
         }
 
-        let dataTask: URLSessionDataTask = self.session.dataTask(with: self.urlRequest, completionHandler: handler)
+        let dataTask: URLSessionDataTask = self.urlSession.dataTask(with: self.urlRequest, completionHandler: handler)
         dataTask.resume()
 
         self.promise = promise

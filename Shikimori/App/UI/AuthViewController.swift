@@ -28,7 +28,7 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         return navigationController
     }
 
-    let serviceAccessRequestFactory = RequestFactory()
+    let service = ServiceAccessLayer()
 
     weak var delegate: AuthViewControllerDelegate?
 
@@ -37,7 +37,7 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
 
         webView.navigationDelegate = self
 
-        let request = serviceAccessRequestFactory.authRequest()
+        let request = service.authRequest()
         webView.load(request)
 
         progressView.progress = 0

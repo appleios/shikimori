@@ -7,6 +7,7 @@ import Foundation
 import UIKit
 
 
+// TODO [smell] core logic located in Helper object
 class AuthHelper: AuthViewControllerDelegate {
 
     let authCodeStorage: AuthCodeStorage = AuthCodeStorage.default

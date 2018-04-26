@@ -16,9 +16,9 @@ class SessionProvider {
 
     static let SessionDidChangeNotification = Notification.Name("sessionDidChange")
 
-    static var `main` =  SessionProvider()
+    private (set) static var `main` = SessionProvider()
 
-    private var tokenRequest: HttpRequest<SessionToken>?
+    private var request: HttpRequest<SessionToken>?
     private var sessionP: Promise<Session>?
 
     private (set) var currentSession: Session?
@@ -37,16 +37,15 @@ class SessionProvider {
         return p
     }
 
-    func fetch() throws {
+    private func fetch() throws {
         guard let authCode = authCodeStorage.authCode else {
             throw SessionProviderError.AuthorizationRequired
         }
 
         self.sessionP?.cancel()
-        self.tokenRequest?.cancel()
+        self.request?.cancel()
 
-        let tokenRequest = loadToken(authCode: authCode)
-        let sessionTokenP = tokenRequest.getPromise()!
+        let sessionTokenP = loadToken(authCode: authCode)
 
         let sessionP = Promise<Session>()
         sessionTokenP.then { sessionP.fulfill(Session(token: $0))  }
@@ -58,20 +57,19 @@ class SessionProvider {
         }
 
         self.sessionP = sessionP
-        self.tokenRequest = tokenRequest
     }
 
-    func loadToken(authCode: String) -> HttpRequest<SessionToken> {
-        let request = requestFactory.sessionTokenRequest(authCode: authCode)
-        let _ = request.load()
-        return request
+    private func loadToken(authCode: String) -> Promise<SessionToken> {
+        let request = service.sessionTokenRequest(authCode: authCode)
+        self.request = request
+        return request.load()
     }
 
-    let requestFactory: RequestFactory
-    let authCodeStorage: AuthCodeStorage
+    private let service: ServiceAccessLayer
+    private let authCodeStorage: AuthCodeStorage
 
-    init(requestFactory: RequestFactory = RequestFactory(), authCodeStorage: AuthCodeStorage = AuthCodeStorage.default) {
-        self.requestFactory = requestFactory
+    init(service: ServiceAccessLayer = ServiceAccessLayer(), authCodeStorage: AuthCodeStorage = AuthCodeStorage.default) {
+        self.service = service
         self.authCodeStorage = authCodeStorage
 
         NotificationCenter.default.addObserver(self,
