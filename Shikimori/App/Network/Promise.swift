@@ -6,8 +6,7 @@
 import Foundation
 
 
-class Promise<T>
-{
+class Promise<T> {
     typealias ThenHandler = (T) -> ()
     typealias ErrorHandler = (Error) -> ()
     typealias CompleteHandler = () -> ()
