@@ -21,8 +21,14 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet weak var goBackItem: UIBarButtonItem!
     @IBOutlet weak var goForwardItem: UIBarButtonItem!
 
-    let serviceAccessRequestFactory = ServiceAccessURLRequestFactory()
-    let authCodeStorage: AuthCodeStorage = AuthCodeStorage.default
+    static func viewController(delegate: AuthViewControllerDelegate?) -> UIViewController {
+        let navigationController: UINavigationController = UIStoryboard(name: "Auth", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        let viewController: AuthViewController = navigationController.viewControllers.first as! AuthViewController
+        viewController.delegate = delegate
+        return navigationController
+    }
+
+    let serviceAccessRequestFactory = RequestFactory()
 
     weak var delegate: AuthViewControllerDelegate?
 
@@ -60,7 +66,6 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
                        && pathComponents[2] == "authorize" {
 
                 let authCode: String = pathComponents[3]
-                authCodeStorage.authCode = authCode // move this code into a delegate
                 self.delegate?.authViewController(self, didCompleteWithAuthCode: authCode)
             }
         }

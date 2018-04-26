@@ -11,14 +11,14 @@ class Promise<T> {
     typealias ErrorHandler = (Error) -> ()
     typealias CompleteHandler = () -> ()
 
-    private enum State {
+    enum State {
         case pending
         case fulfilled(value: T)
         case error(error: Error)
         case cancelled
     }
 
-    private var state: State
+    private (set) var state: State
 
     private var thenDeps: [ThenHandler]
     private var errorDeps: [ErrorHandler]

@@ -9,27 +9,46 @@
 import UIKit
 
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, AuthViewControllerDelegate {
 
-    let serviceAccessRequestFactory = ServiceAccessURLRequestFactory()
     let authCodeStorage: AuthCodeStorage = AuthCodeStorage.default
-
-    var httpRequest: HttpRequest<UserToken>?
+    let sessionProvider = SessionProvider.main
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        getSession()
+
         NotificationCenter.default.addObserver(self,
-                selector: #selector(handleAuthCodeChange),
-                name: AuthCodeStorage.AuthCodeDidChangeNotification,
+                selector: #selector(handleSessionChange),
+                name: SessionProvider.SessionDidChangeNotification,
                 object: nil)
     }
 
-    @objc func handleAuthCodeChange() {
-        let httpRequest: HttpRequest<UserToken> = serviceAccessRequestFactory.getTokenRequest()
-        self.httpRequest = httpRequest
+    private func getSession() {
+        do {
+            let sessionP = try sessionProvider.getSession()
+            sessionP.then { (session: Session) in
+                print("session.token = \(session.token)")
+            }
+        } catch SessionProvider.SessionProviderError.AuthorizationRequired {
+            let viewController = AuthViewController.viewController(delegate: self)
+            self.present(viewController, animated: true)
+        } catch {
+            print("Unexpected error: \(error)")
+        }
+    }
 
-        let userTokenP = httpRequest.load()
-        userTokenP.then { print($0.accessToken) }
+    func authViewController(_ viewController: AuthViewController, didCompleteWithAuthCode authCode: String) {
+        authCodeStorage.authCode = authCode
+        self.getSession()
+        self.dismiss(animated: true)
+    }
+
+    @objc func handleSessionChange() {
+    }
+
+    @IBAction func openMenu(_ sender: Any) {
+        
     }
 }

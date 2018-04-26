@@ -6,7 +6,7 @@
 import Foundation
 
 
-struct UserToken {
+struct SessionToken {
 
     enum TokenType: String {
         case bearer = "bearer"

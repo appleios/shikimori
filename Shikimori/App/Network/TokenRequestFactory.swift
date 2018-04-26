@@ -20,7 +20,7 @@ class TokenRequestFactory {
         self.jsonDecoder = jsonDecoder
     }
 
-    func getTokenRequest(authConfig config: AuthConfig, authCode: String) -> HttpRequest<UserToken> {
+    func getTokenRequest(authConfig config: AppConfig, authCode: String) -> HttpRequest<SessionToken> {
 
         let components = urlBuilder.components(withPath: "/oauth/token")
         var request: URLRequest = requestBuilder.post(url: components.url)
@@ -61,7 +61,7 @@ class TokenRequestFactory {
 }
 
 
-class UserTokenMapper: HttpMapper<UserToken> {
+class UserTokenMapper: HttpMapper<SessionToken> {
 
     struct Result: Codable {
         var accessToken: String
@@ -78,13 +78,13 @@ class UserTokenMapper: HttpMapper<UserToken> {
         super.init()
     }
 
-    override func decode(_ data: Data) throws -> UserToken {
+    override func decode(_ data: Data) throws -> SessionToken {
         let result = try jsonDecoder.decode(Result.self, from: data)
-        return UserToken(accessToken: result.accessToken,
+        return SessionToken(accessToken: result.accessToken,
                 refreshToken: result.refreshToken,
                 createdAt: result.createdAt,
                 expireDate: result.createdAt + TimeInterval(result.expiresIn),
-                tokenType: UserToken.TokenType(rawValue: result.tokenType)!)
+                tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
     }
 
 }

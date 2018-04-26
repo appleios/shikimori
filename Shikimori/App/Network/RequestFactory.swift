@@ -6,16 +6,14 @@
 import Foundation
 
 
-class ServiceAccessURLRequestFactory {
+class RequestFactory {
 
     private let urlBuilder = URLBuilder(host: "shikimori.org")
     private let requestBuilder = RequestBuilder(userAgent: "shikimori iOS")
-    private let authConfigProvider = AuthConfigProvider()
+    private let appConfigProvider = AppConfigProvider()
 
-    private let authCodeStorage: AuthCodeStorage = AuthCodeStorage.default
-
-    private var authConfig: AuthConfig {
-        return authConfigProvider.config!
+    private var appConfig: AppConfig {
+        return appConfigProvider.config!
     }
 
     var jsonDecoder: JSONDecoder {
@@ -33,7 +31,7 @@ class ServiceAccessURLRequestFactory {
     }
 
     func authRequest() -> URLRequest {
-        let config = authConfig
+        let config = appConfig
 
         var components = urlBuilder.components(withPath: "/oauth/authorize")
         components.queryItems = [
@@ -46,14 +44,13 @@ class ServiceAccessURLRequestFactory {
     }
 
 
-    func getTokenRequest() -> HttpRequest<UserToken> {
+    func sessionTokenRequest(authCode: String) -> HttpRequest<SessionToken> {
         let factory = TokenRequestFactory(urlBuilder: urlBuilder,
                 requestBuilder: requestBuilder,
                 session: session,
                 jsonDecoder: jsonDecoder)
 
-        let authCode = authCodeStorage.authCode!
-        return factory.getTokenRequest(authConfig: authConfig, authCode: authCode)
+        return factory.getTokenRequest(authConfig: appConfig, authCode: authCode)
     }
 
 }
