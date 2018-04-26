@@ -35,16 +35,33 @@ class AuthHelper: AuthViewControllerDelegate {
     private func fulfill(sessionP: Promise<Session>) {
         do {
             let p = try sessionProvider.getSession()
-            p.chain(sessionP)
+            p.then { sessionP.fulfill($0) }
+            p.error { [unowned self] (error: Error) in
+                if let appError = error as? AppError {
+                    switch appError {
+                    case .invalidGrant(_):
+                        self.presentAuthViewController()
+                        break
+                    default:
+                        print("Unexpected error: \(appError)")
+                        break
+                    }
+                }
+                self.presentAuthViewController()
+            }
         } catch SessionProvider.SessionProviderError.AuthorizationRequired {
-            let authViewController = AuthViewController.viewController(delegate: self)
-            self.viewController.present(authViewController, animated: true)
+            presentAuthViewController()
         } catch {
             sessionP.reject(error)
         }
     }
 
-    func authViewController(_ viewController: AuthViewController, didCompleteWithAuthCode authCode: String) {
+    private func presentAuthViewController() {
+        let authViewController = AuthViewController.viewController(delegate: self)
+        self.viewController.present(authViewController, animated: true)
+    }
+
+    internal func authViewController(_ viewController: AuthViewController, didCompleteWithAuthCode authCode: String) {
         authCodeStorage.authCode = authCode
         self.fulfill(sessionP: self.sessionP!)
         self.viewController.dismiss(animated: true)

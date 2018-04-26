@@ -26,10 +26,10 @@ class MainViewController: UIViewController {
 
         let accountP = self.accountProvider.getAccount(sessionP: sessionP)
         accountP.then { (account: Account) in
-            print("account {id: \(account.id), name: \(account.nickname), avatar: \(account.avatar)")
+            print("account {id: \(account.id), name: \(account.nickname), avatar: \(account.avatar?.absoluteString ?? "nil")")
         }
         accountP.error { error in
-            print("Unexpected error while fetching Account: \(error)")
+            print("Unexpected error while fetching Account: \(error.localizedDescription)")
         }
 
         NotificationCenter.default.addObserver(self,

@@ -27,6 +27,7 @@ class TokenRequestFactory: RequestFactory {
 
         return HttpRequest(urlRequest: request,
                 mapper: UserTokenMapper(jsonDecoder: jsonDecoder),
+                errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
 

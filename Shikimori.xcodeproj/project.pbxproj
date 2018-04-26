@@ -10,7 +10,9 @@
 		1EDE20A52C5637B132508831 /* ServiceAccessLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessLayer.swift */; };
 		1EDE2153C5AF4938CB868FB8 /* AppConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE261B412147EE76277602 /* AppConfigProvider.swift */; };
 		1EDE218CE7767F8DB1670EC8 /* SessionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE24BE0ED70D3E900D71ED /* SessionToken.swift */; };
+		1EDE21A81F03F9C6A18C8F18 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27A7A1FF3292C2144B71 /* AppError.swift */; };
 		1EDE221446A7D18D6BD22697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE2516E723B235129B26A7 /* Assets.xcassets */; };
+		1EDE230AB1D269FB7DE2B23C /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */; };
 		1EDE241A51EA2CD4A2AF91BA /* ShikimoriTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */; };
 		1EDE24889E8166854C4BCE1C /* AccountProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2BDC2C62179E4D8EB4EA /* AccountProvider.swift */; };
 		1EDE24F5FFFDB070BDB26638 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */; };
@@ -25,9 +27,9 @@
 		1EDE289B3D6FFF02C7577AB4 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */; };
 		1EDE28A4CC97C35A56552F26 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2FA96A39398AEC283149 /* MainViewController.swift */; };
 		1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */; };
-		1EDE2979557C8A4A6EFDA9F7 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE28B003054D5BB984F1BE /* HttpRequest.swift */; };
 		1EDE2C676B93EEDB77D05B29 /* AuthCodeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2343A58F502E2E4DF0CF /* AuthCodeStorage.swift */; };
 		1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */; };
+		1EDE2D77D3789584ACF3B915 /* AppErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2AFB26C05C37E75A4E79 /* AppErrorMapper.swift */; };
 		1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27C0EC545DE688A0BB5F /* Promise.swift */; };
 		1EDE2EA391830D09E87D5F47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE29DD7C2309485E49D68B /* AppDelegate.swift */; };
 		1EDE2F3C6DAB437DEE46B288 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE28416375A369634A8AAB /* Account.swift */; };
@@ -53,6 +55,7 @@
 		1EDE2120515869CE14B06D54 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		1EDE219DA326C87EF9124994 /* AccountRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRequestFactory.swift; sourceTree = "<group>"; };
+		1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1EDE2343A58F502E2E4DF0CF /* AuthCodeStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCodeStorage.swift; sourceTree = "<group>"; };
 		1EDE24B781BA8B33A9432203 /* SessionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProvider.swift; sourceTree = "<group>"; };
@@ -60,14 +63,15 @@
 		1EDE2516E723B235129B26A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1EDE261B412147EE76277602 /* AppConfigProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfigProvider.swift; sourceTree = "<group>"; };
 		1EDE266FDE4D1950834CE0B3 /* HttpMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMapper.swift; sourceTree = "<group>"; };
+		1EDE27A7A1FF3292C2144B71 /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		1EDE27C0EC545DE688A0BB5F /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		1EDE27FF14BF045706A7A1D7 /* TokenRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE280DEDC0C3B27B89ADEC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1EDE28416375A369634A8AAB /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		1EDE2871A0E913C2BE1BC75A /* ShikimoriTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShikimoriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1EDE28B003054D5BB984F1BE /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		1EDE29DD7C2309485E49D68B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
+		1EDE2AFB26C05C37E75A4E79 /* AppErrorMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppErrorMapper.swift; sourceTree = "<group>"; };
 		1EDE2BB2ED93449E4471BDDB /* AuthHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthHelper.swift; sourceTree = "<group>"; };
 		1EDE2BDC2C62179E4D8EB4EA /* AccountProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountProvider.swift; sourceTree = "<group>"; };
 		1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikimoriTests.swift; sourceTree = "<group>"; };
@@ -140,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				1EDE27C0EC545DE688A0BB5F /* Promise.swift */,
-				1EDE28B003054D5BB984F1BE /* HttpRequest.swift */,
 				1EDE2120515869CE14B06D54 /* Request.swift */,
 				1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */,
 				1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */,
@@ -196,6 +199,7 @@
 				1EDE24BE0ED70D3E900D71ED /* SessionToken.swift */,
 				1EDE2BDC2C62179E4D8EB4EA /* AccountProvider.swift */,
 				1EDE28416375A369634A8AAB /* Account.swift */,
+				1EDE27A7A1FF3292C2144B71 /* AppError.swift */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -225,6 +229,8 @@
 			children = (
 				1EDE219DA326C87EF9124994 /* AccountRequestFactory.swift */,
 				1EDE27FF14BF045706A7A1D7 /* TokenRequestFactory.swift */,
+				1EDE2AFB26C05C37E75A4E79 /* AppErrorMapper.swift */,
+				1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */,
 			);
 			name = RequestFactories;
 			sourceTree = "<group>";
@@ -368,7 +374,6 @@
 				1EDE28A4CC97C35A56552F26 /* MainViewController.swift in Sources */,
 				1EDE24F5FFFDB070BDB26638 /* AuthViewController.swift in Sources */,
 				1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */,
-				1EDE2979557C8A4A6EFDA9F7 /* HttpRequest.swift in Sources */,
 				1EDE278449F940FAF4183185 /* Request.swift in Sources */,
 				1EDE25C62612326F92BD5F89 /* URLBuilder.swift in Sources */,
 				1EDE289B3D6FFF02C7577AB4 /* RequestBuilder.swift in Sources */,
@@ -383,6 +388,9 @@
 				1EDE2F3C6DAB437DEE46B288 /* Account.swift in Sources */,
 				1EDE280F67038A4D91DB26FB /* AccountRequestFactory.swift in Sources */,
 				1EDE276B6F2AA790029FF1E2 /* TokenRequestFactory.swift in Sources */,
+				1EDE21A81F03F9C6A18C8F18 /* AppError.swift in Sources */,
+				1EDE2D77D3789584ACF3B915 /* AppErrorMapper.swift in Sources */,
+				1EDE230AB1D269FB7DE2B23C /* HttpRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

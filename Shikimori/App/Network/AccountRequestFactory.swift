@@ -15,6 +15,7 @@ class AccountRequestFactory: RequestFactory {
 
         return HttpRequest(urlRequest: request,
                 mapper: AccountMapper(jsonDecoder: jsonDecoder),
+                errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
 
