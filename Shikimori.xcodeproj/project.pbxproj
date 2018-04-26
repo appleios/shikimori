@@ -265,7 +265,7 @@
 		1EDE208D72083E9B47988000 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				ORGANIZATIONNAME = shikimori.org;
+				ORGANIZATIONNAME = "Aziz L";
 				TargetAttributes = {
 					1EDE229A03535292B1A8B01C = {
 						ProvisioningStyle = Manual;

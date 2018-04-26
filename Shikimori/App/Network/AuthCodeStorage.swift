@@ -1,6 +1,6 @@
 //
-// Created by Aziz Latipov on 26.04.2018.
-// Copyright (c) 2018 shikimori.org. All rights reserved.
+// Created by Aziz L on 26.04.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
 import Foundation
@@ -12,16 +12,19 @@ class AuthCodeStorage {
 
     static var `default` =  AuthCodeStorage()
 
-    static var AuthCode: String? // TODO store on disk
-
     var authCode: String? {
         set {
-            AuthCodeStorage.AuthCode = newValue
+            userDefaults.set(newValue, forKey: key)
             NotificationCenter.default.post(name: AuthCodeStorage.AuthCodeDidChangeNotification, object: self)
         }
         get {
-            return AuthCodeStorage.AuthCode
+            return userDefaults.string(forKey: key)
         }
+    }
+
+    private let key = "AuthCode"
+    private var userDefaults: UserDefaults {
+        return UserDefaults.standard
     }
 
 }
