@@ -9,15 +9,18 @@
 import UIKit
 
 
-class MainViewController: UIViewController, AuthViewControllerDelegate {
-
-    let authCodeStorage: AuthCodeStorage = AuthCodeStorage.default
-    let sessionProvider = SessionProvider.main
+class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getSession()
+        let sessionP: Promise<Session> = self.authHelper.getSession()
+        sessionP.then { (session: Session) in
+            print("session.token = \(session.token)")
+        }
+        sessionP.error { error in
+            print("Unexpected error while fetching Session: \(error)")
+        }
 
         NotificationCenter.default.addObserver(self,
                 selector: #selector(handleSessionChange),
@@ -25,25 +28,6 @@ class MainViewController: UIViewController, AuthViewControllerDelegate {
                 object: nil)
     }
 
-    private func getSession() {
-        do {
-            let sessionP = try sessionProvider.getSession()
-            sessionP.then { (session: Session) in
-                print("session.token = \(session.token)")
-            }
-        } catch SessionProvider.SessionProviderError.AuthorizationRequired {
-            let viewController = AuthViewController.viewController(delegate: self)
-            self.present(viewController, animated: true)
-        } catch {
-            print("Unexpected error while fetching Session: \(error)")
-        }
-    }
-
-    func authViewController(_ viewController: AuthViewController, didCompleteWithAuthCode authCode: String) {
-        authCodeStorage.authCode = authCode
-        self.getSession()
-        self.dismiss(animated: true)
-    }
 
     @objc func handleSessionChange() {
     }
@@ -51,4 +35,8 @@ class MainViewController: UIViewController, AuthViewControllerDelegate {
     @IBAction func openMenu(_ sender: Any) {
         
     }
+
+    lazy var authHelper: AuthHelper = {
+        return AuthHelper(viewController: self)
+    }()
 }

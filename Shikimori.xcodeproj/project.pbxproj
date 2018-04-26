@@ -14,6 +14,7 @@
 		1EDE241A51EA2CD4A2AF91BA /* ShikimoriTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */; };
 		1EDE24F5FFFDB070BDB26638 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */; };
 		1EDE25C62612326F92BD5F89 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */; };
+		1EDE26B2BC148E8EA6F24739 /* AuthHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2BB2ED93449E4471BDDB /* AuthHelper.swift */; };
 		1EDE26F9FBB2FFAEF6B79D23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE280DEDC0C3B27B89ADEC /* Main.storyboard */; };
 		1EDE278449F940FAF4183185 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2120515869CE14B06D54 /* Request.swift */; };
 		1EDE2801A2E785CBCE9EDD74 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE24B781BA8B33A9432203 /* SessionProvider.swift */; };
@@ -62,6 +63,7 @@
 		1EDE29DD7C2309485E49D68B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EDE2A42B8E7C721EEE47AF3 /* TokenRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
+		1EDE2BB2ED93449E4471BDDB /* AuthHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthHelper.swift; sourceTree = "<group>"; };
 		1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikimoriTests.swift; sourceTree = "<group>"; };
 		1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1EDE2CEA5AD80EDF0995C942 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
@@ -120,6 +122,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		1EDE25C0DF16203853A9C48B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1EDE2BB2ED93449E4471BDDB /* AuthHelper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		1EDE25E036E9098B129C1A89 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +178,7 @@
 				1EDE2EF3C2330CFB0807CD9F /* Launch */,
 				1EDE26F50857B622BDCB2C4A /* Main */,
 				1EDE21F914E3F7B5FDEFDF39 /* Auth */,
+				1EDE25C0DF16203853A9C48B /* Helpers */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -351,6 +362,7 @@
 				1EDE2801A2E785CBCE9EDD74 /* SessionProvider.swift in Sources */,
 				1EDE218CE7767F8DB1670EC8 /* SessionToken.swift in Sources */,
 				1EDE2C676B93EEDB77D05B29 /* AuthCodeStorage.swift in Sources */,
+				1EDE26B2BC148E8EA6F24739 /* AuthHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
