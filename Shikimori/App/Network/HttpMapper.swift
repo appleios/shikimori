@@ -7,5 +7,8 @@ import Foundation
 
 
 class HttpMapper<T> {
-    func map(_ data: Data) -> T? { return nil }
+    enum HttpMapperError: Error {
+        case NotImplemented
+    }
+    func map(_ data: Data) throws -> T { throw HttpMapperError.NotImplemented }
 }

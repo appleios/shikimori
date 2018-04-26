@@ -25,6 +25,7 @@
 		1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */; };
 		1EDE2DA5979E3ED938C6EBD7 /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2AB4D86ACE3289280FA9 /* UserToken.swift */; };
 		1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27C0EC545DE688A0BB5F /* Promise.swift */; };
+		1EDE2E8E05F3825C76020AC1 /* TokenRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2A42B8E7C721EEE47AF3 /* TokenRequestFactory.swift */; };
 		1EDE2EA391830D09E87D5F47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE29DD7C2309485E49D68B /* AppDelegate.swift */; };
 		C412AA4F2091CB4200ECC3AB /* Auth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C412AA4E2091CB4200ECC3AB /* Auth.plist */; };
 		C45AAB3C2090DCE4006D62CF /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C45AAB3B2090DCE4006D62CF /* Auth.storyboard */; };
@@ -56,6 +57,7 @@
 		1EDE28B003054D5BB984F1BE /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		1EDE292B7D01115BD318A72C /* AuthCodeStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCodeStorage.swift; sourceTree = "<group>"; };
 		1EDE29DD7C2309485E49D68B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1EDE2A42B8E7C721EEE47AF3 /* TokenRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		1EDE2AB4D86ACE3289280FA9 /* UserToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikimoriTests.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				1EDE261B412147EE76277602 /* AuthConfigProvider.swift */,
 				1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessURLRequestFactory.swift */,
 				1EDE294C3F0F47EA65579F60 /* Mappers */,
+				1EDE2A42B8E7C721EEE47AF3 /* TokenRequestFactory.swift */,
 			);
 			name = Api;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				1EDE233DAE711D695FC442FA /* AuthCodeStorage.swift in Sources */,
 				1EDE287D67C46D2298E6F658 /* HttpMapper.swift in Sources */,
 				1EDE294A99EEF208D2D3FE1F /* UserTokenMapper.swift in Sources */,
+				1EDE2E8E05F3825C76020AC1 /* TokenRequestFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

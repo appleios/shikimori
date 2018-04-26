@@ -29,7 +29,7 @@ class HttpRequest<T>: Request {
                 return
             }
             if let data = data {
-                if let result = self.mapper.map(data) {
+                if let result = try? self.mapper.map(data) {
                     promise.fulfill(result)
                     return
                 }
