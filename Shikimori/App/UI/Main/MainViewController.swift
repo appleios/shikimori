@@ -35,7 +35,7 @@ class MainViewController: UIViewController, AuthViewControllerDelegate {
             let viewController = AuthViewController.viewController(delegate: self)
             self.present(viewController, animated: true)
         } catch {
-            print("Unexpected error: \(error)")
+            print("Unexpected error while fetching Session: \(error)")
         }
     }
 

@@ -63,7 +63,7 @@ class SessionProvider {
 
     func loadToken(authCode: String) -> HttpRequest<SessionToken> {
         let request = requestFactory.sessionTokenRequest(authCode: authCode)
-        request.load()
+        let _ = request.load()
         return request
     }
 
