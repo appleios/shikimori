@@ -38,7 +38,7 @@ class TokenRequestFactory {
         request.httpBody = body.data(using: .utf8)
 
         return HttpRequest(urlRequest: request,
-                mapper: UserTokenMapper(decoder: jsonDecoder),
+                mapper: UserTokenMapper(jsonDecoder: jsonDecoder),
                 session: session)
     }
 
@@ -56,6 +56,35 @@ class TokenRequestFactory {
             body.append("--\(boundary)--\r\n")
             return body
         }
+    }
+
+}
+
+
+class UserTokenMapper: HttpMapper<UserToken> {
+
+    struct Result: Codable {
+        var accessToken: String
+        var refreshToken: String
+        var createdAt: Date
+        var expiresIn: Int
+        var tokenType: String
+    }
+
+    let jsonDecoder: JSONDecoder
+
+    init(jsonDecoder: JSONDecoder) {
+        self.jsonDecoder = jsonDecoder
+        super.init()
+    }
+
+    override func decode(_ data: Data) throws -> UserToken {
+        let result = try jsonDecoder.decode(Result.self, from: data)
+        return UserToken(accessToken: result.accessToken,
+                refreshToken: result.refreshToken,
+                createdAt: result.createdAt,
+                expireDate: result.createdAt + TimeInterval(result.expiresIn),
+                tokenType: UserToken.TokenType(rawValue: result.tokenType)!)
     }
 
 }
