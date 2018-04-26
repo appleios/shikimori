@@ -89,7 +89,7 @@ class Promise<T>
         errorDeps = []
     }
 
-    func fulfill(value: T) {
+    func fulfill(_ value: T) {
         lock.lock()
         guard isPending() else {
             lock.unlock()
@@ -107,7 +107,7 @@ class Promise<T>
         }
     }
 
-    func reject(error: Error) {
+    func reject(_ error: Error) {
         lock.lock()
         guard isPending() else {
             lock.unlock()
@@ -205,8 +205,8 @@ class Promise<T>
     }
 
     func chain(_ promise: Promise<T>) {
-        let thenHandler = { promise.fulfill(value: $0) }
-        let errorHandler = { promise.reject(error: $0) }
+        let thenHandler = { promise.fulfill($0) }
+        let errorHandler = { promise.reject($0) }
 
         lock.lock()
         switch state {

@@ -8,7 +8,7 @@ import Foundation
 
 protocol Request {
     associatedtype T
-    var promise: Promise<T>? { get }
+    func getPromise() -> Promise<T>?
 
     func execute()
     func cancel()

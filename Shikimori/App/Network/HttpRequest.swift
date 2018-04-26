@@ -23,11 +23,11 @@ class HttpRequest<T>: Request {
         let promise = Promise<T>()
         let handler = { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error = error {
-                promise.reject(error: error) // TODO enrich error with HTTP Status Code
+                promise.reject(error) // TODO enrich error with HTTP Status Code
                 return
             }
             if let data = data as? T {
-                promise.fulfill(value: data)
+                promise.fulfill(data)
                 return
             }
         }
@@ -39,5 +39,13 @@ class HttpRequest<T>: Request {
     func cancel() {
         self.promise?.cancel()
         self.dataTask?.cancel()
+    }
+
+    func getPromise() -> Promise<T>? {
+        guard let promise = promise else { return nil }
+
+        let p = Promise<T>()
+        promise.chain(p)
+        return p
     }
 }
