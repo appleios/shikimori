@@ -15,6 +15,7 @@ class AuthCodeStorage {
     var authCode: String? {
         set {
             userDefaults.set(newValue, forKey: key)
+            userDefaults.synchronize()
             NotificationCenter.default.post(name: AuthCodeStorage.AuthCodeDidChangeNotification, object: self)
         }
         get {

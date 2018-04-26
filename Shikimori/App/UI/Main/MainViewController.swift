@@ -16,6 +16,15 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self,
+                selector: #selector(handleSessionChange),
+                name: SessionProvider.SessionDidChangeNotification,
+                object: nil)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         let sessionP: Promise<Session> = self.authHelper.getSession()
         sessionP.then { (session: Session) in
             print("session.token = \(session.token)")
@@ -31,13 +40,7 @@ class MainViewController: UIViewController {
         accountP.error { error in
             print("Unexpected error while fetching Account: \(error.localizedDescription)")
         }
-
-        NotificationCenter.default.addObserver(self,
-                selector: #selector(handleSessionChange),
-                name: SessionProvider.SessionDidChangeNotification,
-                object: nil)
     }
-
 
     @objc func handleSessionChange() {
     }

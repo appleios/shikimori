@@ -69,6 +69,15 @@ class ServiceAccessLayer {
         return factory.getTokenRequest(authConfig: appConfig, authCode: authCode)
     }
 
+    func sessionRefreshTokenRequest(authCode: String) -> HttpRequest<SessionToken> {
+        let factory = TokenRequestFactory(urlBuilder: urlBuilder,
+                requestBuilder: requestBuilder,
+                urlSession: urlSession,
+                jsonDecoder: jsonDecoder)
+
+        return factory.getTokenRequest(authConfig: appConfig, authCode: authCode)
+    }
+
     func accountRequest(session: Session) -> HttpRequest<Account> {
         let factory = AccountRequestFactory(urlBuilder: urlBuilder,
                 requestBuilder: requestBuilder,

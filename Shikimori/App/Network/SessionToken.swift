@@ -6,9 +6,9 @@
 import Foundation
 
 
-struct SessionToken {
+struct SessionToken: Codable {
 
-    enum TokenType: String {
+    enum TokenType: String, Codable {
         case bearer = "bearer"
     }
 
@@ -17,4 +17,5 @@ struct SessionToken {
     let createdAt: Date
     let expireDate: Date
     let tokenType: TokenType
+
 }

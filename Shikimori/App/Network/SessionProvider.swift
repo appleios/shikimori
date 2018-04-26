@@ -6,7 +6,7 @@
 import Foundation
 
 
-struct Session {
+struct Session: Codable {
 
     let token: SessionToken
 
@@ -20,8 +20,6 @@ class SessionProvider {
 
     private var request: HttpRequest<SessionToken>?
     private var sessionP: Promise<Session>?
-
-    private (set) var currentSession: Session?
 
     enum SessionProviderError: Error {
         case AuthorizationRequired
@@ -53,7 +51,6 @@ class SessionProvider {
 
         sessionP.then { [unowned self] (session: Session) in
             self.currentSession = session
-            NotificationCenter.default.post(name: SessionProvider.SessionDidChangeNotification, object: self)
         }
 
         self.sessionP = sessionP
@@ -68,14 +65,27 @@ class SessionProvider {
     private let service: ServiceAccessLayer
     private let authCodeStorage: AuthCodeStorage
 
+    private let persistentStorage: KeyValuePersistentStorage<Session>
+
     init(service: ServiceAccessLayer = ServiceAccessLayer(), authCodeStorage: AuthCodeStorage = AuthCodeStorage.default) {
         self.service = service
         self.authCodeStorage = authCodeStorage
+        self.persistentStorage = KeyValuePersistentStorage<Session>.archiverStorage(withKey: "Session")
+        self.currentSession = persistentStorage.value
 
         NotificationCenter.default.addObserver(self,
                 selector: #selector(handleAuthCodeChange),
                 name: AuthCodeStorage.AuthCodeDidChangeNotification,
                 object: nil)
+    }
+
+    private (set) var currentSession: Session? {
+        didSet {
+            if let session = currentSession {
+                persistentStorage.value = session
+            }
+            NotificationCenter.default.post(name: SessionProvider.SessionDidChangeNotification, object: self)
+        }
     }
 
     @objc func handleAuthCodeChange() {
