@@ -25,7 +25,7 @@ class AccountRequestFactory: RequestFactory {
 class AccountMapper: HttpMapper<Account> {
 
     struct Result: Codable {
-        var id: String
+        var id: Int
         var nickname: String
         var avatar: String
     }
