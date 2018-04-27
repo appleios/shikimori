@@ -44,7 +44,8 @@ class ServiceAccessLayer {
 
 
     init() {
-        self.urlSession = URLSession(configuration: URLSessionConfiguration.default)
+        let configuration = URLSessionConfiguration.default
+        self.urlSession = URLSession(configuration: configuration)
     }
 
     func authRequest() -> URLRequest {

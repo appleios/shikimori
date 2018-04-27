@@ -23,8 +23,9 @@ class RequestBuilder {
         var r = URLRequest(url: url!)
         r.httpMethod = method.rawValue
         r.setValue("User-Agent", forHTTPHeaderField: userAgent)
+        r.setValue("*/*", forHTTPHeaderField: "Accept") // TODO accept json
         if let accessToken = accessToken {
-            r.setValue("Authorization", forHTTPHeaderField: "Bearer \(accessToken)")
+            r.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         return r
     }

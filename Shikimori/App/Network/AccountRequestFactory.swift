@@ -11,7 +11,7 @@ class AccountRequestFactory: RequestFactory {
     func getAccount(session: Session) -> HttpRequest<Account> {
 
         let components = urlBuilder.components(withPath: "/api/users/whoami")
-        let request: URLRequest = requestBuilder.request(.GET, url: components.url)
+        let request: URLRequest = requestBuilder.request(.GET, url: components.url, accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
                 mapper: AccountMapper(jsonDecoder: jsonDecoder),
@@ -25,7 +25,7 @@ class AccountRequestFactory: RequestFactory {
 class AccountMapper: HttpMapper<Account> {
 
     struct Result: Codable {
-        var id: String
+        var id: Int
         var nickname: String
         var avatar: String
     }

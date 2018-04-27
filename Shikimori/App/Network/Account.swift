@@ -8,7 +8,7 @@ import Foundation
 
 struct Account {
 
-    let id: String
+    let id: Int
     let nickname: String
     let avatar: URL?
 

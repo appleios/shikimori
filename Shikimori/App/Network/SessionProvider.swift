@@ -35,12 +35,20 @@ class SessionProvider {
 
     func getSession() throws -> Promise<Session> {
         if self.sessionP == nil {
-            try fetch()
+            if let session = self.currentSession {
+                if session.token.isExpired() {
+                    refresh(expiredSession: session)
+                } else {
+                    self.sessionP = Promise<Session>(withValue: session)
+                }
+            } else {
+                try fetch()
+            }
         } else {
             let sessionP = self.sessionP!
             if sessionP.isFulfilled() {
                 let session = sessionP.value()!
-                if session.token.expired() {
+                if session.token.isExpired() {
                     refresh(expiredSession: session)
                 }
             } else if sessionP.isError() {

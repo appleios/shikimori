@@ -14,7 +14,7 @@ class HttpRequest<T>: Request {
     let errorMapper: HttpMapper<AppError>
 
     private (set) var promise: Promise<T>?
-    private var dataTask: URLSessionDataTask?
+    private var task: URLSessionTask?
 
     init(urlRequest: URLRequest, mapper: HttpMapper<T>, errorMapper: HttpMapper<AppError>, urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         self.urlRequest = urlRequest
@@ -44,17 +44,17 @@ class HttpRequest<T>: Request {
             promise.reject(AppError.fatal(data: data, response: (response as! HTTPURLResponse)))
         }
 
-        let dataTask: URLSessionDataTask = self.urlSession.dataTask(with: self.urlRequest, completionHandler: handler)
-        dataTask.resume()
+        let task: URLSessionDataTask = self.urlSession.dataTask(with: self.urlRequest, completionHandler: handler)
+        task.resume()
 
         self.promise = promise
-        self.dataTask = dataTask
+        self.task = task
         return getPromise()!
     }
 
     func cancel() {
         self.promise?.cancel()
-        self.dataTask?.cancel()
+        self.task?.cancel()
     }
 
     func getPromise() -> Promise<T>? {
