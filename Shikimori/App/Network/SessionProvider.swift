@@ -33,42 +33,27 @@ class SessionProvider {
         case AuthorizationRequired
     }
 
+    enum SessionProviderFetchStrategy {
+        case Refresh(previousSession: Session)
+        case Fetch
+        case SetPromise(Promise<Session>)
+    }
+
     func getSession() throws -> Promise<Session> {
-        if self.sessionP == nil {
-            if let session = self.currentSession {
-                if session.token.isExpired() {
-                    refresh(expiredSession: session)
-                } else {
-                    self.sessionP = Promise<Session>(withValue: session)
-                }
-            } else {
-                try fetch()
-            }
-        } else {
-            let sessionP = self.sessionP!
-            if sessionP.isFulfilled() {
-                let session = sessionP.value()!
-                if session.token.isExpired() {
-                    refresh(expiredSession: session)
-                }
-            } else if sessionP.isError() {
-                if let error = sessionP.error() as? AppError {
-                    switch error {
-                    case .invalidToken:
-                        if let session = self.currentSession {
-                            refresh(expiredSession: session)
-                        } else {
-                            try fetch()
-                        }
-                    default:
-                        try fetch()
-                    }
-                } else {
-                    try fetch()
-                }
-            } else {
-                try fetch()
-            }
+        let strategy: SessionProviderFetchStrategy =
+                self.fetchStrategy(forSessionP: self.sessionP, currentSession: self.currentSession)
+
+        switch strategy {
+        case .Refresh(let previousSession):
+            refresh(expiredSession: previousSession)
+            break
+
+        case .SetPromise(let promise):
+            self.sessionP = promise
+
+        case .Fetch:
+            try self.fetch()
+            break
         }
 
         // TODO suggest better chaining API
@@ -115,6 +100,38 @@ class SessionProvider {
         let request = service.sessionRefreshTokenRequest(refreshToken: refreshToken)
         self.request = request
         return request.load()
+    }
+
+    internal func fetchStrategy(forSessionP sessionP: Promise<Session>?, currentSession: Session?) -> SessionProviderFetchStrategy {
+        if sessionP == nil {
+            if let session = self.currentSession {
+                if session.token.isExpired() {
+                    return SessionProviderFetchStrategy.Refresh(previousSession: session)
+                } else {
+                    return SessionProviderFetchStrategy.SetPromise(Promise<Session>(withValue: session))
+                }
+            }
+        } else {
+            let sessionP = self.sessionP!
+            if sessionP.isFulfilled() {
+                let session = sessionP.value()!
+                if session.token.isExpired() {
+                    return SessionProviderFetchStrategy.Refresh(previousSession: session)
+                }
+            } else if sessionP.isError() {
+                if let error = sessionP.error() as? AppError {
+                    switch error {
+                    case .invalidToken:
+                        if let session = self.currentSession {
+                            return SessionProviderFetchStrategy.Refresh(previousSession: session)
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+        return SessionProviderFetchStrategy.Fetch
     }
 
     private let service: ServiceAccessLayer
