@@ -11,7 +11,7 @@ class AccountRequestFactory: RequestFactory {
     func getAccount(session: Session) -> HttpRequest<Account> {
 
         let components = urlBuilder.components(withPath: "/api/users/whoami")
-        let request: URLRequest = requestBuilder.request(.GET, url: components.url)
+        let request: URLRequest = requestBuilder.request(.GET, url: components.url, accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
                 mapper: AccountMapper(jsonDecoder: jsonDecoder),
