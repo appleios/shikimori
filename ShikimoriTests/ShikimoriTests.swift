@@ -16,7 +16,7 @@ class ShikimoriTests: XCTestCase {
     func testUserTokenMapper() {
 
         let sal = ServiceAccessURLRequestFactory()
-        let mapper = UserTokenMapper(decoder: sal.jsonDecoder)
+        let mapper = UserTokenMapper(jsonDecoder: sal.jsonDecoder)
         let data = """
         {
         "access_token":"ACCESS_TOKEN",
@@ -26,7 +26,7 @@ class ShikimoriTests: XCTestCase {
         "created_at":1524749533
         }
         """.data(using: .utf8)
-        let result: UserToken = try! mapper.map(data!)
+        let result: UserToken = try! mapper.decode(data!)
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.accessToken, "ACCESS_TOKEN")
