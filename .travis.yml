@@ -3,4 +3,6 @@ osx_image: xcode9.3
 language: objective-c
 script:
 - cp Tools/Auth.plist Shikimori/Config/Auth.plist
-- xcodebuild test -sdk iphonesimulator -project Shikimori.xcodeproj -scheme Shikimori CODE_SIGNING_REQUIRED=NO -destination 'platform=iOS Simulator,name=iPhone SE'
+- xcodebuild clean build test -sdk iphonesimulator -project Shikimori.xcodeproj -scheme Shikimori CODE_SIGNING_REQUIRED=NO -destination 'platform=iOS Simulator,name=iPhone SE'
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -J 'Shikimori'
