@@ -11,14 +11,14 @@ class Promise<T> {
     typealias ErrorHandler = (Error) -> ()
     typealias CompleteHandler = () -> ()
 
-    private enum State {
+    enum State {
         case pending
         case fulfilled(value: T)
         case error(error: Error)
         case cancelled
     }
 
-    private var state: State
+    private (set) var state: State
 
     private var thenDeps: [ThenHandler]
     private var errorDeps: [ErrorHandler]
@@ -41,6 +41,14 @@ class Promise<T> {
 
     func isError() -> Bool {
         switch state {
+        case .error(_): return true
+        default: return false
+        }
+    }
+
+    func isResolved() -> Bool {
+        switch state {
+        case .fulfilled(_): return true
         case .error(_): return true
         default: return false
         }

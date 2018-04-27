@@ -6,9 +6,9 @@
 import Foundation
 
 
-struct UserToken {
+struct SessionToken: Codable {
 
-    enum TokenType: String {
+    enum TokenType: String, Codable {
         case bearer = "bearer"
     }
 
@@ -17,4 +17,9 @@ struct UserToken {
     let createdAt: Date
     let expireDate: Date
     let tokenType: TokenType
+
+    func expired(now: Date = Date()) -> Bool {
+        return now.timeIntervalSince(expireDate) >= 0
+    }
+
 }

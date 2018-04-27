@@ -14,24 +14,18 @@ class RequestBuilder {
         self.userAgent = userAgent
     }
 
-    private enum HTTPMethod: String {
-        case get = "GET"
-        case post = "POST"
+    enum HTTPMethod: String {
+        case GET = "GET"
+        case POST = "POST"
     }
 
-    func get(url: URL?) -> URLRequest {
-        return request(method: .get, url: url)
+    func request(_ method: HTTPMethod, url: URL?, accessToken: String? = nil) -> URLRequest {
+        var r = URLRequest(url: url!)
+        r.httpMethod = method.rawValue
+        r.setValue("User-Agent", forHTTPHeaderField: userAgent)
+        if let accessToken = accessToken {
+            r.setValue("Authorization", forHTTPHeaderField: "Bearer \(accessToken)")
+        }
+        return r
     }
-
-    func post(url: URL?) -> URLRequest {
-        return request(method: .post, url: url)
-    }
-
-    private func request(method: HTTPMethod, url: URL?) -> URLRequest {
-        var request = URLRequest(url: url!)
-        request.httpMethod = method.rawValue
-        request.setValue("User-Agent", forHTTPHeaderField: userAgent)
-        return request
-    }
-
 }

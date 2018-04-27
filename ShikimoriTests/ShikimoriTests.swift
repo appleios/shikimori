@@ -15,7 +15,7 @@ class ShikimoriTests: XCTestCase {
 
     func testUserTokenMapper() {
 
-        let sal = ServiceAccessURLRequestFactory()
+        let sal = ServiceAccessLayer()
         let mapper = UserTokenMapper(jsonDecoder: sal.jsonDecoder)
         let data = """
         {
@@ -26,12 +26,12 @@ class ShikimoriTests: XCTestCase {
         "created_at":1524749533
         }
         """.data(using: .utf8)
-        let result: UserToken = try! mapper.decode(data!)
+        let result: SessionToken = try! mapper.decode(data!)
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.accessToken, "ACCESS_TOKEN")
         XCTAssertEqual(result.refreshToken, "REFRESH_TOKEN")
-        XCTAssertEqual(result.tokenType, UserToken.TokenType.bearer)
+        XCTAssertEqual(result.tokenType, SessionToken.TokenType.bearer)
     }
 
 }

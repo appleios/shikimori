@@ -9,34 +9,42 @@ import Foundation
 class HttpRequest<T>: Request {
 
     let urlRequest: URLRequest
+    let urlSession: URLSession
     let mapper: HttpMapper<T>
-    let session: URLSession
+    let errorMapper: HttpMapper<AppError>
 
     private (set) var promise: Promise<T>?
     private var dataTask: URLSessionDataTask?
 
-    init(urlRequest: URLRequest, mapper: HttpMapper<T>, session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
+    init(urlRequest: URLRequest, mapper: HttpMapper<T>, errorMapper: HttpMapper<AppError>, urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         self.urlRequest = urlRequest
         self.mapper = mapper
-        self.session = session
+        self.errorMapper = errorMapper
+        self.urlSession = urlSession
     }
 
     func load() -> Promise<T> {
         let promise = Promise<T>()
         let handler = { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error = error {
-                promise.reject(error) // TODO enrich error with HTTP Status Code
+                let appError = AppError.network(underlyingError: error)
+                promise.reject(appError)
                 return
             }
             if let data = data {
-                if let result = try? self.mapper.decode(data) {
+                if let result: T = try? self.mapper.decode(data) {
                     promise.fulfill(result)
                     return
                 }
+                if let result: AppError = try? self.errorMapper.decode(data) {
+                    promise.reject(result)
+                    return
+                }
             }
+            promise.reject(AppError.fatal(data: data, response: (response as! HTTPURLResponse)))
         }
 
-        let dataTask: URLSessionDataTask = self.session.dataTask(with: self.urlRequest, completionHandler: handler)
+        let dataTask: URLSessionDataTask = self.urlSession.dataTask(with: self.urlRequest, completionHandler: handler)
         dataTask.resume()
 
         self.promise = promise

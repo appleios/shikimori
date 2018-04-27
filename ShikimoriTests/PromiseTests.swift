@@ -20,7 +20,10 @@ class PromiseTests: XCTestCase {
         super.tearDown()
     }
 
-    struct TestError: Error {
+    struct TestError: Error, Equatable {
+        static func ==(lhs: TestError, rhs: TestError) -> Bool {
+            return true
+        }
     }
 
     func testIsPendingOnCreate() {
@@ -74,6 +77,34 @@ class PromiseTests: XCTestCase {
         p.fulfill(30)
 
         XCTAssertEqual(test, 30)
+    }
+
+    func testDoubleFulfillDontChangeValue() {
+        let p = Promise<Int>()
+        p.fulfill(10)
+        p.fulfill(20)
+
+        XCTAssertEqual(p.value(), 10)
+    }
+
+    func testFulfillAndRejectDontChangeValue() {
+        let p = Promise<Int>()
+        p.fulfill(10)
+        p.reject(TestError())
+
+        XCTAssertEqual(p.value(), 10)
+        XCTAssertNil(p.error())
+    }
+
+    func testRejectAndFulfillDontChangeValue() {
+        let error: PromiseTests.TestError = TestError()
+
+        let p = Promise<Int>()
+        p.reject(error)
+        p.fulfill(10)
+
+        XCTAssertEqual(p.error() as! TestError, error)
+        XCTAssertNil(p.value())
     }
 
     // TODO test thread safety

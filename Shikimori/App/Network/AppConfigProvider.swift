@@ -6,16 +6,16 @@
 import Foundation
 
 
-struct AuthConfig {
+struct AppConfig {
     let clientID: String
     let clientSecret: String
     let redirectURI: String
 }
 
 
-class AuthConfigProvider {
+class AppConfigProvider {
 
-    var config: AuthConfig? {
+    var config: AppConfig? {
         guard let url = Bundle.main.url(forResource: "Auth", withExtension: "plist") else { return nil }
         guard let dict = NSDictionary.init(contentsOf: url) else { return nil }
 
@@ -23,7 +23,7 @@ class AuthConfigProvider {
         let clientSecret = dict.value(forKey: "client_secret") as! String
         let redirectURI = dict.value(forKey: "redirect_uri") as! String
 
-        return AuthConfig(clientID: clientID,
+        return AppConfig(clientID: clientID,
                           clientSecret: clientSecret,
                           redirectURI: redirectURI)
     }

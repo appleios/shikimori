@@ -11,25 +11,45 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    let serviceAccessRequestFactory = ServiceAccessURLRequestFactory()
-    let authCodeStorage: AuthCodeStorage = AuthCodeStorage.default
-
-    var httpRequest: HttpRequest<UserToken>?
+    let accountProvider = AccountProvider.main
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self,
-                selector: #selector(handleAuthCodeChange),
-                name: AuthCodeStorage.AuthCodeDidChangeNotification,
+                selector: #selector(handleSessionChange),
+                name: SessionProvider.SessionDidChangeNotification,
                 object: nil)
     }
 
-    @objc func handleAuthCodeChange() {
-        let httpRequest: HttpRequest<UserToken> = serviceAccessRequestFactory.getTokenRequest()
-        self.httpRequest = httpRequest
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
-        let userTokenP = httpRequest.load()
-        userTokenP.then { print($0.accessToken) }
+        let sessionP: Promise<Session> = self.authHelper.getSession()
+        sessionP.then { (session: Session) in
+            print("session.token = \(session.token)")
+        }
+        sessionP.error { error in
+            print("Unexpected error while fetching Session: \(error)")
+        }
+
+        let accountP = self.accountProvider.getAccount(sessionP: sessionP)
+        accountP.then { (account: Account) in
+            print("account {id: \(account.id), name: \(account.nickname), avatar: \(account.avatar?.absoluteString ?? "nil")")
+        }
+        accountP.error { error in
+            print("Unexpected error while fetching Account: \(error.localizedDescription)")
+        }
     }
+
+    @objc func handleSessionChange() {
+    }
+
+    @IBAction func openMenu(_ sender: Any) {
+        
+    }
+
+    lazy var authHelper: AuthHelper = {
+        return AuthHelper(viewController: self)
+    }()
 }

@@ -10,11 +10,12 @@ class AuthCodeStorage {
 
     static let AuthCodeDidChangeNotification = Notification.Name("authCodeDidChange")
 
-    static var `default` =  AuthCodeStorage()
+    private (set) static var `default` =  AuthCodeStorage()
 
     var authCode: String? {
         set {
             userDefaults.set(newValue, forKey: key)
+            userDefaults.synchronize()
             NotificationCenter.default.post(name: AuthCodeStorage.AuthCodeDidChangeNotification, object: self)
         }
         get {
