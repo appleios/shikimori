@@ -52,6 +52,21 @@ class SessionProvider {
                     refresh(expiredSession: session)
                 }
             } else if sessionP.isError() {
+                if let error = sessionP.error() as? AppError {
+                    switch error {
+                    case .invalidToken:
+                        if let session = self.currentSession {
+                            refresh(expiredSession: session)
+                        } else {
+                            try fetch()
+                        }
+                    default:
+                        try fetch()
+                    }
+                } else {
+                    try fetch()
+                }
+            } else {
                 try fetch()
             }
         }
