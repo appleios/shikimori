@@ -79,7 +79,7 @@ class PromiseTests: XCTestCase {
         XCTAssertEqual(test, 30)
     }
 
-    func textDoubleFulfillDontChangeValue() {
+    func testDoubleFulfillDontChangeValue() {
         let p = Promise<Int>()
         p.fulfill(10)
         p.fulfill(20)
@@ -87,7 +87,7 @@ class PromiseTests: XCTestCase {
         XCTAssertEqual(p.value(), 10)
     }
 
-    func textFulfillAndRejectDontChangeValue() {
+    func testFulfillAndRejectDontChangeValue() {
         let p = Promise<Int>()
         p.fulfill(10)
         p.reject(TestError())
@@ -96,12 +96,12 @@ class PromiseTests: XCTestCase {
         XCTAssertNil(p.error())
     }
 
-    func textRejectAndFulfillDontChangeValue() {
+    func testRejectAndFulfillDontChangeValue() {
         let error: PromiseTests.TestError = TestError()
 
         let p = Promise<Int>()
-        p.fulfill(10)
         p.reject(error)
+        p.fulfill(10)
 
         XCTAssertEqual(p.error() as! TestError, error)
         XCTAssertNil(p.value())
