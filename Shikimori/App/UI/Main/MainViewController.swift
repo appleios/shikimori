@@ -35,7 +35,8 @@ class MainViewController: UIViewController {
 
         let accountP = self.accountProvider.getAccount(sessionP: sessionP)
         accountP.then { (account: Account) in
-            print("account {id: \(account.id), name: \(account.nickname), avatar: \(account.avatar?.absoluteString ?? "nil")")
+            let viewController = ProfileViewController.viewController(account: account)
+            self.navigationController!.show(viewController, sender: nil)
         }
         accountP.error { error in
             print("Unexpected error while fetching Account: \(error.localizedDescription)")
