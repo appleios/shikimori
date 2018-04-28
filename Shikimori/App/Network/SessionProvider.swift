@@ -6,10 +6,13 @@
 import Foundation
 
 
-struct Session: Codable {
+struct Session: Codable, Equatable {
 
     let token: SessionToken
 
+    static func ==(lhs: Session, rhs: Session) -> Bool {
+        return lhs.token == rhs.token
+    }
 }
 
 class SessionProvider {
@@ -29,14 +32,41 @@ class SessionProvider {
         }
     }
 
-    enum SessionProviderError: Error {
+    enum SessionProviderError: Error, Equatable {
         case AuthorizationRequired
+
+        static func ==(lhs: SessionProviderError, rhs: SessionProviderError) -> Bool {
+            switch (lhs, rhs) {
+            case (.AuthorizationRequired, .AuthorizationRequired):
+                return true
+            }
+        }
     }
 
-    enum SessionProviderFetchStrategy {
+    enum SessionProviderFetchStrategy: Equatable {
         case Refresh(previousSession: Session)
         case Fetch
-        case SetPromise(Promise<Session>)
+        case Nothing
+        case Fail(error: SessionProviderError)
+
+        static func ==(lhs: SessionProviderFetchStrategy, rhs: SessionProviderFetchStrategy) -> Bool {
+            switch (lhs, rhs) {
+            case (.Refresh(let s1), .Refresh(let s2)):
+                return s1 == s2
+
+            case (.Fetch, .Fetch):
+                return true
+
+            case (.Nothing, .Nothing):
+                return true
+
+            case (.Fail(let e1), .Fail(let e2)):
+                return e1 == e2
+
+            default:
+                return false
+            }
+        }
     }
 
     func getSession() throws -> Promise<Session> {
@@ -48,12 +78,15 @@ class SessionProvider {
             refresh(expiredSession: previousSession)
             break
 
-        case .SetPromise(let promise):
-            self.sessionP = promise
-
         case .Fetch:
             try self.fetch()
             break
+
+        case .Nothing:
+            break
+
+        case .Fail(let error):
+            throw error
         }
 
         // TODO suggest better chaining API
@@ -104,29 +137,40 @@ class SessionProvider {
 
     internal func fetchStrategy(forSessionP sessionP: Promise<Session>?, currentSession: Session?) -> SessionProviderFetchStrategy {
         if sessionP == nil {
-            if let session = self.currentSession {
+            if let session = currentSession {
                 if session.token.isExpired() {
                     return SessionProviderFetchStrategy.Refresh(previousSession: session)
-                } else {
-                    return SessionProviderFetchStrategy.SetPromise(Promise<Session>(withValue: session))
                 }
             }
         } else {
-            let sessionP = self.sessionP!
+            let sessionP = sessionP!
             if sessionP.isFulfilled() {
                 let session = sessionP.value()!
                 if session.token.isExpired() {
                     return SessionProviderFetchStrategy.Refresh(previousSession: session)
+                } else {
+                    return SessionProviderFetchStrategy.Nothing
                 }
             } else if sessionP.isError() {
                 if let error = sessionP.error() as? AppError {
                     switch error {
                     case .invalidToken:
-                        if let session = self.currentSession {
+                        if let session = currentSession {
                             return SessionProviderFetchStrategy.Refresh(previousSession: session)
                         }
-                    default:
+                    case .invalidGrant:
+                        return SessionProviderFetchStrategy.Fail(error: .AuthorizationRequired)
+
+                    default: // TODO handle other error types (!)
                         break
+                    }
+                }
+            } else if sessionP.isPending() {
+                return SessionProviderFetchStrategy.Nothing
+            } else if sessionP.isCancelled() {
+                if let session = currentSession {
+                    if session.token.isExpired() {
+                        return SessionProviderFetchStrategy.Refresh(previousSession: session)
                     }
                 }
             }
