@@ -8,5 +8,7 @@
 	<string>CLIENT_SECRET</string>
 	<key>redirect_uri</key>
 	<string>REDIRECT_URI</string>
+	<key>app_name</key>
+	<string>APP_NAME</string>
 </dict>
 </plist>
