@@ -10,6 +10,7 @@ struct AppConfig {
     let clientID: String
     let clientSecret: String
     let redirectURI: String
+    let appName: String
 }
 
 
@@ -22,10 +23,12 @@ class AppConfigProvider {
         let clientID = dict.value(forKey: "client_id") as! String
         let clientSecret = dict.value(forKey: "client_secret") as! String
         let redirectURI = dict.value(forKey: "redirect_uri") as! String
+        let appName = dict.value(forKey: "app_name") as! String
 
         return AppConfig(clientID: clientID,
-                          clientSecret: clientSecret,
-                          redirectURI: redirectURI)
+                clientSecret: clientSecret,
+                redirectURI: redirectURI,
+                appName: appName)
     }
 
 }
