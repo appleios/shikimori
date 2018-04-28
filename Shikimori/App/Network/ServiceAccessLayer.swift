@@ -26,14 +26,12 @@ class RequestFactory {
 class ServiceAccessLayer {
 
     private let urlBuilder = URLBuilder(host: "shikimori.org")
-    private let requestBuilder = RequestBuilder(userAgent: "shikimori iOS")
 
-    private let appConfigProvider = AppConfigProvider()
-    private var appConfig: AppConfig {
-        return appConfigProvider.config!
-    }
+    private let appConfigProvider: AppConfigProvider
+    private let appConfig: AppConfig
 
-    let urlSession: URLSession
+    private let requestBuilder: RequestBuilder
+    private let urlSession: URLSession
 
     var jsonDecoder: JSONDecoder {
         let decoder = JSONDecoder()
@@ -42,10 +40,11 @@ class ServiceAccessLayer {
         return decoder
     }
 
-
-    init() {
-        let configuration = URLSessionConfiguration.default
-        self.urlSession = URLSession(configuration: configuration)
+    init(appConfigProvider: AppConfigProvider = AppConfigProvider()) {
+        self.appConfigProvider = appConfigProvider
+        self.appConfig = appConfigProvider.config!
+        self.requestBuilder = RequestBuilder(userAgent: appConfig.appName)
+        self.urlSession = URLSession(configuration: URLSessionConfiguration.default)
     }
 
     func authRequest() -> URLRequest {
