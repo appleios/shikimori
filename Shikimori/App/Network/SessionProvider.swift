@@ -178,17 +178,17 @@ class SessionProvider {
             if sessionP == nil {
                 return refreshStrategyOrNil(forSession: currentSession) ?? SessionProviderFetchStrategy.Fetch
             }
-            return strategyForNonNilSessionP(sessionP!, currentSession: currentSession) ?? SessionProviderFetchStrategy.Fetch
+            return strategy(forUnwrapped: sessionP!, currentSession: currentSession) ?? SessionProviderFetchStrategy.Fetch
         }
 
-        func strategyForNonNilSessionP(_ sessionP: Promise<Session>, currentSession session: Session?) -> SessionProviderFetchStrategy? {
+        private func strategy(forUnwrapped sessionP: Promise<Session>, currentSession session: Session?) -> SessionProviderFetchStrategy? {
 
             switch sessionP.state {
             case .fulfilled(let session):
                 return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.Nothing
 
             case .error(let error):
-                return strategyForError(error, session: session) ?? SessionProviderFetchStrategy.Fetch
+                return strategy(forError: error, session: session) ?? SessionProviderFetchStrategy.Fetch
 
             case .pending:
                 return SessionProviderFetchStrategy.Nothing
@@ -198,7 +198,7 @@ class SessionProvider {
             }
         }
 
-        func strategyForError(_ error: Error, session: Session?) -> SessionProviderFetchStrategy? {
+        private func strategy(forError error: Error, session: Session?) -> SessionProviderFetchStrategy? {
             guard let error = error as? AppError else {
                 return nil
             }
@@ -216,7 +216,7 @@ class SessionProvider {
             return nil
         }
 
-        func refreshStrategyOrNil(forSession session: Session?) -> SessionProviderFetchStrategy? {
+        private func refreshStrategyOrNil(forSession session: Session?) -> SessionProviderFetchStrategy? {
             if session != nil && session!.token.isExpired(){
                 return SessionProviderFetchStrategy.Refresh(previousSession: session!)
             }
