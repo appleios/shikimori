@@ -136,46 +136,7 @@ class SessionProvider {
     }
 
     internal func fetchStrategy(forSessionP sessionP: Promise<Session>?, currentSession: Session?) -> SessionProviderFetchStrategy {
-        if sessionP == nil {
-            if let session = currentSession {
-                if session.token.isExpired() {
-                    return SessionProviderFetchStrategy.Refresh(previousSession: session)
-                }
-            }
-        } else {
-            let sessionP = sessionP!
-            if sessionP.isFulfilled() {
-                let session = sessionP.value()!
-                if session.token.isExpired() {
-                    return SessionProviderFetchStrategy.Refresh(previousSession: session)
-                } else {
-                    return SessionProviderFetchStrategy.Nothing
-                }
-            } else if sessionP.isError() {
-                if let error = sessionP.error() as? AppError {
-                    switch error {
-                    case .invalidToken:
-                        if let session = currentSession {
-                            return SessionProviderFetchStrategy.Refresh(previousSession: session)
-                        }
-                    case .invalidGrant:
-                        return SessionProviderFetchStrategy.Fail(error: .AuthorizationRequired)
-
-                    default: // TODO handle other error types (!)
-                        break
-                    }
-                }
-            } else if sessionP.isPending() {
-                return SessionProviderFetchStrategy.Nothing
-            } else if sessionP.isCancelled() {
-                if let session = currentSession {
-                    if session.token.isExpired() {
-                        return SessionProviderFetchStrategy.Refresh(previousSession: session)
-                    }
-                }
-            }
-        }
-        return SessionProviderFetchStrategy.Fetch
+        return FetchStrategyCalculator().fetchStrategy(forSessionP: sessionP, currentSession: currentSession)
     }
 
     private let service: ServiceAccessLayer
@@ -209,5 +170,58 @@ class SessionProvider {
             try fetch()
         } catch {
         }
+    }
+
+    struct FetchStrategyCalculator {
+
+        func fetchStrategy(forSessionP sessionP: Promise<Session>?, currentSession: Session?) -> SessionProviderFetchStrategy {
+            if sessionP == nil {
+                return refreshStrategyOrNil(forSession: currentSession) ?? SessionProviderFetchStrategy.Fetch
+            }
+            return strategyForNonNilSessionP(sessionP!, currentSession: currentSession) ?? SessionProviderFetchStrategy.Fetch
+        }
+
+        func strategyForNonNilSessionP(_ sessionP: Promise<Session>, currentSession session: Session?) -> SessionProviderFetchStrategy? {
+
+            switch sessionP.state {
+            case .fulfilled(let session):
+                return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.Nothing
+
+            case .error(let error):
+                return strategyForError(error, session: session) ?? SessionProviderFetchStrategy.Fetch
+
+            case .pending:
+                return SessionProviderFetchStrategy.Nothing
+
+            case .cancelled:
+                return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.Fetch
+            }
+        }
+
+        func strategyForError(_ error: Error, session: Session?) -> SessionProviderFetchStrategy? {
+            guard let error = error as? AppError else {
+                return nil
+            }
+
+            switch error {
+            case .invalidToken:
+                if session != nil {
+                    return SessionProviderFetchStrategy.Refresh(previousSession: session!)
+                }
+            case .invalidGrant:
+                return SessionProviderFetchStrategy.Fail(error: .AuthorizationRequired)
+            default: // TODO handle other error types (!)
+                break
+            }
+            return nil
+        }
+
+        func refreshStrategyOrNil(forSession session: Session?) -> SessionProviderFetchStrategy? {
+            if session != nil && session!.token.isExpired(){
+                return SessionProviderFetchStrategy.Refresh(previousSession: session!)
+            }
+            return nil
+        }
+
     }
 }
