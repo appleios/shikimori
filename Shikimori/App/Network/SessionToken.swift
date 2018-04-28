@@ -6,7 +6,7 @@
 import Foundation
 
 
-struct SessionToken: Codable {
+struct SessionToken: Codable, Equatable {
 
     enum TokenType: String, Codable {
         case bearer = "bearer"
@@ -22,4 +22,11 @@ struct SessionToken: Codable {
         return now.timeIntervalSince(expireDate) >= 0
     }
 
+    static func ==(lhs: SessionToken, rhs: SessionToken) -> Bool {
+        return lhs.accessToken == rhs.accessToken
+                && lhs.refreshToken == rhs.refreshToken
+                && lhs.createdAt == rhs.createdAt
+                && lhs.expireDate == rhs.expireDate
+                && lhs.tokenType == rhs.tokenType
+    }
 }

@@ -10,6 +10,7 @@ public enum AppError: Error {
 
     case network(underlyingError: Error)
     case invalidGrant(description: String)
+    case invalidToken(description: String)
     case unknown(code: String, description: String)
     case fatal(data: Data?, response: HTTPURLResponse?)
 
@@ -23,6 +24,8 @@ extension AppError: LocalizedError {
             return "Error: [network]: \(underlyingError.localizedDescription)"
         case .invalidGrant(let description):
             return "Error: [invalid grant]: \(description)"
+        case .invalidToken(let description):
+            return "Error: [invalid token]: \(description)"
         case .unknown(let code, let description):
             return "Error: [unknown]: code = \(code), description = \(description)"
         case .fatal(let data, let response):
@@ -31,7 +34,7 @@ extension AppError: LocalizedError {
                 details.append("data = \"\(String(data: d, encoding: .utf8)!)\"")
             }
             if let r = response {
-                details.append("response: \(response.debugDescription)")
+                details.append("response: \(r.debugDescription)")
             }
             return "Error: [fatal]: \(details.joined(separator: ", "))"
 

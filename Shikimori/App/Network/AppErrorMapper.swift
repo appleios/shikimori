@@ -26,6 +26,8 @@ class AppErrorMapper: HttpMapper<AppError> {
         switch result.error {
         case "invalid_grant":
             return AppError.invalidGrant(description: result.errorDescription)
+        case "invalid_token":
+            return AppError.invalidToken(description: result.errorDescription)
         default:
             return AppError.unknown(code: result.error, description: result.errorDescription)
         }
