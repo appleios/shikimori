@@ -18,14 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bHu-jn-ZUY">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JwY-gx-bE4">
                                 <rect key="frame" x="0.0" y="64" width="375" height="2"/>
                             </progressView>
@@ -33,11 +25,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="JwY-gx-bE4" secondAttribute="trailing" id="8iE-Qq-G60"/>
-                            <constraint firstItem="bHu-jn-ZUY" firstAttribute="top" secondItem="wAm-hv-e3K" secondAttribute="top" id="Yoa-Jc-IdB"/>
-                            <constraint firstItem="bHu-jn-ZUY" firstAttribute="leading" secondItem="wAm-hv-e3K" secondAttribute="leading" id="fVb-PL-2hC"/>
                             <constraint firstItem="JwY-gx-bE4" firstAttribute="top" secondItem="wAm-hv-e3K" secondAttribute="top" id="ghc-nz-ahy"/>
-                            <constraint firstItem="wAm-hv-e3K" firstAttribute="trailing" secondItem="bHu-jn-ZUY" secondAttribute="trailing" id="hjb-XF-Z3G"/>
-                            <constraint firstItem="wAm-hv-e3K" firstAttribute="bottom" secondItem="bHu-jn-ZUY" secondAttribute="bottom" id="tiB-JS-OgG"/>
                             <constraint firstItem="JwY-gx-bE4" firstAttribute="leading" secondItem="L8Z-X6-7Bx" secondAttribute="leading" id="v6z-mI-vFJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wAm-hv-e3K"/>
@@ -64,7 +52,6 @@
                         <outlet property="goBackItem" destination="v7F-X3-JeG" id="5OG-sS-jyf"/>
                         <outlet property="goForwardItem" destination="Aw4-ud-8jo" id="8sc-hW-PKF"/>
                         <outlet property="progressView" destination="JwY-gx-bE4" id="lJ5-cH-DS5"/>
-                        <outlet property="webView" destination="bHu-jn-ZUY" id="JRF-FO-olA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjb-FG-kG2" userLabel="First Responder" sceneMemberID="firstResponder"/>

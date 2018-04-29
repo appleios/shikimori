@@ -24,6 +24,7 @@
 		1EDE276B6F2AA790029FF1E2 /* TokenRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27FF14BF045706A7A1D7 /* TokenRequestFactory.swift */; };
 		1EDE278449F940FAF4183185 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2120515869CE14B06D54 /* Request.swift */; };
 		1EDE2801A2E785CBCE9EDD74 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE24B781BA8B33A9432203 /* SessionProvider.swift */; };
+		1EDE2801C957030F3A9DB048 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C90B87BA6BFA03E2435 /* Autolayout.swift */; };
 		1EDE280F67038A4D91DB26FB /* AccountRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE219DA326C87EF9124994 /* AccountRequestFactory.swift */; };
 		1EDE287D67C46D2298E6F658 /* HttpMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE266FDE4D1950834CE0B3 /* HttpMapper.swift */; };
 		1EDE289B3D6FFF02C7577AB4 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */; };
@@ -32,12 +33,15 @@
 		1EDE2C676B93EEDB77D05B29 /* AuthCodeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2343A58F502E2E4DF0CF /* AuthCodeStorage.swift */; };
 		1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */; };
 		1EDE2D77D3789584ACF3B915 /* AppErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2AFB26C05C37E75A4E79 /* AppErrorMapper.swift */; };
+		1EDE2D782B57F4CF269516D5 /* ImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE213502EEBB9B95AF14EE /* ImageLoading.swift */; };
 		1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27C0EC545DE688A0BB5F /* Promise.swift */; };
 		1EDE2EA391830D09E87D5F47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE29DD7C2309485E49D68B /* AppDelegate.swift */; };
 		1EDE2F3C6DAB437DEE46B288 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE28416375A369634A8AAB /* Account.swift */; };
 		C412AA4F2091CB4200ECC3AB /* Auth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C412AA4E2091CB4200ECC3AB /* Auth.plist */; };
 		C412AA512092325800ECC3AB /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C412AA502092325800ECC3AB /* Menu.storyboard */; };
 		C412AA53209232C500ECC3AB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412AA52209232C500ECC3AB /* MenuViewController.swift */; };
+		C430811A2094C057000147F1 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C43081192094C057000147F1 /* Profile.storyboard */; };
+		C430811C2094C06A000147F1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430811B2094C06A000147F1 /* ProfileViewController.swift */; };
 		C45AAB3C2090DCE4006D62CF /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C45AAB3B2090DCE4006D62CF /* Auth.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +59,7 @@
 		1EDE20222F2070A7677F864A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		1EDE208E4F1EC0D9C8AF9567 /* Shikimori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shikimori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EDE2120515869CE14B06D54 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		1EDE213502EEBB9B95AF14EE /* ImageLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoading.swift; sourceTree = "<group>"; };
 		1EDE21648314F4D8463F4E19 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		1EDE219DA326C87EF9124994 /* AccountRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
@@ -79,6 +84,7 @@
 		1EDE2BDC2C62179E4D8EB4EA /* AccountProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountProvider.swift; sourceTree = "<group>"; };
 		1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShikimoriTests.swift; sourceTree = "<group>"; };
 		1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		1EDE2C90B87BA6BFA03E2435 /* Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autolayout.swift; sourceTree = "<group>"; };
 		1EDE2CEA5AD80EDF0995C942 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
 		1EDE2E1CB59F095AD2A8C966 /* SessionProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProviderTests.swift; sourceTree = "<group>"; };
@@ -87,6 +93,8 @@
 		C412AA4E2091CB4200ECC3AB /* Auth.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth.plist; sourceTree = "<group>"; };
 		C412AA502092325800ECC3AB /* Menu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		C412AA52209232C500ECC3AB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		C43081192094C057000147F1 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		C430811B2094C06A000147F1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C45AAB3B2090DCE4006D62CF /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +180,8 @@
 				1EDE280DEDC0C3B27B89ADEC /* Main.storyboard */,
 				C412AA502092325800ECC3AB /* Menu.storyboard */,
 				C412AA52209232C500ECC3AB /* MenuViewController.swift */,
+				C43081192094C057000147F1 /* Profile.storyboard */,
+				C430811B2094C06A000147F1 /* ProfileViewController.swift */,
 				1EDE2FA96A39398AEC283149 /* MainViewController.swift */,
 			);
 			path = Main;
@@ -194,6 +204,7 @@
 				1EDE26F50857B622BDCB2C4A /* Main */,
 				1EDE21F914E3F7B5FDEFDF39 /* Auth */,
 				1EDE25C0DF16203853A9C48B /* Helpers */,
+				1EDE2D280E5D1FFE58D74122 /* Utils */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -220,12 +231,29 @@
 			path = Shikimori;
 			sourceTree = "<group>";
 		};
+		1EDE2D280E5D1FFE58D74122 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1EDE2C90B87BA6BFA03E2435 /* Autolayout.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		1EDE2D3C3001FA9FEC4CDE06 /* ImageLoading */ = {
+			isa = PBXGroup;
+			children = (
+				1EDE213502EEBB9B95AF14EE /* ImageLoading.swift */,
+			);
+			name = ImageLoading;
+			sourceTree = "<group>";
+		};
 		1EDE2D6B874CB7479F397F58 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				1EDE25E036E9098B129C1A89 /* Utils */,
 				1EDE2FD06F0599811174BE69 /* ServiceAccessLayer */,
 				1EDE2BB78788BB97E74109F8 /* Domain */,
+				1EDE2D3C3001FA9FEC4CDE06 /* ImageLoading */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -364,6 +392,7 @@
 				1EDE221446A7D18D6BD22697 /* Assets.xcassets in Resources */,
 				C412AA512092325800ECC3AB /* Menu.storyboard in Resources */,
 				1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */,
+				C430811A2094C057000147F1 /* Profile.storyboard in Resources */,
 				1EDE26F9FBB2FFAEF6B79D23 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,6 +410,7 @@
 				1EDE24F5FFFDB070BDB26638 /* AuthViewController.swift in Sources */,
 				1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */,
 				1EDE278449F940FAF4183185 /* Request.swift in Sources */,
+				C430811C2094C06A000147F1 /* ProfileViewController.swift in Sources */,
 				1EDE25C62612326F92BD5F89 /* URLBuilder.swift in Sources */,
 				1EDE289B3D6FFF02C7577AB4 /* RequestBuilder.swift in Sources */,
 				1EDE2153C5AF4938CB868FB8 /* AppConfigProvider.swift in Sources */,
@@ -398,6 +428,8 @@
 				1EDE2D77D3789584ACF3B915 /* AppErrorMapper.swift in Sources */,
 				1EDE230AB1D269FB7DE2B23C /* HttpRequest.swift in Sources */,
 				1EDE23994B51E84A58AD48A1 /* KeyValuePersistentStorage.swift in Sources */,
+				1EDE2801C957030F3A9DB048 /* Autolayout.swift in Sources */,
+				1EDE2D782B57F4CF269516D5 /* ImageLoading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +461,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Shikimori/Config/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SKM.Shikimori;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -526,6 +559,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Shikimori/Config/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SKM.Shikimori;
 				PRODUCT_NAME = "$(TARGET_NAME)";

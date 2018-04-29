@@ -8,14 +8,13 @@ import Foundation
 
 class Promise<T> {
     typealias ThenHandler = (T) -> ()
-    typealias ErrorHandler = (Error) -> ()
+    typealias ErrorHandler = (Error?) -> ()
     typealias CompleteHandler = () -> ()
 
     enum State {
         case pending
         case fulfilled(value: T)
-        case error(error: Error)
-        case cancelled
+        case error(error: Error?)
     }
 
     private (set) var state: State
@@ -56,7 +55,8 @@ class Promise<T> {
 
     func isCancelled() -> Bool {
         switch state {
-        case .cancelled: return true
+        case .fulfilled(_): return true
+        case .error(let e): return e == nil
         default: return false
         }
     }
@@ -114,7 +114,7 @@ class Promise<T> {
         }
     }
 
-    func reject(_ error: Error) {
+    func reject(_ error: Error?) {
         lock.lock()
         guard isPending() else {
             lock.unlock()
@@ -133,16 +133,7 @@ class Promise<T> {
     }
 
     func cancel() {
-        lock.lock()
-        guard isPending() else {
-            lock.unlock()
-            return
-        }
-
-        state = .cancelled
-        thenDeps = []
-        errorDeps = []
-        lock.unlock()
+        reject(nil)
     }
 
     func then(_ block: @escaping ThenHandler) {
@@ -157,10 +148,6 @@ class Promise<T> {
             block(value)
 
         case .error(_):
-            lock.unlock()
-            break
-
-        case .cancelled:
             lock.unlock()
             break
         }
@@ -180,10 +167,6 @@ class Promise<T> {
         case .error(let error):
             lock.unlock()
             block(error)
-
-        case .cancelled:
-            lock.unlock()
-            break
         }
     }
 
@@ -192,7 +175,7 @@ class Promise<T> {
         switch state {
         case .pending:
             let thenHandler: (T) -> () = { _ in block() }
-            let errorHandler: (Error) -> () = { _ in block() }
+            let errorHandler: (Error?) -> () = { _ in block() }
             thenDeps.append(thenHandler)
             errorDeps.append(errorHandler)
             lock.unlock()
@@ -204,10 +187,6 @@ class Promise<T> {
         case .error(_):
             lock.unlock()
             block()
-
-        case .cancelled:
-            lock.unlock()
-            break
         }
     }
 
@@ -229,10 +208,6 @@ class Promise<T> {
         case .error(let error):
             lock.unlock()
             errorHandler(error)
-
-        case .cancelled:
-            lock.unlock()
-            break
         }
     }
 }

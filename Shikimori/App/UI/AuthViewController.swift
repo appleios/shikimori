@@ -35,7 +35,13 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let webView = WKWebView()
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(webView)
+        webView.autoPinToSuperviewEdges()
+
         webView.navigationDelegate = self
+        self.webView = webView
 
         let request = service.authRequest()
         webView.load(request)
