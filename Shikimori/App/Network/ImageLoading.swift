@@ -38,7 +38,7 @@ class PersistentImageCache: ImageCache {
 
     static var defaultRootDirectoryURL: URL {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        return URL(string: path)!.appendingPathComponent(".images", isDirectory: true)
+        return URL(fileURLWithPath: path).appendingPathComponent(".images", isDirectory: true)
     }
 
     private let imagesDirectoryURL: URL
