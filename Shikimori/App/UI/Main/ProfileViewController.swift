@@ -23,16 +23,6 @@ class ProfileViewController: UIViewController {
                 UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! ProfileViewController
 
         viewController.account = account
-        if let url = account.avatar {
-            let imageOperation = ImageDownloadOperation(sourceURL: url, filename: "user-avatar")
-            imageOperation.load()
-            imageOperation.imageP.then { [weak viewController] (image: UIImage) in
-                guard let viewController = viewController else { return }
-                viewController.profileImageView.image = image
-            }
-            viewController.imageLoading = imageOperation
-        }
-
 
         return viewController
     }
@@ -41,5 +31,14 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
         self.nicknameLabel.text = self.account.nickname
+
+        if let url = account.avatar {
+            let imageOperation = ImageDownloadOperation(sourceURL: url, filename: "user-avatar")
+            imageOperation.load()
+            imageOperation.imageP.then { [weak profileImageView] (image: UIImage) in
+                profileImageView?.image = image
+            }
+            self.imageLoading = imageOperation
+        }
     }
 }

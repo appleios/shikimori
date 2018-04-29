@@ -44,35 +44,35 @@ class PersistentImageCache: ImageCache {
     private let imagesDirectoryURL: URL
     private let fileManager: FileManager
 
-    init(imagesDirectoryURL: URL = defaultRootDirectoryURL, fileManager: FileManager = FileManager.default)
-    {
+    init(imagesDirectoryURL: URL = defaultRootDirectoryURL, fileManager: FileManager = FileManager.default) {
         self.fileManager = fileManager
         self.imagesDirectoryURL = imagesDirectoryURL
     }
 
     func image(withFilename filename: String) -> UIImage? {
-        let url = imagesDirectoryURL.appendingPathComponent(filename)
-        return getImage(atURL: url)
+        return getImage(atURL: targetURL(forFilename: filename))
     }
 
     func saveImage(locatedAtURL url: URL, withFilename filename: String) {
         do {
-            try saveOnDiskImage(locatedAtURL: url, withFilename: filename)
+            try saveOnDiskImage(locatedAtURL: url, targetURL: targetURL(forFilename: filename))
         } catch {
             print("unexpected error while saving on dis: \(error)")
         }
     }
 
-    private func saveOnDiskImage(locatedAtURL url: URL, withFilename filename: String) throws {
+    private func targetURL(forFilename filename: String) -> URL {
+        return imagesDirectoryURL.appendingPathComponent(filename)
+    }
+
+    private func saveOnDiskImage(locatedAtURL url: URL, targetURL: URL) throws {
         try createImagesDirectoryIfNeeded()
 
-        let targetUrl = imagesDirectoryURL.appendingPathComponent(filename)
-
         var isDirectory = ObjCBool(booleanLiteral: false)
-        if fileManager.fileExists(atPath: targetUrl.path, isDirectory: &isDirectory) {
-            try fileManager.removeItem(at: targetUrl)
+        if fileManager.fileExists(atPath: targetURL.path, isDirectory: &isDirectory) {
+            try fileManager.removeItem(at: targetURL)
         }
-        try fileManager.copyItem(at: url, to: targetUrl)
+        try fileManager.copyItem(at: url, to: targetURL)
     }
 
     private func createImagesDirectoryIfNeeded() throws {
