@@ -34,6 +34,17 @@ protocol ImageCache {
 }
 
 
+class ImageLoadingHelper {
+
+    static func getImage(atURL url: URL) -> UIImage? {
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        guard let image =  UIImage(data: data) else { return nil }
+        return image
+    }
+
+}
+
+
 class PersistentImageCache: ImageCache {
 
     static var defaultRootDirectoryURL: URL {
@@ -50,7 +61,7 @@ class PersistentImageCache: ImageCache {
     }
 
     func image(withFilename filename: String) -> UIImage? {
-        return getImage(atURL: targetURL(forFilename: filename))
+        return ImageLoadingHelper.getImage(atURL: targetURL(forFilename: filename))
     }
 
     func saveImage(locatedAtURL url: URL, withFilename filename: String) {
@@ -86,13 +97,7 @@ class PersistentImageCache: ImageCache {
             try fileManager.createDirectory(at: imagesDirectoryURL, withIntermediateDirectories: false)
         }
     }
-
-    private func getImage(atURL url: URL) -> UIImage? {
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        guard let image =  UIImage(data: data) else { return nil }
-        return image
-    }
-
+    
 }
 
 
@@ -153,17 +158,11 @@ class ImageDownloadOperation: ImageLoading {
 
     private func handleSuccess(response: HTTPURLResponse, url: URL) {
         guard response.statusCode == 200 else { fatalError("unexpected case") }
-        guard let image = self.getImage(atTemporaryFileURL: url) else { fatalError("unexpected case") }
+        guard let image = ImageLoadingHelper.getImage(atURL: url) else { fatalError("unexpected case") } // TODO correctly handle
 
         imageCache.saveImage(locatedAtURL: url, withFilename: filename)
         imageP.fulfill(image)
     }
 
-
-    func getImage(atTemporaryFileURL url: URL) -> UIImage? {
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        guard let image =  UIImage(data: data) else { return nil }
-        return image
-    }
-
+    
 }
