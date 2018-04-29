@@ -6,16 +6,16 @@
 import Foundation
 
 
-class RequestFactory {
+class EndpointRequestFactory {
 
-    let urlBuilder: URLBuilder
-    let requestBuilder: RequestBuilder
+    let urlFactory: URLFactory
+    let requestFactory: RequestFactory
     let urlSession: URLSession
     var jsonDecoder: JSONDecoder
 
-    init(urlBuilder: URLBuilder, requestBuilder: RequestBuilder, urlSession: URLSession, jsonDecoder: JSONDecoder) {
-        self.urlBuilder = urlBuilder
-        self.requestBuilder = requestBuilder
+    init(urlFactory: URLFactory, requestFactory: RequestFactory, urlSession: URLSession, jsonDecoder: JSONDecoder) {
+        self.urlFactory = urlFactory
+        self.requestFactory = requestFactory
         self.urlSession = urlSession
         self.jsonDecoder = jsonDecoder
     }
@@ -25,12 +25,12 @@ class RequestFactory {
 
 class ServiceAccessLayer {
 
-    private let urlBuilder = URLBuilder(host: "shikimori.org")
+    private let urlFactory = URLFactory(host: "shikimori.org")
 
     private let appConfigProvider: AppConfigProvider
     private let appConfig: AppConfig
 
-    private let requestBuilder: RequestBuilder
+    private let requestFactory: RequestFactory
     private let urlSession: URLSession
 
     var jsonDecoder: JSONDecoder {
@@ -43,26 +43,26 @@ class ServiceAccessLayer {
     init(appConfigProvider: AppConfigProvider = AppConfigProvider()) {
         self.appConfigProvider = appConfigProvider
         self.appConfig = appConfigProvider.config!
-        self.requestBuilder = RequestBuilder(userAgent: appConfig.appName)
+        self.requestFactory = RequestFactory(userAgent: appConfig.appName)
         self.urlSession = URLSession(configuration: URLSessionConfiguration.default)
     }
 
     func authRequest() -> URLRequest {
         let config = appConfig
 
-        var components = urlBuilder.components(withPath: "/oauth/authorize")
+        var components = urlFactory.components(withPath: "/oauth/authorize")
         components.queryItems = [
             URLQueryItem(name: "client_id", value: config.clientID),
             URLQueryItem(name: "redirect_uri", value: config.redirectURI),
             URLQueryItem(name: "response_type", value: "code"),
         ]
 
-        return requestBuilder.request(.GET, url: components.url!)
+        return requestFactory.request(.GET, url: components.url!)
     }
 
     func sessionTokenRequest(authCode: String) -> HttpRequest<SessionToken> {
-        let factory = TokenRequestFactory(urlBuilder: urlBuilder,
-                requestBuilder: requestBuilder,
+        let factory = TokenRequestFactory(urlFactory: urlFactory,
+                requestFactory: requestFactory,
                 urlSession: urlSession,
                 jsonDecoder: jsonDecoder)
 
@@ -70,8 +70,8 @@ class ServiceAccessLayer {
     }
 
     func sessionRefreshTokenRequest(refreshToken: String) -> HttpRequest<SessionToken> {
-        let factory = TokenRequestFactory(urlBuilder: urlBuilder,
-                requestBuilder: requestBuilder,
+        let factory = TokenRequestFactory(urlFactory: urlFactory,
+                requestFactory: requestFactory,
                 urlSession: urlSession,
                 jsonDecoder: jsonDecoder)
 
@@ -79,8 +79,8 @@ class ServiceAccessLayer {
     }
 
     func accountRequest(session: Session) -> HttpRequest<Account> {
-        let factory = AccountRequestFactory(urlBuilder: urlBuilder,
-                requestBuilder: requestBuilder,
+        let factory = AccountRequestFactory(urlFactory: urlFactory,
+                requestFactory: requestFactory,
                 urlSession: urlSession,
                 jsonDecoder: jsonDecoder)
 

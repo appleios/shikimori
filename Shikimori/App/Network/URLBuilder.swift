@@ -6,7 +6,7 @@
 import Foundation
 
 
-class URLBuilder {
+class URLFactory {
 
     func url(withPath path: String, queryItems: [URLQueryItem]?) -> URL? {
         var comp: URLComponents = components(withPath: path)

@@ -49,7 +49,7 @@ class AuthHelper: AuthViewControllerDelegate {
                 }
                 self.presentAuthViewController()
             }
-        } catch SessionProvider.SessionProviderError.AuthorizationRequired {
+        } catch SessionProvider.SessionProviderError.authorizationRequired {
             presentAuthViewController()
         } catch {
             sessionP.reject(error)
