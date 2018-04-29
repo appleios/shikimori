@@ -33,34 +33,34 @@ class SessionProvider {
     }
 
     enum SessionProviderError: Error, Equatable {
-        case AuthorizationRequired
+        case authorizationRequired
 
         static func ==(lhs: SessionProviderError, rhs: SessionProviderError) -> Bool {
             switch (lhs, rhs) {
-            case (.AuthorizationRequired, .AuthorizationRequired):
+            case (.authorizationRequired, .authorizationRequired):
                 return true
             }
         }
     }
 
     enum SessionProviderFetchStrategy: Equatable {
-        case Refresh(previousSession: Session)
-        case Fetch
-        case Nothing
-        case Fail(error: SessionProviderError)
+        case refresh(previousSession: Session)
+        case fetch
+        case nothing
+        case fail(error: SessionProviderError)
 
         static func ==(lhs: SessionProviderFetchStrategy, rhs: SessionProviderFetchStrategy) -> Bool {
             switch (lhs, rhs) {
-            case (.Refresh(let s1), .Refresh(let s2)):
+            case (.refresh(let s1), .refresh(let s2)):
                 return s1 == s2
 
-            case (.Fetch, .Fetch):
+            case (.fetch, .fetch):
                 return true
 
-            case (.Nothing, .Nothing):
+            case (.nothing, .nothing):
                 return true
 
-            case (.Fail(let e1), .Fail(let e2)):
+            case (.fail(let e1), .fail(let e2)):
                 return e1 == e2
 
             default:
@@ -74,18 +74,18 @@ class SessionProvider {
                 self.fetchStrategy(forSessionP: self.sessionP, currentSession: self.currentSession)
 
         switch strategy {
-        case .Refresh(let previousSession):
+        case .refresh(let previousSession):
             refresh(expiredSession: previousSession)
             break
 
-        case .Fetch:
+        case .fetch:
             try self.fetch()
             break
 
-        case .Nothing:
+        case .nothing:
             break
 
-        case .Fail(let error):
+        case .fail(let error):
             throw error
         }
 
@@ -97,7 +97,7 @@ class SessionProvider {
 
     private func fetch() throws {
         guard let authCode = authCodeStorage.authCode else {
-            throw SessionProviderError.AuthorizationRequired
+            throw SessionProviderError.authorizationRequired
         }
 
         self.sessionP?.cancel()
@@ -176,26 +176,26 @@ class SessionProvider {
 
         func fetchStrategy(forSessionP sessionP: Promise<Session>?, currentSession: Session?) -> SessionProviderFetchStrategy {
             if sessionP == nil {
-                return refreshStrategyOrNil(forSession: currentSession) ?? SessionProviderFetchStrategy.Fetch
+                return refreshStrategyOrNil(forSession: currentSession) ?? SessionProviderFetchStrategy.fetch
             }
-            return strategy(forUnwrapped: sessionP!, currentSession: currentSession) ?? SessionProviderFetchStrategy.Fetch
+            return strategy(forUnwrapped: sessionP!, currentSession: currentSession) ?? SessionProviderFetchStrategy.fetch
         }
 
         private func strategy(forUnwrapped sessionP: Promise<Session>, currentSession session: Session?) -> SessionProviderFetchStrategy? {
 
             switch sessionP.state {
             case .fulfilled(let session):
-                return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.Nothing
+                return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.nothing
 
             case .error(let error):
                 if let error = error {
-                    return strategy(forError: error, session: session) ?? SessionProviderFetchStrategy.Fetch
+                    return strategy(forError: error, session: session) ?? SessionProviderFetchStrategy.fetch
                 } else {
-                    return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.Fetch
+                    return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.fetch
                 }
 
             case .pending:
-                return SessionProviderFetchStrategy.Nothing
+                return SessionProviderFetchStrategy.nothing
             }
         }
 
@@ -207,10 +207,10 @@ class SessionProvider {
             switch error {
             case .invalidToken:
                 if session != nil {
-                    return SessionProviderFetchStrategy.Refresh(previousSession: session!)
+                    return SessionProviderFetchStrategy.refresh(previousSession: session!)
                 }
             case .invalidGrant:
-                return SessionProviderFetchStrategy.Fail(error: .AuthorizationRequired)
+                return SessionProviderFetchStrategy.fail(error: .authorizationRequired)
             default: // TODO handle other error types (!)
                 break
             }
@@ -219,7 +219,7 @@ class SessionProvider {
 
         private func refreshStrategyOrNil(forSession session: Session?) -> SessionProviderFetchStrategy? {
             if session != nil && session!.token.isExpired(){
-                return SessionProviderFetchStrategy.Refresh(previousSession: session!)
+                return SessionProviderFetchStrategy.refresh(previousSession: session!)
             }
             return nil
         }

@@ -47,14 +47,14 @@ class SessionProviderTests: XCTestCase {
         let pending = Promise<Session>()
 
         assertNoRespectCurrent(withSessionP: pending,
-                expectedResult: .Nothing)
+                expectedResult: .nothing)
     }
 
     func testFulfilledValid() {
         let fulfilled = Promise<Session>(withValue: createValidSession())
 
         assertNoRespectCurrent(withSessionP: fulfilled,
-                expectedResult: .Nothing)
+                expectedResult: .nothing)
     }
 
     func testFulfilledExpired() {
@@ -62,7 +62,7 @@ class SessionProviderTests: XCTestCase {
         let fulfilled = Promise<Session>(withValue: session)
 
         assertNoRespectCurrent(withSessionP: fulfilled,
-                expectedResult: .Refresh(previousSession: session))
+                expectedResult: .refresh(previousSession: session))
     }
 
     func testErrorInvalidToken() {
@@ -71,17 +71,17 @@ class SessionProviderTests: XCTestCase {
 
         assert(withSessionP: sessionP,
                 currentSession: nil,
-                expectedResult: .Fetch)
+                expectedResult: .fetch)
 
         let validSession = createValidSession()
         assert(withSessionP: sessionP,
                 currentSession: validSession,
-                expectedResult: .Refresh(previousSession: validSession))
+                expectedResult: .refresh(previousSession: validSession))
 
         let expiredSession = createExpiredSession()
         assert(withSessionP: sessionP,
                 currentSession: expiredSession,
-                expectedResult: .Refresh(previousSession: expiredSession))
+                expectedResult: .refresh(previousSession: expiredSession))
     }
 
     func testErrorInvalidGrant() {
@@ -89,7 +89,7 @@ class SessionProviderTests: XCTestCase {
         let sessionP = Promise<Session>(withError: error)
 
         assertNoRespectCurrent(withSessionP: sessionP,
-                expectedResult: .Fail(error: SessionProvider.SessionProviderError.AuthorizationRequired))
+                expectedResult: .fail(error: SessionProvider.SessionProviderError.authorizationRequired))
     }
 
     // MARK: -
@@ -97,16 +97,16 @@ class SessionProviderTests: XCTestCase {
     private func assertInvalidSessionP(withSessionP invalidSessionP: Promise<Session>?) {
         assert(withSessionP: invalidSessionP,
                 currentSession: nil,
-                expectedResult: .Fetch)
+                expectedResult: .fetch)
 
         assert(withSessionP: invalidSessionP,
                 currentSession: createValidSession(),
-                expectedResult: .Fetch)
+                expectedResult: .fetch)
 
         let session = createExpiredSession()
         assert(withSessionP: invalidSessionP,
                 currentSession: session,
-                expectedResult: .Refresh(previousSession: session))
+                expectedResult: .refresh(previousSession: session))
     }
 
     private func assertNoRespectCurrent(withSessionP sessionP: Promise<Session>,
