@@ -36,7 +36,7 @@ class AuthHelper: AuthViewControllerDelegate {
         do {
             let p = try sessionProvider.getSession()
             p.then { sessionP.fulfill($0) }
-            p.error { [unowned self] (error: Error) in
+            p.error { [unowned self] (error: Error?) in
                 if let appError = error as? AppError {
                     switch appError {
                     case .invalidGrant(_):

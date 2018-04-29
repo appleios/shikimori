@@ -10,6 +10,8 @@ import UIKit
 extension UIView {
 
     func autoPinToSuperviewEdges() {
+        assert(Thread.isMainThread)
+
         let container = self.superview!
         self.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
         self.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true

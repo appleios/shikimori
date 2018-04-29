@@ -188,13 +188,14 @@ class SessionProvider {
                 return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.Nothing
 
             case .error(let error):
-                return strategy(forError: error, session: session) ?? SessionProviderFetchStrategy.Fetch
+                if let error = error {
+                    return strategy(forError: error, session: session) ?? SessionProviderFetchStrategy.Fetch
+                } else {
+                    return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.Fetch
+                }
 
             case .pending:
                 return SessionProviderFetchStrategy.Nothing
-
-            case .cancelled:
-                return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.Fetch
             }
         }
 

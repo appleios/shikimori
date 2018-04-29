@@ -30,16 +30,24 @@ class MainViewController: UIViewController {
             print("session.token = \(session.token)")
         }
         sessionP.error { error in
-            print("Unexpected error while fetching Session: \(error)")
+            if let error = error {
+                print("Unexpected error while fetching Session: \(error)")
+            }
         }
 
         let accountP = self.accountProvider.getAccount(sessionP: sessionP)
-        accountP.then { (account: Account) in
-            let viewController = ProfileViewController.viewController(account: account)
-            self.navigationController!.show(viewController, sender: nil)
+        accountP.then { [weak self] (account: Account) in
+            guard let sSelf = self else { return }
+
+            DispatchQueue.main.async {
+                let viewController = ProfileViewController.viewController(account: account)
+                sSelf.navigationController!.show(viewController, sender: nil)
+            }
         }
         accountP.error { error in
-            print("Unexpected error while fetching Account: \(error.localizedDescription)")
+            if let error = error {
+                print("Unexpected error while fetching Account: \(error.localizedDescription)")
+            }
         }
     }
 
