@@ -6,7 +6,7 @@
 import Foundation
 
 
-class RequestBuilder {
+class RequestFactory {
 
     let userAgent: String
 

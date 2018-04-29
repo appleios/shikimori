@@ -6,7 +6,7 @@
 import Foundation
 
 
-class TokenRequestFactory: RequestFactory {
+class TokenRequestFactory: EndpointRequestFactory {
 
     func getTokenRequest(authConfig config: AppConfig, authCode: String) -> HttpRequest<SessionToken> {
         return self.requestWithForm(form: [
@@ -29,8 +29,8 @@ class TokenRequestFactory: RequestFactory {
     }
 
     private func requestWithForm(form: [String:String]) -> HttpRequest<SessionToken> {
-        let components = urlBuilder.components(withPath: "/oauth/token")
-        var request: URLRequest = requestBuilder.request(.POST, url: components.url)
+        let components = urlFactory.components(withPath: "/oauth/token")
+        var request: URLRequest = requestFactory.request(.POST, url: components.url)
 
         let boundary = "BOUNDARY"
         let formEncoder = FormEncoder(boundary: boundary)

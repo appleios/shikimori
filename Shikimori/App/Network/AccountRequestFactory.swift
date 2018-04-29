@@ -6,12 +6,12 @@
 import Foundation
 
 
-class AccountRequestFactory: RequestFactory {
+class AccountRequestFactory: EndpointRequestFactory {
 
     func getAccount(session: Session) -> HttpRequest<Account> {
 
-        let components = urlBuilder.components(withPath: "/api/users/whoami")
-        let request: URLRequest = requestBuilder.request(.GET, url: components.url, accessToken: session.token.accessToken)
+        let components = urlFactory.components(withPath: "/api/users/whoami")
+        let request: URLRequest = requestFactory.request(.GET, url: components.url, accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
                 mapper: AccountMapper(jsonDecoder: jsonDecoder),
