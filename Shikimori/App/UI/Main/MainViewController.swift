@@ -39,8 +39,8 @@ class MainViewController: UIViewController {
         accountP.then { [weak self] (account: Account) in
             guard let sSelf = self else { return }
 
-            DispatchQueue.main.async {
-                let viewController = ProfileViewController.viewController(account: account)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 1000)) {
+                let viewController = ProfileViewController.viewController(account: account, session: sessionP.value()!)
                 sSelf.navigationController!.show(viewController, sender: nil)
             }
         }

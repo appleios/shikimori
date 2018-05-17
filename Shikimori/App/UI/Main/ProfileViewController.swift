@@ -14,15 +14,17 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nicknameLabel: UILabel!
 
+    var session: Session!
     var account: Account!
     var imageLoading: ImageLoading?
+    let sal = ServiceAccessLayer()
 
-
-    static func viewController(account: Account) -> ProfileViewController {
+    static func viewController(account: Account, session: Session) -> ProfileViewController {
         let viewController: ProfileViewController =
                 UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! ProfileViewController
 
         viewController.account = account
+        viewController.session = session
 
         return viewController
     }
@@ -40,6 +42,10 @@ class ProfileViewController: UIViewController {
             profileImageView?.image = image
         }
         self.imageLoading = imageOperation
+
+
+        let userP = sal.userRequest(session: self.session, userID: self.account.user.id)
+        userP.load().then { print($0.stats) }
 
     }
 }
