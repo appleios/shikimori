@@ -13,8 +13,7 @@ class HttpRequest<T>: Request {
     let mapper: HttpMapper<T>
     let errorMapper: HttpMapper<AppError>
 
-    private (set) var promise: Promise<T>?
-    private var task: URLSessionTask?
+    private weak var task: URLSessionTask?
 
     init(urlRequest: URLRequest, mapper: HttpMapper<T>, errorMapper: HttpMapper<AppError>, urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         self.urlRequest = urlRequest
@@ -47,21 +46,12 @@ class HttpRequest<T>: Request {
         let task: URLSessionDataTask = self.urlSession.dataTask(with: self.urlRequest, completionHandler: handler)
         task.resume()
 
-        self.promise = promise
         self.task = task
-        return getPromise()!
+        return promise.chained
     }
 
     func cancel() {
-        self.promise?.cancel()
         self.task?.cancel()
     }
 
-    func getPromise() -> Promise<T>? {
-        guard let promise = promise else { return nil }
-
-        let p = Promise<T>()
-        promise.chain(p)
-        return p
-    }
 }

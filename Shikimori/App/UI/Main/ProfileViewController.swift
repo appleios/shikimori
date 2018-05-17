@@ -30,15 +30,16 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.nicknameLabel.text = self.account.nickname
+        self.nicknameLabel.text = self.account.user.nickname
 
-        if let url = account.avatar {
-            let imageOperation = ImageDownloadOperation(sourceURL: url, filename: "user-avatar")
-            imageOperation.load()
-            imageOperation.imageP.then { [weak profileImageView] (image: UIImage) in
-                profileImageView?.image = image
-            }
-            self.imageLoading = imageOperation
+        let url = account.user.avatar
+
+        let imageOperation = ImageDownloadOperation(sourceURL: url, filename: "user-avatar")
+        imageOperation.load()
+        imageOperation.imageP.then { [weak profileImageView] (image: UIImage) in
+            profileImageView?.image = image
         }
+        self.imageLoading = imageOperation
+
     }
 }

@@ -39,7 +39,10 @@ class AccountMapper: HttpMapper<Account> {
 
     override func decode(_ data: Data) throws -> Account {
         let result = try jsonDecoder.decode(Result.self, from: data)
-        return Account(id: result.id, nickname: result.nickname, avatar: URL(string: result.avatar))
+        return Account(user: User(id: result.id,
+                nickname: result.nickname,
+                avatar: URL(string: result.avatar)!,
+                stats: nil))
     }
 
 }

@@ -6,6 +6,13 @@
 import Foundation
 
 
+struct Account {
+
+    let user: User
+
+}
+
+
 class AccountProvider {
 
     private (set) static var `main` = AccountProvider()
@@ -20,9 +27,7 @@ class AccountProvider {
             fetch(sessionP: sessionP)
         }
 
-        let p = Promise<Account>()
-        accountP!.chain(p)
-        return p
+        return accountP!.chained
     }
 
     private func fetch(sessionP: Promise<Session>) {

@@ -211,3 +211,14 @@ class Promise<T> {
         }
     }
 }
+
+
+extension Promise {
+
+    var chained: Promise<T> {
+        let p = Promise<T>()
+        self.chain(p)
+        return p
+    }
+
+}

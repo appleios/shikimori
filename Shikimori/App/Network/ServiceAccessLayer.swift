@@ -86,4 +86,14 @@ class ServiceAccessLayer {
 
         return factory.getAccount(session: session)
     }
+
+    func userRequest(session: Session, userID: Int) -> HttpRequest<User> {
+        let factory = UserRequestFactory(urlFactory: urlFactory,
+                requestFactory: requestFactory,
+                urlSession: urlSession,
+                jsonDecoder: jsonDecoder)
+
+        return factory.getUser(session: session, userID: userID)
+    }
+
 }

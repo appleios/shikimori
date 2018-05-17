@@ -5,11 +5,9 @@
 
 import Foundation
 
-
 protocol Request {
     associatedtype T
-    func getPromise() -> Promise<T>?
 
-    func load() -> Promise<T>
+    func load() -> Promise<T> // TODO: must be called once
     func cancel()
 }

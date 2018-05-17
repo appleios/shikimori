@@ -64,9 +64,9 @@ class ShikimoriTests: XCTestCase {
         let result: Account = try! mapper.decode(data!)
 
         XCTAssertNotNil(result)
-        XCTAssertEqual(result.id, 12345)
-        XCTAssertEqual(result.nickname, "NICKNAME")
-        XCTAssertEqual(result.avatar, URL(string: avatar))
+        XCTAssertEqual(result.user.id, 12345)
+        XCTAssertEqual(result.user.nickname, "NICKNAME")
+        XCTAssertEqual(result.user.avatar, URL(string: avatar))
     }
 
 }
