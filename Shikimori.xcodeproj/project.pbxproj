@@ -37,6 +37,7 @@
 		1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */; };
 		1EDE2C676B93EEDB77D05B29 /* AuthCodeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2343A58F502E2E4DF0CF /* AuthCodeStorage.swift */; };
 		1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */; };
+		1EDE2D47A4D638F687C17D47 /* CellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE293B342321E4875135D1 /* CellPresenter.swift */; };
 		1EDE2D77D3789584ACF3B915 /* AppErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2AFB26C05C37E75A4E79 /* AppErrorMapper.swift */; };
 		1EDE2D782B57F4CF269516D5 /* ImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE213502EEBB9B95AF14EE /* ImageLoading.swift */; };
 		1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27C0EC545DE688A0BB5F /* Promise.swift */; };
@@ -87,6 +88,7 @@
 		1EDE280DEDC0C3B27B89ADEC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1EDE28416375A369634A8AAB /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1EDE2871A0E913C2BE1BC75A /* ShikimoriTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShikimoriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EDE293B342321E4875135D1 /* CellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPresenter.swift; sourceTree = "<group>"; };
 		1EDE29DD7C2309485E49D68B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		1EDE2AFB26C05C37E75A4E79 /* AppErrorMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppErrorMapper.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				C43081192094C057000147F1 /* Profile.storyboard */,
 				C430811B2094C06A000147F1 /* ProfileViewController.swift */,
 				1EDE2FA96A39398AEC283149 /* MainViewController.swift */,
+				1EDE293B342321E4875135D1 /* CellPresenter.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				1EDE2270CA95717237A9E45D /* Anime.swift in Sources */,
 				1EDE206AF9426FEE2D4A6E96 /* UserRequestFactory.swift in Sources */,
 				1EDE27A681A730AADC741D03 /* NetworkRequestResultMapper.swift in Sources */,
+				1EDE2D47A4D638F687C17D47 /* CellPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
