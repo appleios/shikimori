@@ -241,7 +241,7 @@ class UsersEndpointTests: XCTestCase {
         }
         """.data(using: .utf8)
 
-        let mapper = UserByIDRequestResultMapper()
+        let mapper = UserRequestResultMapper()
         let result: User = try! mapper.mapToDomain(data!)
 
         XCTAssertNotNil(result)

@@ -41,7 +41,7 @@ class UserByIDRequestFactory: EndpointRequestFactory {
                 accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
-                mapper: UserByIDRequestResultMapper(),
+                mapper: UserRequestResultMapper(),
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
@@ -49,7 +49,7 @@ class UserByIDRequestFactory: EndpointRequestFactory {
 }
 
 
-class UserByIDRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, User> {
+class UserRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, User> {
 
     init() {
         super.init(converter: UserSalToDomainConverter())
