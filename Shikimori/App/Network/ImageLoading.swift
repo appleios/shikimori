@@ -19,7 +19,7 @@ extension ImageLoading {
 
     var image: UIImage? {
         if imageP.isFulfilled() {
-            return imageP.value()!
+            return imageP.value!
         }
         return self.placeholder
     }

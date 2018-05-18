@@ -40,7 +40,7 @@ class MainViewController: UIViewController {
             guard let sSelf = self else { return }
 
             DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 1000)) {
-                let viewController = ProfileViewController.viewController(account: account, session: sessionP.value()!)
+                let viewController = ProfileViewController.viewController(account: account, session: sessionP.value!)
                 sSelf.navigationController!.show(viewController, sender: nil)
             }
         }

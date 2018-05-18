@@ -115,7 +115,7 @@ class ProfileViewController: UITableViewController {
         }
     }
 
-    private func createPresenters() -> [CellPresenter] {
+    private func buildPresenters() -> [CellPresenter] {
 
         let headerCellPresenter = ProfileHeaderCellPresenter(avatar: avatar,
                 nickname: self.account.user.nickname)
@@ -125,7 +125,7 @@ class ProfileViewController: UITableViewController {
         ]
 
         if let userP = self.userP, userP.isResolved() {
-            let user = userP.value()!
+            let user = userP.value!
             if let stats = user.stats {
                 if let anime = stats.anime {
                     cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Watching", comment: ""),
@@ -137,6 +137,7 @@ class ProfileViewController: UITableViewController {
                 }
             }
         }
+
         return cellPresenters
     }
 
@@ -146,7 +147,7 @@ class ProfileViewController: UITableViewController {
             return
         }
 
-        self.presenters = createPresenters()
+        self.presenters = buildPresenters()
         self.tableView.reloadData()
     }
 

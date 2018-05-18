@@ -61,14 +61,14 @@ class Promise<T> {
         }
     }
 
-    func value() -> T? { // TODO var
+    var value: T? {
         switch state {
         case let .fulfilled(value): return value
         default: return nil
         }
     }
 
-    func error() -> Error? { // TODO var
+    var error: Error? {
         switch state {
         case let .error(error): return error
         default: return nil
