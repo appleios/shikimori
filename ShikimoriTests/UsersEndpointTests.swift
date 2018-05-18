@@ -11,7 +11,7 @@ import Foundation
 @testable import Shikimori
 
 
-class UsersEndpointTests: XCTestCase {
+class UserRequestTests: XCTestCase {
 
     func testUserById() {
         let avatar = "https://host.com/avatar"

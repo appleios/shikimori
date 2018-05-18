@@ -19,6 +19,14 @@ class RequestFactory {
         case POST = "POST"
     }
 
+    func get(_ url: URL?, accessToken: String? = nil) -> URLRequest {
+        return request(.GET, url: url, accessToken: accessToken)
+    }
+
+    func post(_ url: URL?, accessToken: String? = nil) -> URLRequest {
+        return request(.POST, url: url, accessToken: accessToken)
+    }
+
     func request(_ method: HTTPMethod, url: URL?, accessToken: String? = nil) -> URLRequest {
         var r = URLRequest(url: url!)
         r.httpMethod = method.rawValue
@@ -29,4 +37,5 @@ class RequestFactory {
         }
         return r
     }
+
 }

@@ -10,8 +10,7 @@ class AccountRequestFactory: EndpointRequestFactory {
 
     func getAccount(session: Session) -> HttpRequest<Account> {
 
-        let request: URLRequest = requestFactory.request(.GET,
-                url: urlBuilder.url(withPath: "/api/users/whoami"),
+        let request: URLRequest = requestFactory.get(urlBuilder.url(withPath: "/api/users/whoami"),
                 accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,

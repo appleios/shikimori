@@ -11,7 +11,7 @@ import Foundation
 @testable import Shikimori
 
 
-class ShikimoriTests: XCTestCase {
+class TokenRequestTests: XCTestCase {
 
     func testUserTokenMapper() {
         let data = """

@@ -124,13 +124,13 @@ class SessionProvider {
     }
 
     private func loadToken(authCode: String) -> Promise<SessionToken> {
-        let request = service.sessionTokenRequest(authCode: authCode)
+        let request = service.getSessionToken(authCode: authCode)
         self.request = request
         return try! request.load()
     }
 
     private func refreshToken(refreshToken: String) -> Promise<SessionToken> {
-        let request = service.sessionRefreshTokenRequest(refreshToken: refreshToken)
+        let request = service.getSessionRefreshToken(refreshToken: refreshToken)
         self.request = request
         return try! request.load()
     }

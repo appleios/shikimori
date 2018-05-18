@@ -32,12 +32,11 @@ struct UserResult: Codable {
 }
 
 
-class UserByIDRequestFactory: EndpointRequestFactory {
+class UserRequestFactory: EndpointRequestFactory {
 
     func getUser(byID userID: Int, session: Session) -> HttpRequest<User> {
 
-        let request: URLRequest = requestFactory.request(.GET,
-                url: urlBuilder.url(withPath: "/api/users/\(userID)"),
+        let request: URLRequest = requestFactory.get(urlBuilder.url(withPath: "/api/users/\(userID)"),
                 accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
@@ -60,7 +59,7 @@ class UserRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Use
 fileprivate class UserSalToDomainConverter: SalToDomainConverter<UserResult, User> {
 
     override func convert(_ result: UserResult) throws -> User {
-        let stats = result.stats != nil ? self.userStatsFromResult(result.stats!) : nil // TODO [investigate] there should exist more swift way to write this kind of expressions
+        let stats = userStatsFromResult(result.stats) // TODO [investigate] there should exist more swift way to write this kind of expressions
 
         return User(id: result.id,
                 nickname: result.nickname,
@@ -68,18 +67,24 @@ fileprivate class UserSalToDomainConverter: SalToDomainConverter<UserResult, Use
                 stats: stats)
     }
 
-    private func userStatsFromResult(_ stats: UserResult.StatsResult) -> UserStatistics? {
+    private func userStatsFromResult(_ stats: UserResult.StatsResult?) -> UserStatistics? {
+        guard let stats = stats else {
+            return nil
+        }
         guard let result: UserResult.StatsResult.StatusesResult = stats.statuses else {
             return  nil
         }
         return UserStatistics(
-                anime: result.anime != nil ? userStatisticsFromStatusesResult(result.anime!) : nil,
-                manga: result.manga != nil ? userStatisticsFromStatusesResult(result.manga!) : nil)
+                anime: userStatisticsFromStatusesResult(result.anime),
+                manga: userStatisticsFromStatusesResult(result.manga))
     }
 
 
     typealias StatResult = UserResult.StatsResult.StatusesResult.StatResult
-    private func userStatisticsFromStatusesResult(_ statuses: [StatResult]) -> UserStatistics.Statistics? {
+    private func userStatisticsFromStatusesResult(_ statuses: [StatResult]?) -> UserStatistics.Statistics? {
+        guard let statuses = statuses else {
+            return nil
+        }
         return UserStatistics.Statistics(
                 planned: stat("planned", fromStatsDescription: statuses),
                 watching: stat("watching", fromStatsDescription: statuses),

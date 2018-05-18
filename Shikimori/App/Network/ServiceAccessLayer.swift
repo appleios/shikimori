@@ -47,20 +47,19 @@ class ServiceAccessLayer {
         self.urlSession = URLSession(configuration: URLSessionConfiguration.default)
     }
 
-    func authRequest() -> URLRequest {
+    func getAuth() -> URLRequest {
         let config = appConfig
 
-        var components = urlFactory.components(withPath: "/oauth/authorize")
-        components.queryItems = [
+        let url = urlFactory.url(withPath: "/oauth/authorize", queryItems: [
             URLQueryItem(name: "client_id", value: config.clientID),
             URLQueryItem(name: "redirect_uri", value: config.redirectURI),
             URLQueryItem(name: "response_type", value: "code"),
-        ]
+        ])
 
-        return requestFactory.request(.GET, url: components.url!)
+        return requestFactory.get(url)
     }
 
-    func sessionTokenRequest(authCode: String) -> HttpRequest<SessionToken> {
+    func getSessionToken(authCode: String) -> HttpRequest<SessionToken> {
         let factory = TokenRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,
@@ -69,7 +68,7 @@ class ServiceAccessLayer {
         return factory.getTokenRequest(authConfig: appConfig, authCode: authCode)
     }
 
-    func sessionRefreshTokenRequest(refreshToken: String) -> HttpRequest<SessionToken> {
+    func getSessionRefreshToken(refreshToken: String) -> HttpRequest<SessionToken> {
         let factory = TokenRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,
@@ -78,7 +77,7 @@ class ServiceAccessLayer {
         return factory.refreshTokenRequest(authConfig: appConfig, refreshToken: refreshToken)
     }
 
-    func accountRequest(session: Session) -> HttpRequest<Account> {
+    func getAccount(session: Session) -> HttpRequest<Account> {
         let factory = AccountRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,
@@ -87,8 +86,8 @@ class ServiceAccessLayer {
         return factory.getAccount(session: session)
     }
 
-    func userRequest(session: Session, userID: Int) -> HttpRequest<User> {
-        let factory = UserByIDRequestFactory(urlBuilder: urlFactory,
+    func getUser(byID userID: Int, session: Session) -> HttpRequest<User> {
+        let factory = UserRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,
                 jsonDecoder: jsonDecoder)

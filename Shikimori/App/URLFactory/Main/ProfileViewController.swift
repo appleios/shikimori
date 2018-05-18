@@ -44,7 +44,7 @@ class ProfileViewController: UIViewController {
         }
 
 
-        let userP = sal.userRequest(session: self.session, userID: self.account.user.id)
+        let userP = sal.getUser(byID: self.account.user.id, session: self.session)
         do {
             try userP.load().then { print($0.stats) }
         } catch {

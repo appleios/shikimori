@@ -51,7 +51,7 @@ class AccountProvider {
     }
 
     private func loadAccount(session: Session) -> Promise<Account> {
-        let request = service.accountRequest(session: session)
+        let request = service.getAccount(session: session)
         self.request = request
         return try! request.load()
     }

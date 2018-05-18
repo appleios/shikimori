@@ -18,7 +18,7 @@ struct UserTokenResult: Codable {
 class TokenRequestFactory: EndpointRequestFactory {
 
     func getTokenRequest(authConfig config: AppConfig, authCode: String) -> HttpRequest<SessionToken> {
-        return self.requestWithForm(form: [
+        return requestWithForm(form: [
             "grant_type": "authorization_code",
             "code": authCode,
             "client_id": config.clientID,
@@ -28,7 +28,7 @@ class TokenRequestFactory: EndpointRequestFactory {
     }
 
     func refreshTokenRequest(authConfig config: AppConfig, refreshToken: String) -> HttpRequest<SessionToken> {
-        return self.requestWithForm(form: [
+        return requestWithForm(form: [
             "grant_type": "refresh_token",
             "refresh_token": refreshToken,
             "client_id": config.clientID,
@@ -38,8 +38,7 @@ class TokenRequestFactory: EndpointRequestFactory {
     }
 
     private func requestWithForm(form: [String:String]) -> HttpRequest<SessionToken> {
-        let components = urlBuilder.components(withPath: "/oauth/token")
-        var request: URLRequest = requestFactory.request(.POST, url: components.url)
+        var request: URLRequest = requestFactory.post(urlBuilder.url(withPath: "/oauth/token"))
 
         let boundary = "BOUNDARY"
         let formEncoder = FormEncoder(boundary: boundary)
@@ -53,7 +52,7 @@ class TokenRequestFactory: EndpointRequestFactory {
                 urlSession: urlSession)
     }
 
-    internal struct FormEncoder {
+    private struct FormEncoder {
 
         let boundary: String
 

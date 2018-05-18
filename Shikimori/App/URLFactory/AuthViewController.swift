@@ -43,7 +43,7 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         webView.navigationDelegate = self
         self.webView = webView
 
-        let request = service.authRequest()
+        let request = service.getAuth()
         webView.load(request)
 
         progressView.progress = 0
