@@ -6,7 +6,7 @@
 import Foundation
 
 
-class AppErrorMapper {
+class AppErrorMapper { // TODO decompose
 
     struct Result: Codable {
         var error: String

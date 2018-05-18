@@ -10,7 +10,7 @@ struct UserResult: Codable {
 
     var id: Int
     var nickname: String
-    var avatar: String
+    var avatar: String?
 
     struct StatsResult: Codable {
 
@@ -32,34 +32,39 @@ struct UserResult: Codable {
 }
 
 
-class UserRequestFactory: EndpointRequestFactory {
+class UserByIDRequestFactory: EndpointRequestFactory {
 
-    func getUser(session: Session, userID: Int) -> HttpRequest<User> {
+    func getUser(byID userID: Int, session: Session) -> HttpRequest<User> {
 
-        let components = urlBuilder.components(withPath: "/api/users/\(userID)")
-        let request: URLRequest = requestFactory.request(.GET, url: components.url, accessToken: session.token.accessToken)
+        let request: URLRequest = requestFactory.request(.GET,
+                url: urlBuilder.url(withPath: "/api/users/\(userID)"),
+                accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
-                mapper: UserRequestFactory.mapper,
+                mapper: UserByIDRequestResultMapper(),
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
-    }
-
-    static internal var mapper: NetworkRequestResultMapper<User> {
-        return DefaultNetworkRequestParser(converter: UserSalToDomainConverter())
     }
 
 }
 
 
-class UserSalToDomainConverter: SalToDomainConverter<UserResult, User> {
+class UserByIDRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, User> {
+
+    init() {
+        super.init(decoder: JsonResultDecoder(), converter: UserSalToDomainConverter())
+    }
+}
+
+
+fileprivate class UserSalToDomainConverter: SalToDomainConverter<UserResult, User> {
 
     override func convert(_ result: UserResult) throws -> User {
         let stats = result.stats != nil ? self.userStatsFromResult(result.stats!) : nil // TODO [investigate] there should exist more swift way to write this kind of expressions
 
         return User(id: result.id,
                 nickname: result.nickname,
-                avatar: URL(string: result.avatar)!,
+                avatar: result.avatar != nil ? URL(string: result.avatar!) : nil,
                 stats: stats)
     }
 

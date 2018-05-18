@@ -48,21 +48,10 @@ class TokenRequestFactory: EndpointRequestFactory {
         request.httpBody = body.data(using: .utf8)
 
         return HttpRequest(urlRequest: request,
-                mapper: TokenRequestFactory.mapper,
+                mapper: TokenRequestResultMapper(),
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
-
-    static internal var mapper: NetworkRequestResultMapper<SessionToken> {
-        return DefaultNetworkRequestParser<UserTokenResult, SessionToken>({ (result: UserTokenResult) in
-            return SessionToken(accessToken: result.accessToken,
-                    refreshToken: result.refreshToken,
-                    createdAt: result.createdAt,
-                    expireDate: result.createdAt + TimeInterval(result.expiresIn),
-                    tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
-        })
-    }
-
 
     internal struct FormEncoder {
 
@@ -80,4 +69,17 @@ class TokenRequestFactory: EndpointRequestFactory {
         }
     }
 
+}
+
+class TokenRequestResultMapper: DefaultNetworkRequestResultMapper<UserTokenResult, SessionToken> {
+
+    init() {
+        super.init(decoder: JsonResultDecoder(), converter: ClosureSalToDomainConverter({ (result: UserTokenResult) in
+            return SessionToken(accessToken: result.accessToken,
+                    refreshToken: result.refreshToken,
+                    createdAt: result.createdAt,
+                    expireDate: result.createdAt + TimeInterval(result.expiresIn),
+                    tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
+        }))
+    }
 }

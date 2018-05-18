@@ -14,8 +14,6 @@ import Foundation
 class UsersEndpointTests: XCTestCase {
 
     func testUserById() {
-        let mapper = UserRequestFactory.mapper
-
         let avatar = "https://host.com/avatar"
         let anime_planned = 1
         let anime_watching = 2
@@ -243,6 +241,7 @@ class UsersEndpointTests: XCTestCase {
         }
         """.data(using: .utf8)
 
+        let mapper = UserByIDRequestResultMapper()
         let result: User = try! mapper.mapToDomain(data!)
 
         XCTAssertNotNil(result)

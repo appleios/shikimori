@@ -14,21 +14,25 @@ class AccountRequestFactory: EndpointRequestFactory {
         let request: URLRequest = requestFactory.request(.GET, url: urlBuilder.url, accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
-                mapper: AccountRequestFactory.mapper,
+                mapper: AccountRequestResultMapper(),
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
 
-    static internal var mapper: NetworkRequestResultMapper<Account> {
-        // DefaultNetworkRequestParser - should obtain this object from single entry among all points
-        return DefaultNetworkRequestParser<UserResult, Account>({ (result: UserResult) in
+}
+
+
+class AccountRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Account> {
+
+    init() {
+        super.init(decoder: JsonResultDecoder(), converter: ClosureSalToDomainConverter({ (result: UserResult) in
             let user = User(id: result.id,
                     nickname: result.nickname,
-                    avatar: URL(string: result.avatar),
+                    avatar: result.avatar != nil ? URL(string: result.avatar!) : nil,
                     stats: nil)
 
             return Account(user: user)
-        })
+        }))
     }
 
 }

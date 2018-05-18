@@ -8,7 +8,7 @@ import Foundation
 
 class URLBuilder {
 
-    func url(withPath path: String, queryItems: [URLQueryItem]?) -> URL? {
+    func url(withPath path: String, queryItems: [URLQueryItem]? = nil) -> URL? {
         var comp: URLComponents = components(withPath: path)
         comp.queryItems = queryItems
         return comp.url

@@ -47,7 +47,7 @@ class SalToDomainConverter<SalType, DomainType> {
 }
 
 
-class DefaultNetworkRequestParser<SalType, DomainType>: NetworkRequestResultMapper<DomainType>
+class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResultMapper<DomainType>
         where SalType: Decodable
 {
 
@@ -83,7 +83,7 @@ class DefaultNetworkRequestParser<SalType, DomainType>: NetworkRequestResultMapp
     }
 
     typealias Mapping = (_ result: SalType) -> DomainType
-    private class ClosureSalToDomainConverter: SalToDomainConverter<SalType, DomainType> {
+    internal class ClosureSalToDomainConverter: SalToDomainConverter<SalType, DomainType> {
 
         var mapping: Mapping
 

@@ -14,9 +14,6 @@ import Foundation
 class ShikimoriTests: XCTestCase {
 
     func testUserTokenMapper() {
-
-        let mapper = TokenRequestFactory.mapper
-
         let data = """
         {
         "access_token":"ACCESS_TOKEN",
@@ -26,6 +23,8 @@ class ShikimoriTests: XCTestCase {
         "created_at":1524749533
         }
         """.data(using: .utf8)
+
+        let mapper = TokenRequestResultMapper()
         let result: SessionToken = try! mapper.mapToDomain(data!)
 
         XCTAssertNotNil(result)
@@ -35,37 +34,19 @@ class ShikimoriTests: XCTestCase {
     }
 
     func testWhoami() {
-        let mapper = AccountRequestFactory.mapper
-
-        let avatar = "https://host.com/avatar"
         let data = """
         {
-            "avatar": \"\(avatar)\",
-            "birth_on": null,
             "id": 12345,
-            "image": {
-                "x148": "",
-                "x16":  "",
-                "x160": "",
-                "x32":  "",
-                "x48":  "",
-                "x64":  "",
-                "x80":  ""
-            },
-            "last_online_at": "2018-04-27T04:31:42.014+03:00",
-            "locale": "ru",
-            "name": null,
             "nickname": "NICKNAME",
-            "sex": null,
-            "website": null
+            "avatar": null
         }
         """.data(using: .utf8)
-        let result: Account = try! mapper.mapToDomain(data!)
+
+        let mapper = AccountRequestResultMapper()
+        let result: Account = try mapper.mapToDomain(data!)
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.user.id, 12345)
-        XCTAssertEqual(result.user.nickname, "NICKNAME")
-        XCTAssertEqual(result.user.avatar, URL(string: avatar))
     }
 
 }
