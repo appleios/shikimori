@@ -150,7 +150,7 @@
 		1EDE24A8C82F7DBE8EF20FA8 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				1EDE29FD516FEEEC7A299CFD /* URLFactory */,
+				1EDE29FD516FEEEC7A299CFD /* UI */,
 				1EDE2D6B874CB7479F397F58 /* Network */,
 			);
 			path = App;
@@ -209,7 +209,7 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
-		1EDE29FD516FEEEC7A299CFD /* URLFactory */ = {
+		1EDE29FD516FEEEC7A299CFD /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				1EDE2EF3C2330CFB0807CD9F /* Launch */,
@@ -218,7 +218,7 @@
 				1EDE25C0DF16203853A9C48B /* Helpers */,
 				1EDE2D280E5D1FFE58D74122 /* Utils */,
 			);
-			path = URLFactory;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		1EDE2BB78788BB97E74109F8 /* Domain */ = {
