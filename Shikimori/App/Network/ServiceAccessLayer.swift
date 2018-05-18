@@ -95,4 +95,20 @@ class ServiceAccessLayer {
         return factory.getUser(byID: userID, session: session)
     }
 
+    func getUserRates(byID userID: Int,
+                      status: UserRatesStatus,
+                      targetType: UserRatesTargetType,
+                      session: Session) -> HttpRequest<[UserRates]>
+    {
+        let factory = UserRatesRequestFactory(urlBuilder: urlFactory,
+                requestFactory: requestFactory,
+                urlSession: urlSession,
+                jsonDecoder: jsonDecoder)
+
+        return factory.getUserRates(byID: userID,
+                status: status,
+                targetType: targetType,
+                session: session)
+    }
+
 }

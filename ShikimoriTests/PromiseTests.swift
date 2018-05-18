@@ -84,7 +84,7 @@ class PromiseTests: XCTestCase {
         p.fulfill(10)
         p.fulfill(20)
 
-        XCTAssertEqual(p.value(), 10)
+        XCTAssertEqual(p.value, 10)
     }
 
     func testFulfillAndRejectDontChangeValue() {
@@ -92,8 +92,8 @@ class PromiseTests: XCTestCase {
         p.fulfill(10)
         p.reject(TestError())
 
-        XCTAssertEqual(p.value(), 10)
-        XCTAssertNil(p.error())
+        XCTAssertEqual(p.value, 10)
+        XCTAssertNil(p.error)
     }
 
     func testRejectAndFulfillDontChangeValue() {
@@ -103,8 +103,8 @@ class PromiseTests: XCTestCase {
         p.reject(error)
         p.fulfill(10)
 
-        XCTAssertEqual(p.error() as! TestError, error)
-        XCTAssertNil(p.value())
+        XCTAssertEqual(p.error as! TestError, error)
+        XCTAssertNil(p.value)
     }
 
     // TODO test thread safety
