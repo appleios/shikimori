@@ -8,13 +8,13 @@ import Foundation
 
 class EndpointRequestFactory {
 
-    let urlFactory: URLFactory
+    let urlBuilder: URLBuilder
     let requestFactory: RequestFactory
     let urlSession: URLSession
     var jsonDecoder: JSONDecoder
 
-    init(urlFactory: URLFactory, requestFactory: RequestFactory, urlSession: URLSession, jsonDecoder: JSONDecoder) {
-        self.urlFactory = urlFactory
+    init(urlBuilder: URLBuilder, requestFactory: RequestFactory, urlSession: URLSession, jsonDecoder: JSONDecoder) {
+        self.urlBuilder = urlBuilder
         self.requestFactory = requestFactory
         self.urlSession = urlSession
         self.jsonDecoder = jsonDecoder
@@ -25,7 +25,7 @@ class EndpointRequestFactory {
 
 class ServiceAccessLayer {
 
-    private let urlFactory = URLFactory(host: "shikimori.org")
+    private let urlFactory = URLBuilder(host: "shikimori.org")
 
     private let appConfigProvider: AppConfigProvider
     private let appConfig: AppConfig
@@ -61,7 +61,7 @@ class ServiceAccessLayer {
     }
 
     func sessionTokenRequest(authCode: String) -> HttpRequest<SessionToken> {
-        let factory = TokenRequestFactory(urlFactory: urlFactory,
+        let factory = TokenRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,
                 jsonDecoder: jsonDecoder)
@@ -70,7 +70,7 @@ class ServiceAccessLayer {
     }
 
     func sessionRefreshTokenRequest(refreshToken: String) -> HttpRequest<SessionToken> {
-        let factory = TokenRequestFactory(urlFactory: urlFactory,
+        let factory = TokenRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,
                 jsonDecoder: jsonDecoder)
@@ -79,7 +79,7 @@ class ServiceAccessLayer {
     }
 
     func accountRequest(session: Session) -> HttpRequest<Account> {
-        let factory = AccountRequestFactory(urlFactory: urlFactory,
+        let factory = AccountRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,
                 jsonDecoder: jsonDecoder)
@@ -88,7 +88,7 @@ class ServiceAccessLayer {
     }
 
     func userRequest(session: Session, userID: Int) -> HttpRequest<User> {
-        let factory = UserRequestFactory(urlFactory: urlFactory,
+        let factory = UserRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,
                 jsonDecoder: jsonDecoder)

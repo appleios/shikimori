@@ -6,6 +6,15 @@
 import Foundation
 
 
+struct UserTokenResult: Codable {
+    var accessToken: String
+    var refreshToken: String
+    var createdAt: Date
+    var expiresIn: Int
+    var tokenType: String
+}
+
+
 class TokenRequestFactory: EndpointRequestFactory {
 
     func getTokenRequest(authConfig config: AppConfig, authCode: String) -> HttpRequest<SessionToken> {
@@ -29,7 +38,7 @@ class TokenRequestFactory: EndpointRequestFactory {
     }
 
     private func requestWithForm(form: [String:String]) -> HttpRequest<SessionToken> {
-        let components = urlFactory.components(withPath: "/oauth/token")
+        let components = urlBuilder.components(withPath: "/oauth/token")
         var request: URLRequest = requestFactory.request(.POST, url: components.url)
 
         let boundary = "BOUNDARY"
@@ -38,8 +47,16 @@ class TokenRequestFactory: EndpointRequestFactory {
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.httpBody = body.data(using: .utf8)
 
+        let mapper = DefaultNetworkRequestParser<UserTokenResult, SessionToken>({ (result: UserTokenResult) in
+            return SessionToken(accessToken: result.accessToken,
+                    refreshToken: result.refreshToken,
+                    createdAt: result.createdAt,
+                    expireDate: result.createdAt + TimeInterval(result.expiresIn),
+                    tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
+        })
+
         return HttpRequest(urlRequest: request,
-                mapper: UserTokenMapper(jsonDecoder: jsonDecoder),
+                mapper: mapper,
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
@@ -59,35 +76,6 @@ class TokenRequestFactory: EndpointRequestFactory {
             body.append("--\(boundary)--\r\n")
             return body
         }
-    }
-
-}
-
-
-class UserTokenMapper: HttpMapper<SessionToken> {
-
-    struct Result: Codable {
-        var accessToken: String
-        var refreshToken: String
-        var createdAt: Date
-        var expiresIn: Int
-        var tokenType: String
-    }
-
-    let jsonDecoder: JSONDecoder
-
-    init(jsonDecoder: JSONDecoder) {
-        self.jsonDecoder = jsonDecoder
-        super.init()
-    }
-
-    override func decode(_ data: Data) throws -> SessionToken {
-        let result = try jsonDecoder.decode(Result.self, from: data)
-        return SessionToken(accessToken: result.accessToken,
-                refreshToken: result.refreshToken,
-                createdAt: result.createdAt,
-                expireDate: result.createdAt + TimeInterval(result.expiresIn),
-                tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
     }
 
 }

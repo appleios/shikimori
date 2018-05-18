@@ -222,3 +222,5 @@ extension Promise {
     }
 
 }
+
+// TODO when([ p1, p2 ])

@@ -10,7 +10,7 @@ struct User {
 
     let id: Int
     let nickname: String
-    let avatar: URL
+    let avatar: URL?
     let stats: UserStatistics?
 
 }

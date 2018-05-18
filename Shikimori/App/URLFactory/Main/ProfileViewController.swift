@@ -34,18 +34,22 @@ class ProfileViewController: UIViewController {
 
         self.nicknameLabel.text = self.account.user.nickname
 
-        let url = account.user.avatar
-
-        let imageOperation = ImageDownloadOperation(sourceURL: url, filename: "user-avatar")
-        imageOperation.load()
-        imageOperation.imageP.then { [weak profileImageView] (image: UIImage) in
-            profileImageView?.image = image
+        if let url = account.user.avatar {
+            let imageOperation = ImageDownloadOperation(sourceURL: url, filename: "user-avatar")
+            imageOperation.load()
+            imageOperation.imageP.then { [weak profileImageView] (image: UIImage) in
+                profileImageView?.image = image
+            }
+            self.imageLoading = imageOperation
         }
-        self.imageLoading = imageOperation
 
 
         let userP = sal.userRequest(session: self.session, userID: self.account.user.id)
-        userP.load().then { print($0.stats) }
+        do {
+            try userP.load().then { print($0.stats) }
+        } catch {
+            print("unexpected error: \(error)")
+        }
 
     }
 }

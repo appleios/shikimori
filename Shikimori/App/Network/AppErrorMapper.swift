@@ -6,7 +6,7 @@
 import Foundation
 
 
-class AppErrorMapper: HttpMapper<AppError> {
+class AppErrorMapper {
 
     struct Result: Codable {
         var error: String
@@ -17,10 +17,9 @@ class AppErrorMapper: HttpMapper<AppError> {
 
     init(jsonDecoder: JSONDecoder) {
         self.jsonDecoder = jsonDecoder
-        super.init()
     }
 
-    override func decode(_ data: Data) throws -> AppError {
+    func decode(_ data: Data) throws -> AppError {
         let result = try jsonDecoder.decode(Result.self, from: data)
 
         switch result.error {

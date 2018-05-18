@@ -6,24 +6,33 @@
 import Foundation
 
 
-class HttpRequest<T>: Request {
+class HttpRequest<DomainType>: NetworkRequest {
 
     let urlRequest: URLRequest
     let urlSession: URLSession
-    let mapper: HttpMapper<T>
-    let errorMapper: HttpMapper<AppError>
+    let mapper: NetworkRequestResultMapper<DomainType>
+    let errorMapper: AppErrorMapper
 
+    private var promise: Promise<DomainType>?
     private weak var task: URLSessionTask?
 
-    init(urlRequest: URLRequest, mapper: HttpMapper<T>, errorMapper: HttpMapper<AppError>, urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
+    init(urlRequest: URLRequest,
+         mapper: NetworkRequestResultMapper<DomainType>,
+         errorMapper: AppErrorMapper,
+         urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default))
+    {
         self.urlRequest = urlRequest
         self.mapper = mapper
         self.errorMapper = errorMapper
         self.urlSession = urlSession
     }
 
-    func load() -> Promise<T> {
-        let promise = Promise<T>()
+    func load() throws -> Promise<DomainType> {
+        guard !isLoading() else {
+            throw NetworkRequestError.alreadyLoading
+        }
+
+        let promise = Promise<DomainType>()
         let handler = { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error = error {
                 let appError = AppError.network(underlyingError: error)
@@ -31,7 +40,7 @@ class HttpRequest<T>: Request {
                 return
             }
             if let data = data {
-                if let result: T = try? self.mapper.decode(data) {
+                if let result: DomainType = try? self.mapper.mapToDomain(data) {
                     promise.fulfill(result)
                     return
                 }
@@ -46,12 +55,20 @@ class HttpRequest<T>: Request {
         let task: URLSessionDataTask = self.urlSession.dataTask(with: self.urlRequest, completionHandler: handler)
         task.resume()
 
+        self.promise = promise
         self.task = task
         return promise.chained
+    }
+
+    func isLoading() -> Bool {
+        return self.task != nil
     }
 
     func cancel() {
         self.task?.cancel()
     }
 
+    func getResult() -> Promise<DomainType>? {
+        return self.promise?.chained
+    }
 }
