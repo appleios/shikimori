@@ -52,7 +52,7 @@ class UserByIDRequestFactory: EndpointRequestFactory {
 class UserByIDRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, User> {
 
     init() {
-        super.init(decoder: JsonResultDecoder(), converter: UserSalToDomainConverter())
+        super.init(converter: UserSalToDomainConverter())
     }
 }
 

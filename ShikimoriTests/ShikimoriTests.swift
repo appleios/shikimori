@@ -43,7 +43,7 @@ class ShikimoriTests: XCTestCase {
         """.data(using: .utf8)
 
         let mapper = AccountRequestResultMapper()
-        let result: Account = try mapper.mapToDomain(data!)
+        let result: Account = try! mapper.mapToDomain(data!)
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.user.id, 12345)

@@ -74,7 +74,7 @@ class TokenRequestFactory: EndpointRequestFactory {
 class TokenRequestResultMapper: DefaultNetworkRequestResultMapper<UserTokenResult, SessionToken> {
 
     init() {
-        super.init(decoder: JsonResultDecoder(), converter: ClosureSalToDomainConverter({ (result: UserTokenResult) in
+        super.init(converter: ClosureSalToDomainConverter({ (result: UserTokenResult) in
             return SessionToken(accessToken: result.accessToken,
                     refreshToken: result.refreshToken,
                     createdAt: result.createdAt,

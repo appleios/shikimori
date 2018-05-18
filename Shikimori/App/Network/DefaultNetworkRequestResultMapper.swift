@@ -51,19 +51,10 @@ class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResu
         where SalType: Decodable
 {
 
-    let decoder: NetworkDataDecoder<SalType>
-    let converter: SalToDomainConverter<SalType, DomainType>
-
-    init(decoder: NetworkDataDecoder<SalType>, converter: SalToDomainConverter<SalType, DomainType>) {
-        self.decoder = decoder
-        self.converter = converter
-    }
-
-
     class JsonResultDecoder: NetworkDataDecoder<SalType> {
 
         // TODO get JSONDecoder from single entry among all points
-        static var defaultDecoder: JSONDecoder {
+        static var defaultJSONDecoder: JSONDecoder {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .secondsSince1970
             decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -72,7 +63,7 @@ class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResu
 
         var jsonDecoder: JSONDecoder
 
-        init(jsonDecoder: JSONDecoder = defaultDecoder) {
+        init(jsonDecoder: JSONDecoder = defaultJSONDecoder) {
             self.jsonDecoder = jsonDecoder
         }
 
@@ -97,14 +88,15 @@ class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResu
 
     }
 
-    convenience init(_ mapping: @escaping Mapping) {
-        self.init(converter: ClosureSalToDomainConverter(mapping))
-    }
+    let decoder: NetworkDataDecoder<SalType>
+    let converter: SalToDomainConverter<SalType, DomainType>
 
-    convenience init(converter: SalToDomainConverter<SalType, DomainType>) {
-        self.init(decoder: JsonResultDecoder(), converter: converter)
+    init(converter: SalToDomainConverter<SalType, DomainType>,
+         decoder: NetworkDataDecoder<SalType> = JsonResultDecoder())
+    {
+        self.decoder = decoder
+        self.converter = converter
     }
-
 
     override func mapToDomain(_ data: Data) throws -> DomainType {
         return try convert(try decode(data))

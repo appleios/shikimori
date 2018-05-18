@@ -31,7 +31,7 @@
 		1EDE2801A2E785CBCE9EDD74 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE24B781BA8B33A9432203 /* SessionProvider.swift */; };
 		1EDE2801C957030F3A9DB048 /* Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C90B87BA6BFA03E2435 /* Autolayout.swift */; };
 		1EDE280F67038A4D91DB26FB /* AccountRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE219DA326C87EF9124994 /* AccountRequestFactory.swift */; };
-		1EDE287D67C46D2298E6F658 /* DefaultNetworkRequestParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE266FDE4D1950834CE0B3 /* DefaultNetworkRequestParser.swift */; };
+		1EDE287D67C46D2298E6F658 /* DefaultNetworkRequestResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE266FDE4D1950834CE0B3 /* DefaultNetworkRequestResultMapper.swift */; };
 		1EDE289B3D6FFF02C7577AB4 /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21648314F4D8463F4E19 /* RequestFactory.swift */; };
 		1EDE28A4CC97C35A56552F26 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2FA96A39398AEC283149 /* MainViewController.swift */; };
 		1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */; };
@@ -78,7 +78,7 @@
 		1EDE254604A38BF421AD823B /* NetworkRequestResultMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestResultMapper.swift; sourceTree = "<group>"; };
 		1EDE257888D926144B4EDB29 /* Anime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Anime.swift; sourceTree = "<group>"; };
 		1EDE261B412147EE76277602 /* AppConfigProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfigProvider.swift; sourceTree = "<group>"; };
-		1EDE266FDE4D1950834CE0B3 /* DefaultNetworkRequestParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultNetworkRequestParser.swift; sourceTree = "<group>"; };
+		1EDE266FDE4D1950834CE0B3 /* DefaultNetworkRequestResultMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultNetworkRequestResultMapper.swift; sourceTree = "<group>"; };
 		1EDE27041C9A106EFE69C3C7 /* UserRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE27A7A1FF3292C2144B71 /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		1EDE27B950A8B4B441823258 /* AnimeRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeRequestFactory.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 				1EDE2120515869CE14B06D54 /* NetworkRequest.swift */,
 				1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */,
 				1EDE21648314F4D8463F4E19 /* RequestFactory.swift */,
-				1EDE266FDE4D1950834CE0B3 /* DefaultNetworkRequestParser.swift */,
+				1EDE266FDE4D1950834CE0B3 /* DefaultNetworkRequestResultMapper.swift */,
 				1EDE24B5E4280C4D0448C1FF /* KeyValuePersistentStorage.swift */,
 				1EDE254604A38BF421AD823B /* NetworkRequestResultMapper.swift */,
 			);
@@ -430,7 +430,7 @@
 				1EDE289B3D6FFF02C7577AB4 /* RequestFactory.swift in Sources */,
 				1EDE2153C5AF4938CB868FB8 /* AppConfigProvider.swift in Sources */,
 				1EDE20A52C5637B132508831 /* ServiceAccessLayer.swift in Sources */,
-				1EDE287D67C46D2298E6F658 /* DefaultNetworkRequestParser.swift in Sources */,
+				1EDE287D67C46D2298E6F658 /* DefaultNetworkRequestResultMapper.swift in Sources */,
 				1EDE2801A2E785CBCE9EDD74 /* SessionProvider.swift in Sources */,
 				1EDE218CE7767F8DB1670EC8 /* SessionToken.swift in Sources */,
 				1EDE2C676B93EEDB77D05B29 /* AuthCodeStorage.swift in Sources */,

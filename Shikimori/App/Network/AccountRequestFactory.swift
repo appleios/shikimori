@@ -25,7 +25,7 @@ class AccountRequestFactory: EndpointRequestFactory {
 class AccountRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Account> {
 
     init() {
-        super.init(decoder: JsonResultDecoder(), converter: ClosureSalToDomainConverter({ (result: UserResult) in
+        super.init(converter: ClosureSalToDomainConverter({ (result: UserResult) in
             let user = User(id: result.id,
                     nickname: result.nickname,
                     avatar: result.avatar != nil ? URL(string: result.avatar!) : nil,
