@@ -14,8 +14,7 @@ import Foundation
 class UsersEndpointTests: XCTestCase {
 
     func testUserById() {
-        let sal = ServiceAccessLayer()
-        let mapper = UserMapper(jsonDecoder: sal.jsonDecoder)
+        let mapper = UserRequestFactory.mapper
 
         let avatar = "https://host.com/avatar"
         let anime_planned = 1
@@ -244,7 +243,7 @@ class UsersEndpointTests: XCTestCase {
         }
         """.data(using: .utf8)
 
-        let result: User = try! mapper.decode(data!)
+        let result: User = try! mapper.mapToDomain(data!)
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.id, 12345)

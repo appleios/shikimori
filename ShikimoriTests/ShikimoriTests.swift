@@ -15,8 +15,8 @@ class ShikimoriTests: XCTestCase {
 
     func testUserTokenMapper() {
 
-        let sal = ServiceAccessLayer()
-        let mapper = UserTokenMapper(jsonDecoder: sal.jsonDecoder)
+        let mapper = TokenRequestFactory.mapper
+
         let data = """
         {
         "access_token":"ACCESS_TOKEN",
@@ -26,7 +26,7 @@ class ShikimoriTests: XCTestCase {
         "created_at":1524749533
         }
         """.data(using: .utf8)
-        let result: SessionToken = try! mapper.decode(data!)
+        let result: SessionToken = try! mapper.mapToDomain(data!)
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.accessToken, "ACCESS_TOKEN")
@@ -35,8 +35,7 @@ class ShikimoriTests: XCTestCase {
     }
 
     func testWhoami() {
-        let sal = ServiceAccessLayer()
-        let mapper = AccountMapper(jsonDecoder: sal.jsonDecoder)
+        let mapper = AccountRequestFactory.mapper
 
         let avatar = "https://host.com/avatar"
         let data = """
@@ -61,7 +60,7 @@ class ShikimoriTests: XCTestCase {
             "website": null
         }
         """.data(using: .utf8)
-        let result: Account = try! mapper.decode(data!)
+        let result: Account = try! mapper.mapToDomain(data!)
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.user.id, 12345)

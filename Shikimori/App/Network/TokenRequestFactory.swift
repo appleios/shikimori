@@ -47,22 +47,24 @@ class TokenRequestFactory: EndpointRequestFactory {
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.httpBody = body.data(using: .utf8)
 
-        let mapper = DefaultNetworkRequestParser<UserTokenResult, SessionToken>({ (result: UserTokenResult) in
+        return HttpRequest(urlRequest: request,
+                mapper: TokenRequestFactory.mapper,
+                errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
+                urlSession: urlSession)
+    }
+
+    static internal var mapper: NetworkRequestResultMapper<SessionToken> {
+        return DefaultNetworkRequestParser<UserTokenResult, SessionToken>({ (result: UserTokenResult) in
             return SessionToken(accessToken: result.accessToken,
                     refreshToken: result.refreshToken,
                     createdAt: result.createdAt,
                     expireDate: result.createdAt + TimeInterval(result.expiresIn),
                     tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
         })
-
-        return HttpRequest(urlRequest: request,
-                mapper: mapper,
-                errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
-                urlSession: urlSession)
     }
 
 
-    struct FormEncoder {
+    internal struct FormEncoder {
 
         let boundary: String
 

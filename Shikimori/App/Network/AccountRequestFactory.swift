@@ -13,8 +13,15 @@ class AccountRequestFactory: EndpointRequestFactory {
         let urlBuilder = self.urlBuilder.components(withPath: "/api/users/whoami")
         let request: URLRequest = requestFactory.request(.GET, url: urlBuilder.url, accessToken: session.token.accessToken)
 
+        return HttpRequest(urlRequest: request,
+                mapper: AccountRequestFactory.mapper,
+                errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
+                urlSession: urlSession)
+    }
+
+    static internal var mapper: NetworkRequestResultMapper<Account> {
         // DefaultNetworkRequestParser - should obtain this object from single entry among all points
-        let mapper = DefaultNetworkRequestParser<UserResult, Account>({ (result: UserResult) in
+        return DefaultNetworkRequestParser<UserResult, Account>({ (result: UserResult) in
             let user = User(id: result.id,
                     nickname: result.nickname,
                     avatar: URL(string: result.avatar),
@@ -22,11 +29,6 @@ class AccountRequestFactory: EndpointRequestFactory {
 
             return Account(user: user)
         })
-
-        return HttpRequest(urlRequest: request,
-                mapper: mapper,
-                errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
-                urlSession: urlSession)
     }
 
 }

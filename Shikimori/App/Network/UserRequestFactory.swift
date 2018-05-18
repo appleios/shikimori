@@ -40,9 +40,13 @@ class UserRequestFactory: EndpointRequestFactory {
         let request: URLRequest = requestFactory.request(.GET, url: components.url, accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
-                mapper: DefaultNetworkRequestParser(converter: UserSalToDomainConverter()),
+                mapper: UserRequestFactory.mapper,
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
+    }
+
+    static internal var mapper: NetworkRequestResultMapper<User> {
+        return DefaultNetworkRequestParser(converter: UserSalToDomainConverter())
     }
 
 }
