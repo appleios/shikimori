@@ -51,6 +51,7 @@
 		C430811A2094C057000147F1 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C43081192094C057000147F1 /* Profile.storyboard */; };
 		C430811C2094C06A000147F1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430811B2094C06A000147F1 /* ProfileViewController.swift */; };
 		C45AAB3C2090DCE4006D62CF /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C45AAB3B2090DCE4006D62CF /* Auth.storyboard */; };
+		C4D8037520AF3BF500A6A043 /* UserRatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8037420AF3BF500A6A043 /* UserRatesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		C43081192094C057000147F1 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		C430811B2094C06A000147F1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C45AAB3B2090DCE4006D62CF /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		C4D8037420AF3BF500A6A043 /* UserRatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRatesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 				C412AA52209232C500ECC3AB /* MenuViewController.swift */,
 				C43081192094C057000147F1 /* Profile.storyboard */,
 				C430811B2094C06A000147F1 /* ProfileViewController.swift */,
+				C4D8037420AF3BF500A6A043 /* UserRatesViewController.swift */,
 				1EDE2FA96A39398AEC283149 /* MainViewController.swift */,
 				1EDE293B342321E4875135D1 /* CellPresenter.swift */,
 			);
@@ -459,6 +462,7 @@
 				1EDE206AF9426FEE2D4A6E96 /* UserRequestFactory.swift in Sources */,
 				1EDE27A681A730AADC741D03 /* NetworkRequestResultMapper.swift in Sources */,
 				1EDE2D47A4D638F687C17D47 /* CellPresenter.swift in Sources */,
+				C4D8037520AF3BF500A6A043 /* UserRatesViewController.swift in Sources */,
 				1EDE206A533F2512753CA986 /* UserRatesRequestFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

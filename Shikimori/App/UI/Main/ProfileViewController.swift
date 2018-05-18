@@ -55,6 +55,7 @@ struct ProfileStatisticCellPresenter: CellPresenter, CellPresenterTableViewSuppo
 
     let name: String
     let value: Int
+    let status: UserRatesStatus
 
     var tableViewSupport: CellPresenterTableViewSupport {
         return self
@@ -78,6 +79,8 @@ struct ProfileStatisticCellPresenter: CellPresenter, CellPresenterTableViewSuppo
 
 
 class ProfileViewController: UITableViewController {
+
+    static let toUserRatesSegueIdentifier = "To User Rates"
 
     var session: Session!
     var account: Account!
@@ -128,12 +131,17 @@ class ProfileViewController: UITableViewController {
             let user = userP.value!
             if let stats = user.stats {
                 if let anime = stats.anime {
-                    cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Watching", comment: ""),
-                            value: anime.watching))
+                    cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Watching", comment: ""), // TODO add methoc humanReadableTitle() for enum
+                                                                        value: anime.watching,
+                                                                        status: UserRatesStatus.watching)) // TODO get stats by status
+
                     cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Completed", comment: ""),
-                            value: anime.completed))
+                                                                        value: anime.completed,
+                                                                        status: UserRatesStatus.completed)) // TODO get stats by status
+
                     cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Dropped", comment: ""),
-                            value: anime.dropped))
+                                                                        value: anime.dropped,
+                                                                        status: UserRatesStatus.dropped)) // TODO get stats by status
                 }
             }
         }
@@ -162,6 +170,27 @@ class ProfileViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: presenter.tableViewSupport.reuseIdentifier)!
         presenter.tableViewSupport.configureTableViewCell(cell)
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let presenter = presenters![indexPath.row]
+        if presenter is ProfileStatisticCellPresenter {
+            self.performSegue(withIdentifier: ProfileViewController.toUserRatesSegueIdentifier, sender: presenter)
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == ProfileViewController.toUserRatesSegueIdentifier {
+            let presenter = sender as! ProfileStatisticCellPresenter
+            let viewController = segue.destination as! UserRatesViewController
+
+            let request: HttpRequest<[UserRates]> = sal.getUserRates(byID: account.user.id,
+                                                                           status: presenter.status,
+                                                                           targetType: .anime,
+                                                                           session: session)
+
+            viewController.userRatesP = try! request.load()
+        }
     }
 
     // MARK -
