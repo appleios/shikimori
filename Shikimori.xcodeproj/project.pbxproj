@@ -20,6 +20,7 @@
 		1EDE230AB1D269FB7DE2B23C /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */; };
 		1EDE23994B51E84A58AD48A1 /* KeyValuePersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE24B5E4280C4D0448C1FF /* KeyValuePersistentStorage.swift */; };
 		1EDE241A51EA2CD4A2AF91BA /* ShikimoriTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C5E392E6E48A32A3E3E /* ShikimoriTests.swift */; };
+		1EDE246006B6F43F2CE007FB /* AnimeEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E2809E164266CF3B84A /* AnimeEndpointTests.swift */; };
 		1EDE24889E8166854C4BCE1C /* AccountProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2BDC2C62179E4D8EB4EA /* AccountProvider.swift */; };
 		1EDE24F5FFFDB070BDB26638 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */; };
 		1EDE2522F66501C0EA04AB5D /* UsersEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2447C5DC2F5A1ADB3A01 /* UsersEndpointTests.swift */; };
@@ -107,6 +108,7 @@
 		1EDE2CEA5AD80EDF0995C942 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
 		1EDE2E1CB59F095AD2A8C966 /* SessionProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProviderTests.swift; sourceTree = "<group>"; };
+		1EDE2E2809E164266CF3B84A /* AnimeEndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeEndpointTests.swift; sourceTree = "<group>"; };
 		1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAccessLayer.swift; sourceTree = "<group>"; };
 		1EDE2FA96A39398AEC283149 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C412AA4E2091CB4200ECC3AB /* Auth.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth.plist; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				1EDE2E1CB59F095AD2A8C966 /* SessionProviderTests.swift */,
 				1EDE2447C5DC2F5A1ADB3A01 /* UsersEndpointTests.swift */,
 				1EDE2B43E5E9A570CA721D7D /* UserRatesEndpointTests.swift */,
+				1EDE2E2809E164266CF3B84A /* AnimeEndpointTests.swift */,
 			);
 			path = ShikimoriTests;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				1EDE205E3AEDA23707883B8A /* SessionProviderTests.swift in Sources */,
 				1EDE2522F66501C0EA04AB5D /* UsersEndpointTests.swift in Sources */,
 				1EDE2B17AC372305D6EE6DEB /* UserRatesEndpointTests.swift in Sources */,
+				1EDE246006B6F43F2CE007FB /* AnimeEndpointTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

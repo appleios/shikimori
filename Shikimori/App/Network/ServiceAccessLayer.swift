@@ -111,4 +111,13 @@ class ServiceAccessLayer {
                 session: session)
     }
 
+    func getAnime(byID animeID: Int, session: Session) -> HttpRequest<Anime> {
+        let factory = AnimeRequestFactory(urlBuilder: urlFactory,
+                requestFactory: requestFactory,
+                urlSession: urlSession,
+                jsonDecoder: jsonDecoder)
+
+        return factory.getAnime(byID: animeID, session: session)
+    }
+
 }

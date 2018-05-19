@@ -14,12 +14,12 @@ struct Anime {
 
     let id: Int
     let name: String
-    let russian: String
+    let russian: String?
     let originalImageURL: URL
     let previewImageURL: URL
     let url: URL
     let kind: Kind
-    let status: String
-    let nextEpisodeAt: Date
+    let status: UserRates.Status?
+    let nextEpisodeAt: Date?
 
 }
