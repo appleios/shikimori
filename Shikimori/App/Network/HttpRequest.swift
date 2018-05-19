@@ -40,9 +40,13 @@ class HttpRequest<DomainType>: NetworkRequest {
                 return
             }
             if let data = data {
-                if let result: DomainType = try? self.mapper.mapToDomain(data) {
+                do {
+                    let result: DomainType = try self.mapper.mapToDomain(data)
                     promise.fulfill(result)
                     return
+                } catch {
+                    let contents: String? = String(data: data, encoding: .utf8)
+                    print("unexpected error: \(error), while mapToDomain for data: \(contents!)")
                 }
                 if let result: AppError = try? self.errorMapper.decode(data) {
                     promise.reject(result)

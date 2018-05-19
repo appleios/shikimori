@@ -23,7 +23,7 @@ struct AnimeResult: Codable {
     let url: String
     let kind: String
     let status: String?
-    let nextEpisodeAt: Int?
+    let nextEpisodeAt: Date?
 
 }
 
@@ -46,15 +46,42 @@ class AnimeRequestFactory: EndpointRequestFactory {
 
 class AnimeRequestResultMapper: DefaultNetworkRequestResultMapper<AnimeResult, Anime> {
 
+    static func dateFormatterForISO8601() -> DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return dateFormatter
+    }
+
+    // TODO fix ugly duplication
+    class JsonResultDecoder2: NetworkDataDecoder<AnimeResult> {
+
+        // TODO get JSONDecoder from single entry among all points
+        static var defaultJSONDecoder: JSONDecoder {
+            let decoder = JSONDecoder()
+            let dateFormatter = dateFormatterForISO8601()
+            decoder.dateDecodingStrategy = .formatted(dateFormatter)
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            return decoder
+        }
+
+
+
+        var jsonDecoder: JSONDecoder
+
+        init(jsonDecoder: JSONDecoder = defaultJSONDecoder) {
+            self.jsonDecoder = jsonDecoder
+        }
+
+        override func decode(_ data: Data) throws -> AnimeResult {
+            return try jsonDecoder.decode(AnimeResult.self, from: data)
+        }
+
+    }
+
     init(baseURL: URL) {
+
         super.init(converter: ClosureSalToDomainConverter({ (result: AnimeResult) in
-
-            let nextEpisodeAt: Date? = result.nextEpisodeAt != nil ?
-                    Date(timeIntervalSince1970: TimeInterval(exactly: result.nextEpisodeAt!)!) : nil
-
-            let status: UserRates.Status? = result.status != nil
-                    ? UserRates.Status(rawValue: result.status!)! : nil
-
             return Anime(id: result.id,
                     name: result.name,
                     russian: result.russian,
@@ -62,9 +89,10 @@ class AnimeRequestResultMapper: DefaultNetworkRequestResultMapper<AnimeResult, A
                     previewImageURL: URL(string: result.image.preview, relativeTo: baseURL)!,
                     url: URL(string: result.url, relativeTo: baseURL)!,
                     kind: Anime.Kind(rawValue: result.kind)!,
-                    status: status,
-                    nextEpisodeAt: nextEpisodeAt)
-        }))
+                    status: result.status,
+                    nextEpisodeAt: result.nextEpisodeAt)
+
+        }), decoder: JsonResultDecoder2())
     }
 
 }

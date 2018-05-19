@@ -16,64 +16,220 @@ class AnimeEndpointTests: XCTestCase {
     func testAnimeByID() {
         let data = """
         {
-          "id": 3,
-          "name": "anime_2",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x48": "/assets/globals/missing_x48.jpg"
-          },
-          "url": "/animes/3-anime-2",
-          "kind": "tv",
-          "status": null,
-          "episodes": 0,
-          "episodes_aired": 0,
-          "aired_on": null,
-          "released_on": null,
-          "rating": "pg_13",
+          "aired_on": "2018-04-06",
+          "anons": false,
+          "description": "",
+          "description_source": null,
+          "duration": 23,
           "english": [
             null
           ],
-          "japanese": [
-            null
-          ],
-          "synonyms": [],
-          "duration": 0,
-          "score": "1.0",
-          "description": null,
-          "description_html": "<p class='b-nothing_here'>Нет описания</p>",
-          "description_source": null,
-          "franchise": null,
+          "episodes": 12,
+          "episodes_aired": 7,
           "favoured": false,
-          "anons": null,
-          "ongoing": null,
-          "thread_id": 212660,
-          "topic_id": 212660,
-          "myanimelist_id": 3,
-          "rates_scores_stats": [],
-          "rates_statuses_stats": [],
-          "updated_at": "2017-01-10T15:00:00.000+03:00",
-          "next_episode_at": null,
-          "genres": [],
-          "studios": [],
-          "videos": [],
-          "screenshots": [],
-          "user_rate": null
+          "franchise": null,
+          "genres": [
+            {
+              "id": 24,
+              "kind": "anime",
+              "name": "Sci-Fi",
+              "russian": "Фантастика"
+            },
+            {
+              "id": 36,
+              "kind": "anime",
+              "name": "Slice of Life",
+              "russian": "Повседневность"
+            },
+            {
+              "id": 4,
+              "kind": "anime",
+              "name": "Comedy",
+              "russian": "Комедия"
+            },
+            {
+              "id": 37,
+              "kind": "anime",
+              "name": "Supernatural",
+              "russian": "Сверхъестественное"
+            },
+            {
+              "id": 42,
+              "kind": "anime",
+              "name": "Seinen",
+              "russian": "Сейнен"
+            }
+          ],
+          "id": 36296,
+          "image": {
+            "original": "/system/animes/original/36296.jpg?1525770947",
+            "preview": "/system/animes/preview/36296.jpg?1525770947",
+            "x48": "/system/animes/x48/36296.jpg?1525770947",
+            "x96": "/system/animes/x96/36296.jpg?1525770947"
+          },
+          "japanese": [
+            "ヒナまつり"
+          ],
+          "kind": "tv",
+          "myanimelist_id": 36296,
+          "name": "Hinamatsuri",
+          "next_episode_at": "2018-05-25T15:00:00.000+03:00",
+          "ongoing": true,
+          "rates_scores_stats": [
+            {
+              "name": 10,
+              "value": 215
+            },
+            {
+              "name": 9,
+              "value": 132
+            },
+            {
+              "name": 8,
+              "value": 156
+            },
+            {
+              "name": 7,
+              "value": 75
+            },
+            {
+              "name": 6,
+              "value": 29
+            },
+            {
+              "name": 5,
+              "value": 8
+            },
+            {
+              "name": 4,
+              "value": 3
+            },
+            {
+              "name": 3,
+              "value": 1
+            },
+            {
+              "name": 2,
+              "value": 1
+            },
+            {
+              "name": 1,
+              "value": 9
+            }
+          ],
+          "rates_statuses_stats": [
+            {
+              "name": "Просмотрено",
+              "value": 32
+            },
+            {
+              "name": "Брошено",
+              "value": 82
+            },
+            {
+              "name": "Отложено",
+              "value": 133
+            },
+            {
+              "name": "Запланировано",
+              "value": 4883
+            },
+            {
+              "name": "Пересматриваю",
+              "value": 6
+            },
+            {
+              "name": "Смотрю",
+              "value": 2544
+            }
+          ],
+          "rating": "pg_13",
+          "released_on": null,
+          "russian": "Праздник кукол",
+          "score": "8.15",
+          "screenshots": [
+            {
+              "original": "/system/screenshots/original/254088d65f967ae7444c49489db51e9737b864a0.jpeg?1523128550",
+              "preview": "/system/screenshots/x332/254088d65f967ae7444c49489db51e9737b864a0.jpg?1523128550"
+            },
+            {
+              "original": "/system/screenshots/original/37dc8e63b8a9a506fe9f2be199db4d6fdeebe8cf.jpeg?1523128551",
+              "preview": "/system/screenshots/x332/37dc8e63b8a9a506fe9f2be199db4d6fdeebe8cf.jpg?1523128551"
+            }
+          ],
+          "status": "ongoing",
+          "studios": [
+            {
+              "filtered_name": "feel.",
+              "id": 91,
+              "image": "/system/studios/original/91.png?1350322172",
+              "name": "feel.",
+              "real": true
+            }
+          ],
+          "synonyms": [
+            "Hina Festival"
+          ],
+          "thread_id": 226023,
+          "topic_id": 226023,
+          "updated_at": "2018-05-19T11:11:06.440+03:00",
+          "url": "/animes/36296-hinamatsuri",
+          "user_rate": {
+            "chapters": null,
+            "episodes": 0,
+            "id": 40206840,
+            "rewatches": 0,
+            "score": 9,
+            "status": "watching",
+            "text": null,
+            "text_html": null,
+            "volumes": null
+          },
+          "videos": [
+            {
+              "hosting": "youtube",
+              "id": 21399,
+              "image_url": "http://img.youtube.com/vi/iD0b9-KRoPM/mqdefault.jpg",
+              "kind": "pv",
+              "name": "",
+              "player_url": "http://youtube.com/embed/iD0b9-KRoPM",
+              "url": "http://youtu.be/iD0b9-KRoPM"
+            },
+            {
+              "hosting": "youtube",
+              "id": 22053,
+              "image_url": "http://img.youtube.com/vi/1oTxGJcx04Q/mqdefault.jpg",
+              "kind": "pv",
+              "name": "Hinamatsuri PV 2",
+              "player_url": "http://youtube.com/embed/1oTxGJcx04Q",
+              "url": "http://youtu.be/1oTxGJcx04Q"
+            }
+          ]
         }
         """.data(using: .utf8)
 
-        let mapper = AnimeRequestResultMapper(baseURL: URL(string: "https://example.com")!)
-        let result: Anime = try! mapper.mapToDomain(data!)
+        let dateFormatter = AnimeRequestResultMapper.dateFormatterForISO8601()
+        let date = dateFormatter.date(from: "2018-05-25T15:00:00.000+03:00")
+        XCTAssertNotNil(date)
 
-        XCTAssertNotNil(result)
-        XCTAssertEqual(result.id, 3)
-        XCTAssertEqual(result.name, "anime_2")
-        XCTAssertEqual(result.russian, nil)
-        XCTAssertEqual(result.originalImageURL.absoluteString, "https://example.com/assets/globals/missing_original.jpg")
-        XCTAssertEqual(result.previewImageURL.absoluteString, "https://example.com/assets/globals/missing_preview.jpg")
-        XCTAssertEqual(result.url.absoluteString, "https://example.com/animes/3-anime-2")
+        let mapper = AnimeRequestResultMapper(baseURL: URL(string: "https://example.com")!)
+        do {
+            let result: Anime = try mapper.mapToDomain(data!)
+
+
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result.id, 36296)
+            XCTAssertEqual(result.name, "Hinamatsuri")
+            XCTAssertEqual(result.russian, "Праздник кукол")
+            XCTAssertEqual(result.originalImageURL.absoluteString, "https://example.com/system/animes/original/36296.jpg?1525770947")
+            XCTAssertEqual(result.previewImageURL.absoluteString, "https://example.com/system/animes/preview/36296.jpg?1525770947")
+            XCTAssertEqual(result.url.absoluteString, "https://example.com/animes/36296-hinamatsuri")
+            XCTAssertNotNil(result.nextEpisodeAt)
+
+        } catch {
+            print("error: \(error)")
+            XCTAssertNotNil(nil)
+        }
 
     }
 

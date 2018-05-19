@@ -19,7 +19,7 @@ struct Anime {
     let previewImageURL: URL
     let url: URL
     let kind: Kind
-    let status: UserRates.Status?
+    let status: String?
     let nextEpisodeAt: Date?
 
 }

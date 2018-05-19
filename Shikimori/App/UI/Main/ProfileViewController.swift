@@ -190,6 +190,7 @@ class ProfileViewController: UITableViewController {
                                                                            session: session)
 
             viewController.userRatesP = try! request.load()
+            viewController.session = session
         }
     }
 
