@@ -96,8 +96,8 @@ class ServiceAccessLayer {
     }
 
     func getUserRates(byID userID: Int,
-                      status: UserRatesStatus,
-                      targetType: UserRatesTargetType,
+                      status: UserRates.Status,
+                      targetType: UserRates.TargetType,
                       session: Session) -> HttpRequest<[UserRates]>
     {
         let factory = UserRatesRequestFactory(urlBuilder: urlFactory,

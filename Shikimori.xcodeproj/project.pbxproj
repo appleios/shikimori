@@ -14,6 +14,7 @@
 		1EDE2153C5AF4938CB868FB8 /* AppConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE261B412147EE76277602 /* AppConfigProvider.swift */; };
 		1EDE218CE7767F8DB1670EC8 /* SessionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE24BE0ED70D3E900D71ED /* SessionToken.swift */; };
 		1EDE21A81F03F9C6A18C8F18 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27A7A1FF3292C2144B71 /* AppError.swift */; };
+		1EDE21D7AF469BC28ACE3EEF /* UserRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE297ADC34C5CC364D8C6D /* UserRates.swift */; };
 		1EDE221446A7D18D6BD22697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE2516E723B235129B26A7 /* Assets.xcassets */; };
 		1EDE2270CA95717237A9E45D /* Anime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE257888D926144B4EDB29 /* Anime.swift */; };
 		1EDE230AB1D269FB7DE2B23C /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */; };
@@ -93,6 +94,7 @@
 		1EDE28416375A369634A8AAB /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1EDE2871A0E913C2BE1BC75A /* ShikimoriTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShikimoriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EDE293B342321E4875135D1 /* CellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPresenter.swift; sourceTree = "<group>"; };
+		1EDE297ADC34C5CC364D8C6D /* UserRates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRates.swift; sourceTree = "<group>"; };
 		1EDE29DD7C2309485E49D68B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		1EDE2AFB26C05C37E75A4E79 /* AppErrorMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppErrorMapper.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				1EDE28416375A369634A8AAB /* User.swift */,
 				1EDE27A7A1FF3292C2144B71 /* AppError.swift */,
 				1EDE257888D926144B4EDB29 /* Anime.swift */,
+				1EDE297ADC34C5CC364D8C6D /* UserRates.swift */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				1EDE2D47A4D638F687C17D47 /* CellPresenter.swift in Sources */,
 				C4D8037520AF3BF500A6A043 /* UserRatesViewController.swift in Sources */,
 				1EDE206A533F2512753CA986 /* UserRatesRequestFactory.swift in Sources */,
+				1EDE21D7AF469BC28ACE3EEF /* UserRates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

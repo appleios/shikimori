@@ -16,16 +16,7 @@ struct User {
 }
 
 struct UserStatistics {
-
-    struct Statistics {
-
-        let planned: Int
-        let watching: Int
-        let completed: Int
-        let onHold: Int
-        let dropped: Int
-
-    }
+    typealias Statistics = [UserRates.Status:Int]
 
     let anime: Statistics?
     let manga: Statistics?

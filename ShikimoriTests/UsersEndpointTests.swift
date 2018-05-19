@@ -249,13 +249,15 @@ class UserRequestTests: XCTestCase {
         XCTAssertEqual(result.nickname, "NICKNAME")
         XCTAssertEqual(result.avatar, URL(string: avatar))
 
-        XCTAssertEqual(result.stats!.anime!.planned, anime_planned)
-        XCTAssertEqual(result.stats!.anime!.dropped, anime_dropped)
-        XCTAssertEqual(result.stats!.anime!.watching, anime_watching)
-        XCTAssertEqual(result.stats!.anime!.onHold, anime_on_hold)
-        XCTAssertEqual(result.stats!.anime!.completed, anime_completed)
+        let anime = result.stats!.anime!
+        XCTAssertEqual(anime[UserRates.Status.planned], anime_planned)
+        XCTAssertEqual(anime[UserRates.Status.dropped], anime_dropped)
+        XCTAssertEqual(anime[UserRates.Status.watching], anime_watching)
+        XCTAssertEqual(anime[UserRates.Status.onHold], anime_on_hold)
+        XCTAssertEqual(anime[UserRates.Status.completed], anime_completed)
 
-        XCTAssertEqual(result.stats!.manga!.watching, manga_watching)
+        let manga = result.stats!.manga!
+        XCTAssertEqual(manga[UserRates.Status.watching], manga_watching)
     }
 
 }

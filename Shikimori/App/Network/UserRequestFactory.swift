@@ -85,17 +85,19 @@ fileprivate class UserSalToDomainConverter: SalToDomainConverter<UserResult, Use
         guard let statuses = statuses else {
             return nil
         }
-        return UserStatistics.Statistics(
-                planned: stat("planned", fromStatsDescription: statuses),
-                watching: stat("watching", fromStatsDescription: statuses),
-                completed: stat("completed", fromStatsDescription: statuses),
-                onHold: stat("on_hold", fromStatsDescription: statuses),
-                dropped: stat("dropped", fromStatsDescription: statuses))
+
+        var statistics = UserStatistics.Statistics()
+        for statusRaw in statuses {
+            if let status = UserRates.Status(rawValue: statusRaw.name) {
+                statistics[status] = statusRaw.size
+            }
+        }
+        return statistics
 
     }
 
-    private func stat(_ type: String, fromStatsDescription statsDescription: [StatResult]) -> Int {
-        let stat: [StatResult] = statsDescription.filter { $0.name == type }
+    private func stat(_ status: UserRates.Status, fromStatsDescription statsDescription: [StatResult]) -> Int {
+        let stat: [StatResult] = statsDescription.filter { $0.name == status.rawValue }
         return stat.first?.size ?? 0
     }
 

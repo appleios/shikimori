@@ -56,9 +56,9 @@ class UserRatesEndpointTests: XCTestCase {
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.count, 2)
-        XCTAssertEqual(result[0].targetType, UserRatesTargetType.anime)
+        XCTAssertEqual(result[0].targetType, UserRates.TargetType.anime)
         XCTAssertEqual(result[0].targetId, 45)
-        XCTAssertEqual(result[1].targetType, UserRatesTargetType.manga)
+        XCTAssertEqual(result[1].targetType, UserRates.TargetType.manga)
         XCTAssertEqual(result[1].targetId, 46)
     }
     

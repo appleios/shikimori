@@ -55,7 +55,7 @@ struct ProfileStatisticCellPresenter: CellPresenter, CellPresenterTableViewSuppo
 
     let name: String
     let value: Int
-    let status: UserRatesStatus
+    let status: UserRates.Status
 
     var tableViewSupport: CellPresenterTableViewSupport {
         return self
@@ -132,16 +132,16 @@ class ProfileViewController: UITableViewController {
             if let stats = user.stats {
                 if let anime = stats.anime {
                     cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Watching", comment: ""), // TODO add methoc humanReadableTitle() for enum
-                                                                        value: anime.watching,
-                                                                        status: UserRatesStatus.watching)) // TODO get stats by status
+                                                                        value: anime[UserRates.Status.watching]!,
+                                                                        status: UserRates.Status.watching)) // TODO get stats by status
 
                     cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Completed", comment: ""),
-                                                                        value: anime.completed,
-                                                                        status: UserRatesStatus.completed)) // TODO get stats by status
+                                                                        value: anime[UserRates.Status.completed]!,
+                                                                        status: UserRates.Status.completed)) // TODO get stats by status
 
                     cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Dropped", comment: ""),
-                                                                        value: anime.dropped,
-                                                                        status: UserRatesStatus.dropped)) // TODO get stats by status
+                                                                        value: anime[UserRates.Status.dropped]!,
+                                                                        status: UserRates.Status.dropped)) // TODO get stats by status
                 }
             }
         }

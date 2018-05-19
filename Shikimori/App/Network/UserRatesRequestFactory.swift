@@ -6,30 +6,6 @@
 import Foundation
 
 
-enum UserRatesStatus: String {
-    case planned
-    case watching
-    case rewatching
-    case completed
-    case onHold = "on_hold"
-    case dropped
-}
-
-
-enum UserRatesTargetType: String {
-    case anime = "Anime"
-    case manga = "Manga"
-}
-
-
-struct UserRates {
-
-    let targetId: Int
-    let targetType: UserRatesTargetType
-
-}
-
-
 struct UserRatesResult: Codable {
 
     let targetId: Int
@@ -41,8 +17,8 @@ struct UserRatesResult: Codable {
 class UserRatesRequestFactory: EndpointRequestFactory {
 
     func getUserRates(byID userID: Int,
-                      status: UserRatesStatus,
-                      targetType: UserRatesTargetType,
+                      status: UserRates.Status,
+                      targetType: UserRates.TargetType,
                       session: Session) -> HttpRequest<[UserRates]>
     {
 
@@ -69,7 +45,7 @@ class UserRatesRequestResultMapper: DefaultNetworkRequestResultMapper<[UserRates
         super.init(converter: ClosureSalToDomainConverter({ (result: [UserRatesResult]) in
             return result.map {
                 return UserRates(targetId: $0.targetId,
-                        targetType: UserRatesTargetType(rawValue: $0.targetType)!)
+                        targetType: UserRates.TargetType(rawValue: $0.targetType)!)
             }
          }))
     }
