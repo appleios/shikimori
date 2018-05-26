@@ -7,10 +7,10 @@ import Foundation
 @testable import Shikimori
 import XCTest
 
-class TokenRequestTests: XCTestCase {
+class TokenRequestTests: BaseMappingTests {
 
     func testUserTokenMapper() {
-        let fixture = """
+        let data = fixture(body: """
         {
         "access_token":"ACCESS_TOKEN",
         "token_type":"bearer",
@@ -18,20 +18,9 @@ class TokenRequestTests: XCTestCase {
         "refresh_token":"REFRESH_TOKEN",
         "created_at":1524749533
         }
-        """
-        guard let data = fixture.data(using: .utf8) else {
-            XCTFail("Incorrect fixture")
-            return
-        }
+        """)
 
-        let mapper = TokenRequestResultMapper()
-        var result: SessionToken
-        do {
-            result = try mapper.mapToDomain(data)
-        } catch {
-            XCTFail("Mapping result is nil")
-            return
-        }
+        let result: SessionToken = tryMapping(TokenRequestResultMapper(), data: data)
 
         XCTAssertEqual(result.accessToken, "ACCESS_TOKEN")
         XCTAssertEqual(result.refreshToken, "REFRESH_TOKEN")

@@ -12,14 +12,7 @@ class UserRatesEndpointTests: BaseMappingTests {
     func testUserRates() {
         let data = fixture(file: "UserRatesEndpointFixture")
 
-        var result: [UserRates]
-        do {
-            let mapper = UserRatesRequestResultMapper()
-            result = try mapper.mapToDomain(data)
-        } catch {
-            XCTFail("Mapping result is nil")
-            return
-        }
+        let result: [UserRates] = tryMapping(UserRatesRequestResultMapper(), data: data)
 
         XCTAssertEqual(result.count, 2)
         XCTAssertEqual(result[0].targetType, UserRates.TargetType.anime)

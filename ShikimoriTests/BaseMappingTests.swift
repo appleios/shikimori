@@ -4,6 +4,7 @@
 //
 
 import Foundation
+@testable import Shikimori
 import XCTest
 
 class BaseMappingTests: XCTestCase {
@@ -18,6 +19,23 @@ class BaseMappingTests: XCTestCase {
         } catch {
             fatalError("Failed to read Fixture file")
         }
+    }
+
+    func fixture(body: String) -> Data {
+        guard let data = body.data(using: .utf8) else {
+            fatalError("Incorrect fixture")
+        }
+        return data
+    }
+
+    func tryMapping<T>(_ mapper: NetworkRequestResultMapper<T>, data: Data) -> T {
+        var tryResult: T?
+        XCTAssertNoThrow({ tryResult = try mapper.mapToDomain(data) })
+
+        guard let result = tryResult else {
+            fatalError("Mapping result is nil")
+        }
+        return result
     }
 
 }

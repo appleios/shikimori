@@ -12,14 +12,7 @@ class UserRequestResultMapperTests: BaseMappingTests {
     func testUserById() {
         let data = fixture(file: "UserRequestResultMapperFixture")
 
-        var result: User
-        do {
-            let mapper = UserRequestResultMapper()
-            result = try mapper.mapToDomain(data)
-        } catch {
-            XCTFail("Mapping result is nil")
-            return
-        }
+        let result: User = tryMapping(UserRequestResultMapper(), data: data)
 
         XCTAssertEqual(result.id, 12_345)
         XCTAssertEqual(result.nickname, "NICKNAME")
@@ -46,26 +39,15 @@ class UserRequestResultMapperTests: BaseMappingTests {
     }
 
     func testWhoami() {
-        let fixture = """
+        let data = fixture(body: """
         {
             "id": 12345,
             "nickname": "NICKNAME",
             "avatar": null
         }
-        """
-        guard let data = fixture.data(using: .utf8) else {
-            XCTFail("Incorrect fixture")
-            return
-        }
+        """)
 
-        var result: Account
-        do {
-            let mapper = AccountRequestResultMapper()
-            result = try mapper.mapToDomain(data)
-        } catch {
-            XCTFail("Mapping result is nil")
-            return
-        }
+        let result: Account = tryMapping(AccountRequestResultMapper(), data: data)
 
         XCTAssertEqual(result.user.id, 12_345)
     }
