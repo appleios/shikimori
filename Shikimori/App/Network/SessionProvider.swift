@@ -75,11 +75,9 @@ class SessionProvider {
         switch strategy {
         case .refresh(let previousSession):
             refresh(expiredSession: previousSession)
-            break
 
         case .fetch:
             try fetch()
-            break
 
         case .nothing:
             break
@@ -164,7 +162,8 @@ class SessionProvider {
         }
     }
 
-    @objc func handleAuthCodeChange() {
+    @objc
+    func handleAuthCodeChange() {
         do {
             try fetch()
         } catch {
@@ -173,15 +172,21 @@ class SessionProvider {
 
     struct FetchStrategyCalculator {
 
-        func fetchStrategy(forSessionP sessionP: Promise<Session>?, currentSession: Session?) -> SessionProviderFetchStrategy {
+        func fetchStrategy(forSessionP sessionP: Promise<Session>?,
+                           currentSession: Session?) -> SessionProviderFetchStrategy
+        {
             if sessionP == nil {
                 return refreshStrategyOrNil(forSession: currentSession) ?? SessionProviderFetchStrategy.fetch
             }
-            return strategy(forUnwrapped: sessionP!, currentSession: currentSession) ?? SessionProviderFetchStrategy.fetch
+            if let strategy = strategy(forUnwrapped: sessionP!, currentSession: currentSession) {
+                return strategy
+            }
+            return SessionProviderFetchStrategy.fetch
         }
 
-        private func strategy(forUnwrapped sessionP: Promise<Session>, currentSession session: Session?) -> SessionProviderFetchStrategy? {
-
+        private func strategy(forUnwrapped sessionP: Promise<Session>,
+                              currentSession session: Session?) -> SessionProviderFetchStrategy?
+        {
             switch sessionP.state {
             case .fulfilled(let session):
                 return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.nothing

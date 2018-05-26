@@ -6,6 +6,7 @@
 import Foundation
 
 protocol NetworkRequest {
+    // swiftlint:disable:next type_name
     associatedtype T
 
     mutating func load() -> Promise<T>

@@ -48,11 +48,11 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         updateNavigationItems()
     }
 
-    @IBAction func goBack(_ sender: Any) {
+    @IBAction private func goBack(_ sender: Any) {
         self.webView.goBack()
     }
 
-    @IBAction func goForward(_ sender: Any) {
+    @IBAction private func goForward(_ sender: Any) {
         self.webView.goForward()
     }
 
@@ -61,7 +61,10 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         self.goForwardItem.isEnabled = self.webView.canGoForward
     }
 
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
+    {
         if let url = navigationAction.request.url {
             let pathComponents: [String] = url.pathComponents
             if pathComponents.count > 3
@@ -76,7 +79,10 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         decisionHandler(.allow)
     }
 
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationResponse: WKNavigationResponse,
+                 decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void)
+    {
         decisionHandler(.allow)
     }
 

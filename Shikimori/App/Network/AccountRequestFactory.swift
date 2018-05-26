@@ -25,7 +25,7 @@ class AccountRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, 
     init() {
         super.init(converter: ClosureSalToDomainConverter({ (result: UserResult) in
             let userMapper = UserRequestResultMapper()
-            let user: User = try! userMapper.convert(result)
+            let user: User = try userMapper.convert(result)
             return Account(user: user)
         }))
     }

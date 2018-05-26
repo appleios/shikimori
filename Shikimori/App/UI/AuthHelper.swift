@@ -40,10 +40,8 @@ class AuthHelper: AuthViewControllerDelegate {
                     switch appError {
                     case .invalidGrant:
                         self.presentAuthViewController()
-                        break
                     default:
                         print("Unexpected error: \(appError)")
-                        break
                     }
                 }
                 self.presentAuthViewController()

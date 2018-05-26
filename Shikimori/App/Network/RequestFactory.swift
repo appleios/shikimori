@@ -14,8 +14,8 @@ class RequestFactory {
     }
 
     enum HTTPMethod: String {
-        case GET = "GET"
-        case POST = "POST"
+        case GET
+        case POST
     }
 
     func get(_ url: URL?, accessToken: String? = nil) -> URLRequest {
@@ -30,7 +30,7 @@ class RequestFactory {
         var r = URLRequest(url: url!)
         r.httpMethod = method.rawValue
         r.setValue("User-Agent", forHTTPHeaderField: userAgent)
-        r.setValue("*/*", forHTTPHeaderField: "Accept") // TODO accept json
+        r.setValue("application/json", forHTTPHeaderField: "Accept")
         if let accessToken = accessToken {
             r.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }

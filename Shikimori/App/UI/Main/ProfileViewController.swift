@@ -1,9 +1,6 @@
 //
-//  ProfileViewController.swift
-//  Shikimori
-//
-//  Created by Aziz Latipov on 28.04.2018.
-//  Copyright © 2018 Aziz L. All rights reserved.
+// Created by Aziz Latipov on 28.04.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
 import UIKit
@@ -115,14 +112,14 @@ class ProfileViewController: UITableViewController {
                 nickname: self.account.user.nickname)
 
         var cellPresenters: [CellPresenter] = [
-            headerCellPresenter
+            headerCellPresenter,
         ]
 
         if let userP = self.userP, userP.isResolved() {
             let user = userP.value!
             if let stats = user.stats {
                 if let anime = stats.anime {
-                    cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Watching", comment: ""), // TODO add methoc humanReadableTitle() for enum
+                    cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Watching", comment: ""), // TODO add method humanReadableTitle() for enum
                                                                         value: anime[UserRates.Status.watching]!,
                                                                         status: UserRates.Status.watching)) // TODO get stats by status
 
@@ -150,7 +147,7 @@ class ProfileViewController: UITableViewController {
         self.tableView.reloadData()
     }
 
-    // MARK - TableView DataSource
+    // MARK: - TableView DataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.presenters?.count ?? 0
@@ -185,7 +182,7 @@ class ProfileViewController: UITableViewController {
         }
     }
 
-    // MARK -
+    // MARK: -
 
     private var avatar: ImageLoading? {
         guard let url = account.user.avatar else {

@@ -1,19 +1,17 @@
 //
-//  AnimeEndpointTests.swift
-//  Shikimori
-//
-//  Created by Aziz Latipov on 19.05.2018.
-//  Copyright © 2018 Aziz L. All rights reserved.
+// Created by Aziz Latipov on 19.05.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
-import XCTest
 import Foundation
 @testable import Shikimori
+import XCTest
 
 class AnimeEndpointTests: XCTestCase {
 
-    func testAnimeByID() {
-        let data = """
+    // swiftlint:disable:next function_body_length
+    func fixture() -> String {
+        return """
         {
           "aired_on": "2018-04-06",
           "anons": false,
@@ -61,8 +59,8 @@ class AnimeEndpointTests: XCTestCase {
           ],
           "id": 36296,
           "image": {
-            "original": "/system/animes/original/36296.jpg?1525770947",
-            "preview": "/system/animes/preview/36296.jpg?1525770947",
+            "original": "/system/original/36296.jpg",
+            "preview": "/system/preview/36296.jpg",
             "x48": "/system/animes/x48/36296.jpg?1525770947",
             "x96": "/system/animes/x96/36296.jpg?1525770947"
           },
@@ -205,29 +203,37 @@ class AnimeEndpointTests: XCTestCase {
             }
           ]
         }
-        """.data(using: .utf8)
+        """
+    }
+
+    func testAnimeByID() {
+        guard let data = fixture().data(using: .utf8) else {
+            XCTFail("Incorrect fixture")
+            return
+        }
 
         let dateFormatter = AnimeRequestResultMapper.dateFormatterForISO8601()
         let date = dateFormatter.date(from: "2018-05-25T15:00:00.000+03:00")
         XCTAssertNotNil(date)
 
         let mapper = AnimeRequestResultMapper(baseURL: URL(string: "https://example.com")!)
+
+        var result: Anime
         do {
-            let result: Anime = try mapper.mapToDomain(data!)
-
-            XCTAssertNotNil(result)
-            XCTAssertEqual(result.id, 36296)
-            XCTAssertEqual(result.name, "Hinamatsuri")
-            XCTAssertEqual(result.russian, "Праздник кукол")
-            XCTAssertEqual(result.originalImageURL.absoluteString, "https://example.com/system/animes/original/36296.jpg?1525770947")
-            XCTAssertEqual(result.previewImageURL.absoluteString, "https://example.com/system/animes/preview/36296.jpg?1525770947")
-            XCTAssertEqual(result.url.absoluteString, "https://example.com/animes/36296-hinamatsuri")
-            XCTAssertNotNil(result.nextEpisodeAt)
-
+            result = try mapper.mapToDomain(data)
         } catch {
-            print("error: \(error)")
-            XCTAssertNotNil(nil)
+            XCTFail("Mapping result is nil")
+            return
         }
+
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result.id, 36_296)
+        XCTAssertEqual(result.name, "Hinamatsuri")
+        XCTAssertEqual(result.russian, "Праздник кукол")
+        XCTAssertEqual(result.originalImageURL.absoluteString, "https://example.com/system/original/36296.jpg")
+        XCTAssertEqual(result.previewImageURL.absoluteString, "https://example.com/system/preview/36296.jpg")
+        XCTAssertEqual(result.url.absoluteString, "https://example.com/animes/36296-hinamatsuri")
+        XCTAssertNotNil(result.nextEpisodeAt)
 
     }
 

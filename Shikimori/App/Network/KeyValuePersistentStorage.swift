@@ -16,6 +16,7 @@ class KeyValuePersistentStorage<T> where T: Codable {
     }
 
     let key: String
+
     init(key: String) {
         self.key = key
     }
@@ -85,7 +86,9 @@ class ArchiverKeyValuePersistentStorage<T>: KeyValuePersistentStorage<T> where T
     }
 
     override func loadValue(forKey key: String) -> T? {
-        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePathForKey(key)) as? Data else { return nil }
+        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePathForKey(key)) as? Data else {
+            return nil
+        }
 
         do {
             return try PropertyListDecoder().decode(T.self, from: data)

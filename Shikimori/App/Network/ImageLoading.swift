@@ -34,7 +34,7 @@ class ImageLoadingHelper {
 
     static func getImage(atURL url: URL) -> UIImage? {
         guard let data = try? Data(contentsOf: url) else { return nil }
-        guard let image =  UIImage(data: data) else { return nil }
+        guard let image = UIImage(data: data) else { return nil }
         return image
     }
 

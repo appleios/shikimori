@@ -25,52 +25,68 @@ class Promise<T> {
 
     func isPending() -> Bool {
         switch state {
-        case .pending: return true
-        default: return false
+        case .pending:
+            return true
+        default:
+            return false
         }
     }
 
     func isFulfilled() -> Bool {
         switch state {
-        case .fulfilled: return true
-        default: return false
+        case .fulfilled:
+            return true
+        default:
+            return false
         }
     }
 
     func isError() -> Bool {
         switch state {
-        case .error: return true
-        default: return false
+        case .error:
+            return true
+        default:
+            return false
         }
     }
 
     func isResolved() -> Bool {
         switch state {
-        case .fulfilled: return true
-        case .error: return true
-        default: return false
+        case .fulfilled:
+            return true
+        case .error:
+            return true
+        default:
+            return false
         }
     }
 
     func isCancelled() -> Bool {
         switch state {
-        case .fulfilled: return true
-        case .error(let e): return e == nil
-        default: return false
+        case .fulfilled:
+            return true
+        case .error(let e):
+            return e == nil
+        default:
+            return false
         }
     }
 
     var value: T? {
         switch state {
-        case let .fulfilled(value): return value
-        default: return nil
+        case let .fulfilled(value):
+            return value
+        default:
+            return nil
         }
     }
 
     var error: Error? {
         switch state {
-        case let .error(error): return error
-        default: return nil
+        case let .error(error):
+            return error
+        default:
+            return nil
         }
     }
 
@@ -148,7 +164,6 @@ class Promise<T> {
 
         case .error:
             lock.unlock()
-            break
         }
     }
 
@@ -161,7 +176,6 @@ class Promise<T> {
 
         case .fulfilled:
             lock.unlock()
-            break
 
         case .error(let error):
             lock.unlock()

@@ -1,19 +1,15 @@
 //
-//  UserRatesEndpointTests.swift
-//  Shikimori
-//
-//  Created by Aziz Latipov on 18.05.2018.
-//  Copyright © 2018 Aziz L. All rights reserved.
+// Created by Aziz Latipov on 18.05.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
-import XCTest
 import Foundation
 @testable import Shikimori
+import XCTest
 
 class UserRatesEndpointTests: XCTestCase {
 
-    func testUserRates() {
-        let data = """
+    let fixture = """
         [
           {
             "id": 15,
@@ -48,12 +44,24 @@ class UserRatesEndpointTests: XCTestCase {
             "updated_at": "2017-01-10T15:00:00.000+03:00"
           }
         ]
-        """.data(using: .utf8)
+        """
+
+    func testUserRates() {
+        guard let data = fixture.data(using: .utf8) else {
+            XCTFail("Incorrect fixture")
+            return
+        }
 
         let mapper = UserRatesRequestResultMapper()
-        let result: [UserRates] = try! mapper.mapToDomain(data!)
 
-        XCTAssertNotNil(result)
+        var result: [UserRates]
+        do {
+            result = try mapper.mapToDomain(data)
+        } catch {
+            XCTFail("Mapping result is nil")
+            return
+        }
+
         XCTAssertEqual(result.count, 2)
         XCTAssertEqual(result[0].targetType, UserRates.TargetType.anime)
         XCTAssertEqual(result[0].targetId, 45)

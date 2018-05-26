@@ -1,30 +1,30 @@
 //
-//  UsersEndpointTests.swift
-//  Shikimori
-//
-//  Created by Aziz Latipov on 17.05.2018.
-//  Copyright © 2018 Aziz L. All rights reserved.
+// Created by Aziz Latipov on 17.05.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
-import XCTest
 import Foundation
 @testable import Shikimori
+import XCTest
 
 class UserRequestTests: XCTestCase {
 
-    func testUserById() {
-        let avatar = "https://host.com/avatar"
-        let anime_planned = 1
-        let anime_watching = 2
-        let anime_dropped = 3
-        let anime_completed = 4
-        let anime_on_hold = 5
-        let manga_watching = 6
-        let data = """
+    let avatar = "https://host.com/avatar"
+    let animePlanned = 1
+    let animeWatching = 2
+    let animeDropped = 3
+    let animeCompleted = 4
+    let animeOnHold = 5
+    let mangaWatching = 6
+
+    // swiftlint:disable line_length
+    // swiftlint:disable:next function_body_length
+    func fixture() -> String {
+        return """
         {
           "id": 12345,
           "nickname": "NICKNAME",
-          "avatar": \"\(avatar)\",
+          "avatar": \"https://host.com/avatar\",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
             "x148": "http:///assets/globals/missing_avatar/x148.png",
@@ -57,35 +57,35 @@ class UserRequestTests: XCTestCase {
                 {
                   "id": 0,
                   "name": "planned",
-                  "size": \(anime_planned),
+                  "size": \(animePlanned),
                   "grouped_id": "planned",
                   "type": "Anime"
                 },
                 {
                   "id": 1,
                   "name": "watching",
-                  "size": \(anime_watching),
+                  "size": \(animeWatching),
                   "grouped_id": "watching,rewatching",
                   "type": "Anime"
                 },
                 {
                   "id": 2,
                   "name": "completed",
-                  "size": \(anime_completed),
+                  "size": \(animeCompleted),
                   "grouped_id": "completed",
                   "type": "Anime"
                 },
                 {
                   "id": 3,
                   "name": "on_hold",
-                  "size": \(anime_on_hold),
+                  "size": \(animeOnHold),
                   "grouped_id": "on_hold",
                   "type": "Anime"
                 },
                 {
                   "id": 4,
                   "name": "dropped",
-                  "size": \(anime_dropped),
+                  "size": \(animeDropped),
                   "grouped_id": "dropped",
                   "type": "Anime"
                 }
@@ -101,7 +101,7 @@ class UserRequestTests: XCTestCase {
                 {
                   "id": 1,
                   "name": "watching",
-                  "size": \(manga_watching),
+                  "size": \(mangaWatching),
                   "grouped_id": "watching,rewatching",
                   "type": "Manga"
                 },
@@ -238,25 +238,48 @@ class UserRequestTests: XCTestCase {
           },
           "style_id": null
         }
-        """.data(using: .utf8)
+        """
+    }
+    // swiftlint:enable line_length
+
+    func testUserById() {
+        guard let data = fixture().data(using: .utf8) else {
+            XCTFail("Incorrect fixture")
+            return
+        }
 
         let mapper = UserRequestResultMapper()
-        let result: User = try! mapper.mapToDomain(data!)
 
-        XCTAssertNotNil(result)
-        XCTAssertEqual(result.id, 12345)
+        var result: User
+        do {
+            result = try mapper.mapToDomain(data)
+        } catch {
+            XCTFail("Mapping result is nil")
+            return
+        }
+
+        XCTAssertEqual(result.id, 12_345)
         XCTAssertEqual(result.nickname, "NICKNAME")
-        XCTAssertEqual(result.avatar, URL(string: avatar))
+        XCTAssertEqual(result.avatar, URL(string: "https://host.com/avatar"))
 
+        XCTAssertNotNil(result.stats)
+        XCTAssertNotNil(result.stats?.anime)
+
+        // swiftlint:disable:next force_unwrapping
         let anime = result.stats!.anime!
-        XCTAssertEqual(anime[UserRates.Status.planned], anime_planned)
-        XCTAssertEqual(anime[UserRates.Status.dropped], anime_dropped)
-        XCTAssertEqual(anime[UserRates.Status.watching], anime_watching)
-        XCTAssertEqual(anime[UserRates.Status.onHold], anime_on_hold)
-        XCTAssertEqual(anime[UserRates.Status.completed], anime_completed)
 
+        XCTAssertEqual(anime[UserRates.Status.planned], animePlanned)
+        XCTAssertEqual(anime[UserRates.Status.dropped], animeDropped)
+        XCTAssertEqual(anime[UserRates.Status.watching], animeWatching)
+        XCTAssertEqual(anime[UserRates.Status.onHold], animeOnHold)
+        XCTAssertEqual(anime[UserRates.Status.completed], animeCompleted)
+
+        XCTAssertNotNil(result.stats?.manga)
+
+        // swiftlint:disable:next force_unwrapping
         let manga = result.stats!.manga!
-        XCTAssertEqual(manga[UserRates.Status.watching], manga_watching)
+
+        XCTAssertEqual(manga[UserRates.Status.watching], mangaWatching)
     }
 
 }

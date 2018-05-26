@@ -1,9 +1,6 @@
 //
-//  MainViewController.swift
-//  Shikimori
-//
-//  Created by Aziz L on 25.04.2018.
-//  Copyright © 2018 Aziz L. All rights reserved.
+// Created by Aziz L on 25.04.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
 import UIKit
@@ -11,6 +8,9 @@ import UIKit
 class MainViewController: UIViewController {
 
     let accountProvider = AccountProvider.main
+    lazy var authHelper: AuthHelper = {
+        return AuthHelper(viewController: self)
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,9 @@ class MainViewController: UIViewController {
 
         let accountP = self.accountProvider.getAccount(sessionP: sessionP)
         accountP.then { [weak self] (account: Account) in
-            guard let sSelf = self else { return }
+            guard let sSelf = self else {
+                return
+            }
 
             DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 1000)) {
                 let viewController = ProfileViewController.viewController(account: account, session: sessionP.value!)
@@ -50,14 +52,12 @@ class MainViewController: UIViewController {
         }
     }
 
-    @objc func handleSessionChange() {
-    }
-
-    @IBAction func openMenu(_ sender: Any) {
+    @objc
+    func handleSessionChange() {
 
     }
 
-    lazy var authHelper: AuthHelper = {
-        return AuthHelper(viewController: self)
-    }()
+    @IBAction private func openMenu(_ sender: Any) {
+
+    }
 }

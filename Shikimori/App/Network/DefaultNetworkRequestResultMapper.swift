@@ -69,7 +69,7 @@ class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResu
 
     }
 
-    typealias Mapping = (_ result: SalType) -> DomainType
+    typealias Mapping = (_ result: SalType) throws -> DomainType
     internal class ClosureSalToDomainConverter: SalToDomainConverter<SalType, DomainType> {
 
         var mapping: Mapping
@@ -79,7 +79,7 @@ class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResu
         }
 
         override func convert(_ result: SalType) throws -> DomainType {
-            return self.mapping(result)
+            return try self.mapping(result)
         }
 
     }

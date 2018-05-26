@@ -22,7 +22,7 @@ class UserRatesRequestFactory: EndpointRequestFactory {
         let url = urlBuilder.url(withPath: "/api/v2/user_rates", queryItems: [
             URLQueryItem(name: "user_id", value: "\(userID)"),
             URLQueryItem(name: "target_type", value: targetType.rawValue),
-            URLQueryItem(name: "status", value: status.rawValue)
+            URLQueryItem(name: "status", value: status.rawValue),
         ])
 
         let request: URLRequest = requestFactory.get(url, accessToken: session.token.accessToken)
@@ -39,9 +39,11 @@ class UserRatesRequestResultMapper: DefaultNetworkRequestResultMapper<[UserRates
 
     init() {
         super.init(converter: ClosureSalToDomainConverter({ (result: [UserRatesResult]) in
-            return result.map {
-                return UserRates(targetId: $0.targetId,
-                        targetType: UserRates.TargetType(rawValue: $0.targetType)!)
+            return try result.map {
+                guard let targetType = UserRates.TargetType(rawValue: $0.targetType) else {
+                    throw NSError(domain: "", code: 1) // TODO
+                }
+                return UserRates(targetId: $0.targetId, targetType: targetType)
             }
          }))
     }

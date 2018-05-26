@@ -1,5 +1,6 @@
 disabled_rules:
-  - single_test_class
+  - operator_whitespace
+  - private_outlet
 opt_in_rules:
   - empty_count
   - force_unwrapping
@@ -8,14 +9,12 @@ opt_in_rules:
   - sorted_first_last
   - redundant_nil_coalescing
   - prohibited_super_call
-  - private_outlet
   - private_action
   - override_in_extension
   - overridden_super_call
   - operator_usage_whitespace
   - object_literal
   - number_separator
-  - no_grouping_extension
   - multiline_arguments
   - multiline_parameters
   - lower_acl_than_parent
@@ -48,12 +47,16 @@ trailing_comma:
   mandatory_comma: true
 number_separator:
   minimum_length: 5
+identifier_name:
+  min_length: 1
+file_header:
+  required_pattern: "\\/{2}\n\\/{2} Created by [a-zA-Z ]+ on \\d{2}\\.\\d{2}\\.\\d{4}\\.\n\\/{2} Copyright \\(c\\) \\d{4} [a-zA-Z ]+. All rights reserved.\n\\/{2}"
 excluded:
   - Carthage/
   - Frameworks/
   - Library/Strings.swift
   - bin/strings.swift
-reporter: "xcode"
+reporter: "csv"
 custom_rules:
   localized_lensing:
     name: "Localized Lensing"

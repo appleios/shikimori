@@ -1,9 +1,6 @@
 //
-//  UserRatesViewController.swift
-//  Shikimori
-//
-//  Created by Aziz Latipov on 18.05.2018.
-//  Copyright © 2018 Aziz L. All rights reserved.
+// Created by Aziz Latipov on 18.05.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
 import Foundation
@@ -18,6 +15,8 @@ class UserRatesViewController: UITableViewController {
     var animesP: [Int: Promise<Anime>] = [:]
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         userRatesP?.then { [weak self] _ in
             self?.tableView.reloadData()
         }

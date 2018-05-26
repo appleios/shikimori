@@ -25,7 +25,7 @@ class HttpRequest<DomainType>: NetworkRequest {
         self.urlSession = urlSession
     }
 
-    func load()  -> Promise<DomainType> {
+    func load() -> Promise<DomainType> {
         guard !isLoading() else {
             fatalError("already loading")
         }

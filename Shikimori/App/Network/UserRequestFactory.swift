@@ -5,6 +5,7 @@
 
 import Foundation
 
+// swiftlint:disable nesting discouraged_optional_collection
 struct UserResult: Codable {
 
     var id: Int
@@ -29,6 +30,7 @@ struct UserResult: Codable {
 
     var stats: StatsResult?
 }
+// swiftlint:enable nesting discouraged_optional_collection
 
 class UserRequestFactory: EndpointRequestFactory {
 
