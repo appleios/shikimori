@@ -295,7 +295,7 @@ class UserRequestResultMapperTests: XCTestCase {
         }
 
         var result: Account
-        do{
+        do {
             let mapper = AccountRequestResultMapper()
             result = try mapper.mapToDomain(data)
         } catch {
