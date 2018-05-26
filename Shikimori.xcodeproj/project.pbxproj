@@ -16,6 +16,7 @@
 		1EDE21A81F03F9C6A18C8F18 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27A7A1FF3292C2144B71 /* AppError.swift */; };
 		1EDE21D7AF469BC28ACE3EEF /* UserRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE297ADC34C5CC364D8C6D /* UserRates.swift */; };
 		1EDE221446A7D18D6BD22697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE2516E723B235129B26A7 /* Assets.xcassets */; };
+		1EDE2259AAAD922C74BB3039 /* UserRatesEndpointFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE2E31A1678B4A5FA23EBD /* UserRatesEndpointFixture.json */; };
 		1EDE2270CA95717237A9E45D /* Anime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE257888D926144B4EDB29 /* Anime.swift */; };
 		1EDE230AB1D269FB7DE2B23C /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */; };
 		1EDE23994B51E84A58AD48A1 /* KeyValuePersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE24B5E4280C4D0448C1FF /* KeyValuePersistentStorage.swift */; };
@@ -37,8 +38,8 @@
 		1EDE28A4CC97C35A56552F26 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2FA96A39398AEC283149 /* MainViewController.swift */; };
 		1EDE28E4EC3C59006288E9F1 /* UserRequestResultMapperFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE2F14F274805B43F6DB1F /* UserRequestResultMapperFixture.json */; };
 		1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */; };
-		1EDE2B2176DA89585C6AD31C /* MappingTestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2728D386FA06EBF7DC4C /* MappingTestsHelper.swift */; };
-		1EDE2BC374BC776B3E772E32 /* UserRatesRequestResultMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2208C36FEBAB05507989 /* UserRatesRequestResultMapperTests.swift */; };
+		1EDE2B2176DA89585C6AD31C /* BaseMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2728D386FA06EBF7DC4C /* BaseMappingTests.swift */; };
+		1EDE2BC374BC776B3E772E32 /* UserRatesEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2208C36FEBAB05507989 /* UserRatesEndpointTests.swift */; };
 		1EDE2BCAAA7B45BC01D7FAF6 /* UserRequestResultMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2724825C1619913315AE /* UserRequestResultMapperTests.swift */; };
 		1EDE2C676B93EEDB77D05B29 /* AuthCodeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2343A58F502E2E4DF0CF /* AuthCodeStorage.swift */; };
 		1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */; };
@@ -76,7 +77,7 @@
 		1EDE21648314F4D8463F4E19 /* RequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		1EDE219DA326C87EF9124994 /* AccountRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
-		1EDE2208C36FEBAB05507989 /* UserRatesRequestResultMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRatesRequestResultMapperTests.swift; sourceTree = "<group>"; };
+		1EDE2208C36FEBAB05507989 /* UserRatesEndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRatesEndpointTests.swift; sourceTree = "<group>"; };
 		1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1EDE2343A58F502E2E4DF0CF /* AuthCodeStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCodeStorage.swift; sourceTree = "<group>"; };
 		1EDE24B5E4280C4D0448C1FF /* KeyValuePersistentStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValuePersistentStorage.swift; sourceTree = "<group>"; };
@@ -90,7 +91,7 @@
 		1EDE26E92196DD29AC45F75D /* TokenRequestResultMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequestResultMapperTests.swift; sourceTree = "<group>"; };
 		1EDE27041C9A106EFE69C3C7 /* UserRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE2724825C1619913315AE /* UserRequestResultMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequestResultMapperTests.swift; sourceTree = "<group>"; };
-		1EDE2728D386FA06EBF7DC4C /* MappingTestsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingTestsHelper.swift; sourceTree = "<group>"; };
+		1EDE2728D386FA06EBF7DC4C /* BaseMappingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMappingTests.swift; sourceTree = "<group>"; };
 		1EDE274632ED916AC4B91DB2 /* UserRatesRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRatesRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE27A7A1FF3292C2144B71 /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		1EDE27B950A8B4B441823258 /* AnimeRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeRequestFactory.swift; sourceTree = "<group>"; };
@@ -112,6 +113,7 @@
 		1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
 		1EDE2E1CB59F095AD2A8C966 /* SessionProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProviderTests.swift; sourceTree = "<group>"; };
 		1EDE2E2809E164266CF3B84A /* AnimeEndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeEndpointTests.swift; sourceTree = "<group>"; };
+		1EDE2E31A1678B4A5FA23EBD /* UserRatesEndpointFixture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserRatesEndpointFixture.json; sourceTree = "<group>"; };
 		1EDE2F14F274805B43F6DB1F /* UserRequestResultMapperFixture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserRequestResultMapperFixture.json; sourceTree = "<group>"; };
 		1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAccessLayer.swift; sourceTree = "<group>"; };
 		1EDE2FA96A39398AEC283149 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -257,10 +259,11 @@
 			isa = PBXGroup;
 			children = (
 				1EDE2724825C1619913315AE /* UserRequestResultMapperTests.swift */,
-				1EDE2208C36FEBAB05507989 /* UserRatesRequestResultMapperTests.swift */,
+				1EDE2208C36FEBAB05507989 /* UserRatesEndpointTests.swift */,
 				1EDE26E92196DD29AC45F75D /* TokenRequestResultMapperTests.swift */,
 				1EDE2F14F274805B43F6DB1F /* UserRequestResultMapperFixture.json */,
-				1EDE2728D386FA06EBF7DC4C /* MappingTestsHelper.swift */,
+				1EDE2728D386FA06EBF7DC4C /* BaseMappingTests.swift */,
+				1EDE2E31A1678B4A5FA23EBD /* UserRatesEndpointFixture.json */,
 			);
 			name = Mappers;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EDE28E4EC3C59006288E9F1 /* UserRequestResultMapperFixture.json in Resources */,
+				1EDE2259AAAD922C74BB3039 /* UserRatesEndpointFixture.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,9 +501,9 @@
 				1EDE205E3AEDA23707883B8A /* SessionProviderTests.swift in Sources */,
 				1EDE246006B6F43F2CE007FB /* AnimeEndpointTests.swift in Sources */,
 				1EDE2BCAAA7B45BC01D7FAF6 /* UserRequestResultMapperTests.swift in Sources */,
-				1EDE2BC374BC776B3E772E32 /* UserRatesRequestResultMapperTests.swift in Sources */,
+				1EDE2BC374BC776B3E772E32 /* UserRatesEndpointTests.swift in Sources */,
 				1EDE2EFD330D63749A14773B /* TokenRequestResultMapperTests.swift in Sources */,
-				1EDE2B2176DA89585C6AD31C /* MappingTestsHelper.swift in Sources */,
+				1EDE2B2176DA89585C6AD31C /* BaseMappingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
