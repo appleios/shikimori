@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class NetworkRequestResultMapper<DomainType> {
 
     func mapToDomain(_ data: Data) throws -> DomainType {

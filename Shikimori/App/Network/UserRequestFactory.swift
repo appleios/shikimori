@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct UserResult: Codable {
 
     var id: Int
@@ -31,7 +30,6 @@ struct UserResult: Codable {
     var stats: StatsResult?
 }
 
-
 class UserRequestFactory: EndpointRequestFactory {
 
     func getUser(byID userID: Int, session: Session) -> HttpRequest<User> {
@@ -47,7 +45,6 @@ class UserRequestFactory: EndpointRequestFactory {
 
 }
 
-
 class UserRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, User> {
 
     init() {
@@ -55,8 +52,7 @@ class UserRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Use
     }
 }
 
-
-fileprivate class UserSalToDomainConverter: SalToDomainConverter<UserResult, User> {
+private class UserSalToDomainConverter: SalToDomainConverter<UserResult, User> {
 
     override func convert(_ result: UserResult) throws -> User {
         let stats = userStatsFromResult(result.stats) // TODO [investigate] there should exist more swift way to write this kind of expressions
@@ -78,7 +74,6 @@ fileprivate class UserSalToDomainConverter: SalToDomainConverter<UserResult, Use
                 anime: userStatisticsFromStatusesResult(result.anime),
                 manga: userStatisticsFromStatusesResult(result.manga))
     }
-
 
     typealias StatResult = UserResult.StatsResult.StatusesResult.StatResult
     private func userStatisticsFromStatusesResult(_ statuses: [StatResult]?) -> UserStatistics.Statistics? {

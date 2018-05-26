@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct Session: Codable, Equatable {
 
     let token: SessionToken
@@ -218,7 +217,7 @@ class SessionProvider {
         }
 
         private func refreshStrategyOrNil(forSession session: Session?) -> SessionProviderFetchStrategy? {
-            if session != nil && session!.token.isExpired(){
+            if session != nil && session!.token.isExpired() {
                 return SessionProviderFetchStrategy.refresh(previousSession: session!)
             }
             return nil

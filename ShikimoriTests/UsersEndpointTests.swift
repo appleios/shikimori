@@ -10,7 +10,6 @@ import XCTest
 import Foundation
 @testable import Shikimori
 
-
 class UserRequestTests: XCTestCase {
 
     func testUserById() {

@@ -10,7 +10,6 @@ import XCTest
 import Foundation
 @testable import Shikimori
 
-
 class AnimeEndpointTests: XCTestCase {
 
     func testAnimeByID() {
@@ -216,7 +215,6 @@ class AnimeEndpointTests: XCTestCase {
         do {
             let result: Anime = try mapper.mapToDomain(data!)
 
-
             XCTAssertNotNil(result)
             XCTAssertEqual(result.id, 36296)
             XCTAssertEqual(result.name, "Hinamatsuri")
@@ -234,4 +232,3 @@ class AnimeEndpointTests: XCTestCase {
     }
 
 }
-

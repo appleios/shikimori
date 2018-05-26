@@ -6,13 +6,11 @@
 import UIKit
 import WebKit
 
-
 protocol AuthViewControllerDelegate: class {
 
     func authViewController(_ viewController: AuthViewController, didCompleteWithAuthCode authCode: String)
 
 }
-
 
 class AuthViewController: UIViewController, WKNavigationDelegate {
 

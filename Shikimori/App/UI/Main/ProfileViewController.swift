@@ -8,18 +8,15 @@
 
 import UIKit
 
-
 class ProfileImageTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nicknameLabel: UILabel!
 
 }
 
-
 class ProfileStatisticTableViewCell: UITableViewCell {
 }
-
 
 struct ProfileHeaderCellPresenter: CellPresenter, CellPresenterTableViewSupport {
 
@@ -50,7 +47,6 @@ struct ProfileHeaderCellPresenter: CellPresenter, CellPresenterTableViewSupport 
 
 }
 
-
 struct ProfileStatisticCellPresenter: CellPresenter, CellPresenterTableViewSupport {
 
     let name: String
@@ -76,7 +72,6 @@ struct ProfileStatisticCellPresenter: CellPresenter, CellPresenterTableViewSuppo
     }
 
 }
-
 
 class ProfileViewController: UITableViewController {
 

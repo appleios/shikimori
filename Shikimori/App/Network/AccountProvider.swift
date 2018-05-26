@@ -5,13 +5,11 @@
 
 import Foundation
 
-
 struct Account {
 
     let user: User
 
 }
-
 
 class AccountProvider {
 

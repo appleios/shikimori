@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class KeyValuePersistentStorage<T> where T: Codable {
 
     static func userDefaultsStorage<T>(withKey key: String) -> UserDefaultsKeyValuePersistentStorage<T> {
@@ -48,7 +47,6 @@ class KeyValuePersistentStorage<T> where T: Codable {
     }
 }
 
-
 class UserDefaultsKeyValuePersistentStorage<T>: KeyValuePersistentStorage<T> where T: Codable {
 
     override func storeValue(value: T, forKey key: String) {
@@ -75,7 +73,6 @@ class UserDefaultsKeyValuePersistentStorage<T>: KeyValuePersistentStorage<T> whe
     }
 
 }
-
 
 class ArchiverKeyValuePersistentStorage<T>: KeyValuePersistentStorage<T> where T: Codable {
 

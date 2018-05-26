@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct UserRatesResult: Codable {
 
     let targetId: Int
@@ -13,14 +12,12 @@ struct UserRatesResult: Codable {
 
 }
 
-
 class UserRatesRequestFactory: EndpointRequestFactory {
 
     func getUserRates(byID userID: Int,
                       status: UserRates.Status,
                       targetType: UserRates.TargetType,
-                      session: Session) -> HttpRequest<[UserRates]>
-    {
+                      session: Session) -> HttpRequest<[UserRates]> {
 
         let url = urlBuilder.url(withPath: "/api/v2/user_rates", queryItems: [
             URLQueryItem(name: "user_id", value: "\(userID)"),
@@ -37,7 +34,6 @@ class UserRatesRequestFactory: EndpointRequestFactory {
     }
 
 }
-
 
 class UserRatesRequestResultMapper: DefaultNetworkRequestResultMapper<[UserRatesResult], [UserRates]> {
 

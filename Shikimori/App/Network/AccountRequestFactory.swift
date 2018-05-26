@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class AccountRequestFactory: EndpointRequestFactory {
 
     func getAccount(session: Session) -> HttpRequest<Account> {
@@ -20,7 +19,6 @@ class AccountRequestFactory: EndpointRequestFactory {
     }
 
 }
-
 
 class AccountRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Account> {
 

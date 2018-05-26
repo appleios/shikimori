@@ -10,7 +10,6 @@ import XCTest
 import Foundation
 @testable import Shikimori
 
-
 class UserRatesEndpointTests: XCTestCase {
 
     func testUserRates() {
@@ -61,5 +60,5 @@ class UserRatesEndpointTests: XCTestCase {
         XCTAssertEqual(result[1].targetType, UserRates.TargetType.manga)
         XCTAssertEqual(result[1].targetId, 46)
     }
-    
+
 }

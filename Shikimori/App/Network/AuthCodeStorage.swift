@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class AuthCodeStorage {
 
     static let AuthCodeDidChangeNotification = Notification.Name("authCodeDidChange")

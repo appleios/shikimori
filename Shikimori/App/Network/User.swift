@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct User {
 
     let id: Int
@@ -16,10 +15,9 @@ struct User {
 }
 
 struct UserStatistics {
-    typealias Statistics = [UserRates.Status:Int]
+    typealias Statistics = [UserRates.Status: Int]
 
     let anime: Statistics?
     let manga: Statistics?
 
 }
-

@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct AnimeResult: Codable {
 
     let id: Int
@@ -27,7 +26,6 @@ struct AnimeResult: Codable {
 
 }
 
-
 class AnimeRequestFactory: EndpointRequestFactory {
 
     func getAnime(byID animeID: Int, session: Session) -> HttpRequest<Anime> {
@@ -42,7 +40,6 @@ class AnimeRequestFactory: EndpointRequestFactory {
     }
 
 }
-
 
 class AnimeRequestResultMapper: DefaultNetworkRequestResultMapper<AnimeResult, Anime> {
 
@@ -64,8 +61,6 @@ class AnimeRequestResultMapper: DefaultNetworkRequestResultMapper<AnimeResult, A
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return decoder
         }
-
-
 
         var jsonDecoder: JSONDecoder
 

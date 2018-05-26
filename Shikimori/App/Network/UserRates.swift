@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct UserRates {
 
     enum Status: String {

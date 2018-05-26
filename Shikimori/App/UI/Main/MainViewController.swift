@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class MainViewController: UIViewController {
 
     let accountProvider = AccountProvider.main
@@ -55,7 +54,7 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func openMenu(_ sender: Any) {
-        
+
     }
 
     lazy var authHelper: AuthHelper = {

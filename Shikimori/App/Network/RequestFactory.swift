@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class RequestFactory {
 
     let userAgent: String

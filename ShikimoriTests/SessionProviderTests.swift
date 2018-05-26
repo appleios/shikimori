@@ -10,7 +10,6 @@ import XCTest
 import Foundation
 @testable import Shikimori
 
-
 class SessionProviderTests: XCTestCase {
 
     let sessionProvider: SessionProvider = SessionProvider() // TODO use proper init()
@@ -110,8 +109,7 @@ class SessionProviderTests: XCTestCase {
     }
 
     private func assertNoRespectCurrent(withSessionP sessionP: Promise<Session>,
-                                        expectedResult: SessionProvider.SessionProviderFetchStrategy)
-    {
+                                        expectedResult: SessionProvider.SessionProviderFetchStrategy) {
         assert(withSessionP: sessionP,
                 currentSession: nil,
                 expectedResult: expectedResult)
@@ -127,8 +125,7 @@ class SessionProviderTests: XCTestCase {
 
     private func assert(withSessionP sessionP: Promise<Session>?,
                         currentSession session: Session?,
-                        expectedResult: SessionProvider.SessionProviderFetchStrategy)
-    {
+                        expectedResult: SessionProvider.SessionProviderFetchStrategy) {
         let strategy: SessionProvider.SessionProviderFetchStrategy =
                 sessionProvider.fetchStrategy(forSessionP: sessionP, currentSession: session)
 

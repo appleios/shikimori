@@ -5,10 +5,8 @@
 
 import Foundation
 
-
 import XCTest
 @testable import Shikimori
-
 
 class PromiseTests: XCTestCase {
 

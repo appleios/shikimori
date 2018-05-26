@@ -6,14 +6,12 @@
 import Foundation
 import UIKit
 
-
 protocol ImageLoading {
 
     var imageP: Promise<UIImage> { get }
     var placeholder: UIImage? { get }
 
 }
-
 
 extension ImageLoading {
 
@@ -26,13 +24,11 @@ extension ImageLoading {
 
 }
 
-
 protocol ImageCache {
 
     func image(withFilename filename: String) -> UIImage?
     func saveImage(locatedAtURL url: URL, withFilename filename: String)
 }
-
 
 class ImageLoadingHelper {
 
@@ -43,7 +39,6 @@ class ImageLoadingHelper {
     }
 
 }
-
 
 class PersistentImageCache: ImageCache {
 
@@ -97,9 +92,8 @@ class PersistentImageCache: ImageCache {
             try fileManager.createDirectory(at: imagesDirectoryURL, withIntermediateDirectories: false)
         }
     }
-    
-}
 
+}
 
 class ImageDownloadOperation: ImageLoading {
 
@@ -115,8 +109,7 @@ class ImageDownloadOperation: ImageLoading {
          filename: String,
          placeholder: UIImage? = nil,
          urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default),
-         imageCache: ImageCache = PersistentImageCache())
-    {
+         imageCache: ImageCache = PersistentImageCache()) {
         self.sourceURL = sourceURL
         self.filename = filename
         self.placeholder = placeholder
@@ -152,7 +145,7 @@ class ImageDownloadOperation: ImageLoading {
                 self.urlSession.downloadTask(with: self.sourceURL, completionHandler: completionHandler)
 
         task.resume()
-        
+
         self.task = task
     }
 
@@ -164,5 +157,4 @@ class ImageDownloadOperation: ImageLoading {
         imageP.fulfill(image)
     }
 
-    
 }

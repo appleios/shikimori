@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class AppErrorMapper { // TODO decompose
 
     struct Result: Codable {

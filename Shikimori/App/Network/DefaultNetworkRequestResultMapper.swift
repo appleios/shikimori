@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 /// Decoder takes data, i.e. JSON, and creates **SAL Type** (Service Access Level Type).
 /// For example the `User` JSON
 /// ```
@@ -29,7 +28,6 @@ class NetworkDataDecoder<SalType> {
 
 }
 
-
 /// Mapper takes decoded object, i.g. `UserResult` from example above and creates **Domain Type**:
 /// ```
 /// struct User {
@@ -46,10 +44,8 @@ class SalToDomainConverter<SalType, DomainType> {
 
 }
 
-
 class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResultMapper<DomainType>
-        where SalType: Decodable
-{
+        where SalType: Decodable {
 
     class JsonResultDecoder: NetworkDataDecoder<SalType> {
 
@@ -92,8 +88,7 @@ class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResu
     let converter: SalToDomainConverter<SalType, DomainType>
 
     init(converter: SalToDomainConverter<SalType, DomainType>,
-         decoder: NetworkDataDecoder<SalType> = JsonResultDecoder())
-    {
+         decoder: NetworkDataDecoder<SalType> = JsonResultDecoder()) {
         self.decoder = decoder
         self.converter = converter
     }

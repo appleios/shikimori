@@ -5,11 +5,10 @@
 
 import Foundation
 
-
 class Promise<T> {
-    typealias ThenHandler = (T) -> ()
-    typealias ErrorHandler = (Error?) -> ()
-    typealias CompleteHandler = () -> ()
+    typealias ThenHandler = (T) -> Void
+    typealias ErrorHandler = (Error?) -> Void
+    typealias CompleteHandler = () -> Void
 
     enum State {
         case pending
@@ -33,29 +32,29 @@ class Promise<T> {
 
     func isFulfilled() -> Bool {
         switch state {
-        case .fulfilled(_): return true
+        case .fulfilled: return true
         default: return false
         }
     }
 
     func isError() -> Bool {
         switch state {
-        case .error(_): return true
+        case .error: return true
         default: return false
         }
     }
 
     func isResolved() -> Bool {
         switch state {
-        case .fulfilled(_): return true
-        case .error(_): return true
+        case .fulfilled: return true
+        case .error: return true
         default: return false
         }
     }
 
     func isCancelled() -> Bool {
         switch state {
-        case .fulfilled(_): return true
+        case .fulfilled: return true
         case .error(let e): return e == nil
         default: return false
         }
@@ -147,7 +146,7 @@ class Promise<T> {
             lock.unlock()
             block(value)
 
-        case .error(_):
+        case .error:
             lock.unlock()
             break
         }
@@ -160,7 +159,7 @@ class Promise<T> {
             errorDeps.append(block)
             lock.unlock()
 
-        case .fulfilled(_):
+        case .fulfilled:
             lock.unlock()
             break
 
@@ -174,17 +173,17 @@ class Promise<T> {
         lock.lock()
         switch state {
         case .pending:
-            let thenHandler: (T) -> () = { _ in block() }
-            let errorHandler: (Error?) -> () = { _ in block() }
+            let thenHandler: (T) -> Void = { _ in block() }
+            let errorHandler: (Error?) -> Void = { _ in block() }
             thenDeps.append(thenHandler)
             errorDeps.append(errorHandler)
             lock.unlock()
 
-        case .fulfilled(_):
+        case .fulfilled:
             lock.unlock()
             block()
 
-        case .error(_):
+        case .error:
             lock.unlock()
             block()
         }
@@ -211,7 +210,6 @@ class Promise<T> {
         }
     }
 }
-
 
 extension Promise {
 

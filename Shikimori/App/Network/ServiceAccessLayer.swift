@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class EndpointRequestFactory {
 
     let urlBuilder: URLBuilder
@@ -21,7 +20,6 @@ class EndpointRequestFactory {
     }
 
 }
-
 
 class ServiceAccessLayer {
 
@@ -98,8 +96,7 @@ class ServiceAccessLayer {
     func getUserRates(byID userID: Int,
                       status: UserRates.Status,
                       targetType: UserRates.TargetType,
-                      session: Session) -> HttpRequest<[UserRates]>
-    {
+                      session: Session) -> HttpRequest<[UserRates]> {
         let factory = UserRatesRequestFactory(urlBuilder: urlFactory,
                 requestFactory: requestFactory,
                 urlSession: urlSession,

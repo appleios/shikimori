@@ -10,7 +10,6 @@ import XCTest
 import Foundation
 @testable import Shikimori
 
-
 class TokenRequestTests: XCTestCase {
 
     func testUserTokenMapper() {

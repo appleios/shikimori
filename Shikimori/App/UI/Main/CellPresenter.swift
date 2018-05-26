@@ -6,7 +6,6 @@
 import Foundation
 import UIKit
 
-
 protocol CellPresenterTableViewSupport {
 
     var reuseIdentifier: String { get }
@@ -15,7 +14,6 @@ protocol CellPresenterTableViewSupport {
 
     func configureTableViewCell(_ cell: UITableViewCell)
 }
-
 
 protocol CellPresenter {
 

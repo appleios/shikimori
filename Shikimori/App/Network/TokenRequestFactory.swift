@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct UserTokenResult: Codable {
     var accessToken: String
     var refreshToken: String
@@ -13,7 +12,6 @@ struct UserTokenResult: Codable {
     var expiresIn: Int
     var tokenType: String
 }
-
 
 class TokenRequestFactory: EndpointRequestFactory {
 
@@ -37,7 +35,7 @@ class TokenRequestFactory: EndpointRequestFactory {
         ])
     }
 
-    private func requestWithForm(form: [String:String]) -> HttpRequest<SessionToken> {
+    private func requestWithForm(form: [String: String]) -> HttpRequest<SessionToken> {
         var request: URLRequest = requestFactory.post(urlBuilder.url(withPath: "/oauth/token"))
 
         let boundary = "BOUNDARY"
@@ -56,7 +54,7 @@ class TokenRequestFactory: EndpointRequestFactory {
 
         let boundary: String
 
-        func encode(form: [String:String]) -> String {
+        func encode(form: [String: String]) -> String {
             var body = ""
             for (key, value) in form {
                 body.append("--\(boundary)\r\n")

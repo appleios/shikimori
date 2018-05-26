@@ -8,13 +8,11 @@
 
 import UIKit
 
-
 protocol MenuViewControllerDelegate: class {
 
     func menuViewControllerOpenProfile(viewController: MenuViewController)
 
 }
-
 
 class MenuViewController: UITableViewController {
 

@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct SessionToken: Codable, Equatable {
 
     enum TokenType: String, Codable {

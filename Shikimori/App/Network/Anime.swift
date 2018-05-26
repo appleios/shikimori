@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct Anime {
 
     enum Kind: String {

@@ -5,14 +5,12 @@
 
 import Foundation
 
-
 struct AppConfig {
     let clientID: String
     let clientSecret: String
     let redirectURI: String
     let appName: String
 }
-
 
 class AppConfigProvider {
 

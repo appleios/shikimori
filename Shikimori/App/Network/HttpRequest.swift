@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class HttpRequest<DomainType>: NetworkRequest {
 
     let urlRequest: URLRequest
@@ -19,8 +18,7 @@ class HttpRequest<DomainType>: NetworkRequest {
     init(urlRequest: URLRequest,
          mapper: NetworkRequestResultMapper<DomainType>,
          errorMapper: AppErrorMapper,
-         urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default))
-    {
+         urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         self.urlRequest = urlRequest
         self.mapper = mapper
         self.errorMapper = errorMapper

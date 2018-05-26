@@ -6,7 +6,6 @@
 import Foundation
 import UIKit
 
-
 // TODO [smell] core logic located in Helper object
 class AuthHelper: AuthViewControllerDelegate {
 
@@ -39,7 +38,7 @@ class AuthHelper: AuthViewControllerDelegate {
             p.error { [unowned self] (error: Error?) in
                 if let appError = error as? AppError {
                     switch appError {
-                    case .invalidGrant(_):
+                    case .invalidGrant:
                         self.presentAuthViewController()
                         break
                     default:

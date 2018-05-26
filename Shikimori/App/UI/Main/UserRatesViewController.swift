@@ -9,14 +9,13 @@
 import Foundation
 import UIKit
 
-
 class UserRatesViewController: UITableViewController {
 
     var userRatesP: Promise<[UserRates]>?
     var session: Session?
 
     var sal = ServiceAccessLayer()
-    var animesP: [Int:Promise<Anime>] = [:]
+    var animesP: [Int: Promise<Anime>] = [:]
 
     override func viewDidLoad() {
         userRatesP?.then { [weak self] _ in

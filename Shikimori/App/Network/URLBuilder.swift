@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class URLBuilder {
 
     func url(withPath path: String, queryItems: [URLQueryItem]? = nil) -> URL? {
