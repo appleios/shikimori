@@ -35,7 +35,9 @@
 		1EDE287D67C46D2298E6F658 /* DefaultNetworkRequestResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE266FDE4D1950834CE0B3 /* DefaultNetworkRequestResultMapper.swift */; };
 		1EDE289B3D6FFF02C7577AB4 /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21648314F4D8463F4E19 /* RequestFactory.swift */; };
 		1EDE28A4CC97C35A56552F26 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2FA96A39398AEC283149 /* MainViewController.swift */; };
+		1EDE28E4EC3C59006288E9F1 /* UserRequestResultMapperFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE2F14F274805B43F6DB1F /* UserRequestResultMapperFixture.json */; };
 		1EDE295D6E8EB469202B7288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */; };
+		1EDE2B2176DA89585C6AD31C /* MappingTestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2728D386FA06EBF7DC4C /* MappingTestsHelper.swift */; };
 		1EDE2BC374BC776B3E772E32 /* UserRatesRequestResultMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2208C36FEBAB05507989 /* UserRatesRequestResultMapperTests.swift */; };
 		1EDE2BCAAA7B45BC01D7FAF6 /* UserRequestResultMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2724825C1619913315AE /* UserRequestResultMapperTests.swift */; };
 		1EDE2C676B93EEDB77D05B29 /* AuthCodeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2343A58F502E2E4DF0CF /* AuthCodeStorage.swift */; };
@@ -88,6 +90,7 @@
 		1EDE26E92196DD29AC45F75D /* TokenRequestResultMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRequestResultMapperTests.swift; sourceTree = "<group>"; };
 		1EDE27041C9A106EFE69C3C7 /* UserRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE2724825C1619913315AE /* UserRequestResultMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequestResultMapperTests.swift; sourceTree = "<group>"; };
+		1EDE2728D386FA06EBF7DC4C /* MappingTestsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingTestsHelper.swift; sourceTree = "<group>"; };
 		1EDE274632ED916AC4B91DB2 /* UserRatesRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRatesRequestFactory.swift; sourceTree = "<group>"; };
 		1EDE27A7A1FF3292C2144B71 /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		1EDE27B950A8B4B441823258 /* AnimeRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeRequestFactory.swift; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 		1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
 		1EDE2E1CB59F095AD2A8C966 /* SessionProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProviderTests.swift; sourceTree = "<group>"; };
 		1EDE2E2809E164266CF3B84A /* AnimeEndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeEndpointTests.swift; sourceTree = "<group>"; };
+		1EDE2F14F274805B43F6DB1F /* UserRequestResultMapperFixture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserRequestResultMapperFixture.json; sourceTree = "<group>"; };
 		1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAccessLayer.swift; sourceTree = "<group>"; };
 		1EDE2FA96A39398AEC283149 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C412AA4E2091CB4200ECC3AB /* Auth.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth.plist; sourceTree = "<group>"; };
@@ -255,6 +259,8 @@
 				1EDE2724825C1619913315AE /* UserRequestResultMapperTests.swift */,
 				1EDE2208C36FEBAB05507989 /* UserRatesRequestResultMapperTests.swift */,
 				1EDE26E92196DD29AC45F75D /* TokenRequestResultMapperTests.swift */,
+				1EDE2F14F274805B43F6DB1F /* UserRequestResultMapperFixture.json */,
+				1EDE2728D386FA06EBF7DC4C /* MappingTestsHelper.swift */,
 			);
 			name = Mappers;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EDE28E4EC3C59006288E9F1 /* UserRequestResultMapperFixture.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +499,7 @@
 				1EDE2BCAAA7B45BC01D7FAF6 /* UserRequestResultMapperTests.swift in Sources */,
 				1EDE2BC374BC776B3E772E32 /* UserRatesRequestResultMapperTests.swift in Sources */,
 				1EDE2EFD330D63749A14773B /* TokenRequestResultMapperTests.swift in Sources */,
+				1EDE2B2176DA89585C6AD31C /* MappingTestsHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
