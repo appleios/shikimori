@@ -106,15 +106,11 @@ class ProfileViewController: UITableViewController {
         self.reloadDataIfNeeded()
 
         let userRequest = sal.getUser(byID: self.account.user.id, session: self.session)
-        do {
-            self.userP = try userRequest.load()
-            self.userP!.then { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.reloadDataIfNeeded()
-                }
+        self.userP = userRequest.load()
+        self.userP!.then { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.reloadDataIfNeeded()
             }
-        } catch {
-            print("unexpected error: \(error)")
         }
     }
 
@@ -189,7 +185,7 @@ class ProfileViewController: UITableViewController {
                                                                            targetType: .anime,
                                                                            session: session)
 
-            viewController.userRatesP = try! request.load()
+            viewController.userRatesP = request.load()
             viewController.session = session
         }
     }

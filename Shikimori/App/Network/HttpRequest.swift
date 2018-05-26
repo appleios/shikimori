@@ -27,9 +27,9 @@ class HttpRequest<DomainType>: NetworkRequest {
         self.urlSession = urlSession
     }
 
-    func load() throws -> Promise<DomainType> {
+    func load()  -> Promise<DomainType> {
         guard !isLoading() else {
-            throw NetworkRequestError.alreadyLoading
+            fatalError("already loading")
         }
 
         let promise = Promise<DomainType>()
@@ -37,23 +37,25 @@ class HttpRequest<DomainType>: NetworkRequest {
             if let error = error {
                 let appError = AppError.network(underlyingError: error)
                 promise.reject(appError)
-                return
-            }
-            if let data = data {
+            } else if let data = data {
                 do {
                     let result: DomainType = try self.mapper.mapToDomain(data)
                     promise.fulfill(result)
-                    return
                 } catch {
-                    let contents: String? = String(data: data, encoding: .utf8)
-                    print("unexpected error: \(error), while mapToDomain for data: \(contents!)")
+                    if let result: AppError = try? self.errorMapper.decode(data) {
+                        promise.reject(result)
+                    } else {
+                        var errorDescription = "ERROR: \(error.localizedDescription)"
+                        if let contents = String(data: data, encoding: .utf8) {
+                            errorDescription += "\nResponse Data: \(contents)"
+                        }
+                        print(errorDescription)
+                        promise.reject(AppError.fatal(data: data, response: (response as! HTTPURLResponse)))
+                    }
                 }
-                if let result: AppError = try? self.errorMapper.decode(data) {
-                    promise.reject(result)
-                    return
-                }
+            } else {
+                promise.reject(AppError.fatal(data: data, response: (response as! HTTPURLResponse)))
             }
-            promise.reject(AppError.fatal(data: data, response: (response as! HTTPURLResponse)))
         }
 
         let task: URLSessionDataTask = self.urlSession.dataTask(with: self.urlRequest, completionHandler: handler)

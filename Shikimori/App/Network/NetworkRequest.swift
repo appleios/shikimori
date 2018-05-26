@@ -6,16 +6,10 @@
 import Foundation
 
 
-enum NetworkRequestError: Error {
-    case alreadyLoading
-}
-
-
-/// Generic protocol for network requests (e.g. HTTP, FTP, etc)
 protocol NetworkRequest {
     associatedtype T
 
-    mutating func load() throws -> Promise<T>
+    mutating func load() -> Promise<T>
 
     func isLoading() -> Bool
 

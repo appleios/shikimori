@@ -43,7 +43,7 @@ class UserRatesViewController: UITableViewController {
         if animeP == nil {
 
             let request = sal.getAnime(byID: rate.targetId, session: session!)
-            animeP = try! request.load()
+            animeP = request.load()
             animeP!.then { [weak self] _ in
                 self?.tableView.reloadData()
             }
