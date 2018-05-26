@@ -248,10 +248,9 @@ class UserRequestTests: XCTestCase {
             return
         }
 
-        let mapper = UserRequestResultMapper()
-
         var result: User
         do {
+            let mapper = UserRequestResultMapper()
             result = try mapper.mapToDomain(data)
         } catch {
             XCTFail("Mapping result is nil")

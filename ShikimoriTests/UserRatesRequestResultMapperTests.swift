@@ -52,10 +52,9 @@ class UserRatesEndpointTests: XCTestCase {
             return
         }
 
-        let mapper = UserRatesRequestResultMapper()
-
         var result: [UserRates]
         do {
+            let mapper = UserRatesRequestResultMapper()
             result = try mapper.mapToDomain(data)
         } catch {
             XCTFail("Mapping result is nil")
