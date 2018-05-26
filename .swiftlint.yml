@@ -1,29 +1,56 @@
 disabled_rules:
-  - block_based_kvo # swift 3.2
-  - closure_parameter_position
-  - file_length
-  - function_body_length
-  - function_parameter_count
-  - identifier_name
-  - large_tuple
-  - nesting
-  - type_body_length
-  - type_name
-  - trailing_comma
-  - weak_delegate
+  - single_test_class
 opt_in_rules:
   - empty_count
   - force_unwrapping
+  - switch_case_on_newline
+  - strict_fileprivate
+  - sorted_first_last
+  - redundant_nil_coalescing
+  - prohibited_super_call
   - private_outlet
-line_length: 110
+  - private_action
+  - override_in_extension
+  - overridden_super_call
+  - operator_usage_whitespace
+  - object_literal
+  - number_separator
+  - no_grouping_extension
+  - multiline_arguments
+  - multiline_parameters
+  - lower_acl_than_parent
+  - literal_expression_end_indentation
+  - let_var_whitespace
+  - first_where
+  - file_header
+  - fatal_error_message
+  - extension_access_modifier
+  - empty_string
+  - discouraged_optional_collection
+  - discouraged_optional_boolean
+  - discouraged_direct_init
+  - contains_over_first_not_nil
+  - conditional_returns_on_newline
+  - closure_end_indentation
+  - attributes
+  - array_init
+  - yoda_condition
+  - sorted_imports
+  - trailing_comma
+line_length: 120
 type_body_length:
   warning: 300
   error: 400
+function_parameter_count:
+  warning: 6
+  error: 10
+trailing_comma:
+  mandatory_comma: true
+number_separator:
+  minimum_length: 5
 excluded:
   - Carthage/
   - Frameworks/
-  - Kickstarter-iOS.playground/
-  - Kickstarter-tvOS.playground/
   - Library/Strings.swift
   - bin/strings.swift
 reporter: "xcode"
