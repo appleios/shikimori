@@ -79,7 +79,7 @@ class SessionProvider {
             break
 
         case .fetch:
-            try self.fetch()
+            try fetch()
             break
 
         case .nothing:

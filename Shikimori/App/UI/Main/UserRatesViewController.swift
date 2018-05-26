@@ -51,7 +51,7 @@ class UserRatesViewController: UITableViewController {
         }
         if let animeP = animeP {
             if animeP.isFulfilled() {
-                if let anime = animeP.value {
+                if let anime: Anime = animeP.value {
                     cell.textLabel?.text = anime.name
                 }
             }
