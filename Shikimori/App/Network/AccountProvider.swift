@@ -25,6 +25,7 @@ class AccountProvider {
             fetch(sessionP: sessionP)
         }
 
+        // swiftlint:disable:next force_unwrapping // accountP can not be nil after fetch(sessionP:)
         return accountP!.chained
     }
 

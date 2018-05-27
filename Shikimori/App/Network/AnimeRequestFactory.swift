@@ -30,7 +30,8 @@ class AnimeRequestFactory: EndpointRequestFactory {
 
     func getAnime(byID animeID: Int, session: Session) -> HttpRequest<Anime> {
 
-        let url = urlBuilder.url(withPath: "/api/animes/\(animeID)")
+        // swiftlint:disable:next force_unwrapping
+        let url = urlBuilder.url(withPath: "/api/animes/\(animeID)")!
         let request: URLRequest = requestFactory.get(url, accessToken: session.token.accessToken)
 
         // swiftlint:disable:next force_unwrapping
@@ -72,13 +73,21 @@ class AnimeRequestResultMapper: AbstractNetworkRequestResultMapper<AnimeResult, 
     }
 
     override func convert(_ result: AnimeResult) throws -> Anime {
+        guard let originalImageURL = URL(string: result.image.original, relativeTo: baseURL),
+              let previewImageURL = URL(string: result.image.preview, relativeTo: baseURL),
+              let animeURL = URL(string: result.url, relativeTo: baseURL),
+              let animeKind = Anime.Kind(rawValue: result.kind)
+        else {
+            fatalError("Corrupted data") // TODO transform int .corruptedData exception
+        }
+
         return Anime(id: result.id,
                 name: result.name,
                 russian: result.russian,
-                originalImageURL: URL(string: result.image.original, relativeTo: baseURL)!,
-                previewImageURL: URL(string: result.image.preview, relativeTo: baseURL)!,
-                url: URL(string: result.url, relativeTo: baseURL)!,
-                kind: Anime.Kind(rawValue: result.kind)!,
+                originalImageURL: originalImageURL,
+                previewImageURL: previewImageURL,
+                url: animeURL,
+                kind: animeKind,
                 status: result.status,
                 nextEpisodeAt: result.nextEpisodeAt)
     }

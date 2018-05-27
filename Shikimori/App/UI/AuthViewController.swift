@@ -20,8 +20,13 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet weak var goForwardItem: UIBarButtonItem!
 
     static func viewController(delegate: AuthViewControllerDelegate?) -> UIViewController {
-        let navigationController: UINavigationController = UIStoryboard(name: "Auth", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        let viewController: AuthViewController = navigationController.viewControllers.first as! AuthViewController
+        let initialViewController = UIStoryboard(name: "Auth", bundle: nil).instantiateInitialViewController()
+
+        guard let navigationController: UINavigationController = initialViewController as? UINavigationController,
+              let viewController: AuthViewController = navigationController.viewControllers.first as? AuthViewController
+        else {
+            fatalError("Auth.storyboard contains incorrect initial view controller")
+        }
         viewController.delegate = delegate
         return navigationController
     }
@@ -114,7 +119,9 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
     }
 
     // TODO implement in order to get credential for Proxy, etc
-    // func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    // func webView(_ webView: WKWebView,
+    //  didReceive challenge: URLAuthenticationChallenge,
+    // completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
     // }
 
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {

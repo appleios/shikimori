@@ -41,7 +41,13 @@ class MainViewController: UIViewController {
             }
 
             DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 1000)) {
-                let viewController = ProfileViewController.viewController(account: account, session: sessionP.value!)
+                guard let session: Session = sessionP.value else {
+                    return
+                }
+
+                let viewController = ProfileViewController.viewController(account: account, session: session)
+
+                // swiftlint:disable:next force_unwrapping
                 sSelf.navigationController!.show(viewController, sender: nil)
             }
         }

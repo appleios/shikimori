@@ -16,7 +16,10 @@ class AnimeRequestResultMapperTests: BaseMappingTests {
         let date = dateFormatter.date(from: "2018-05-25T15:00:00.000+03:00")
         XCTAssertNotNil(date)
 
-        let mapper = AnimeRequestResultMapper(baseURL: URL(string: "https://example.com")!)
+        // swiftlint:disable:next force_unwrapping
+        let baseURL = URL(string: "https://example.com")!
+        let mapper = AnimeRequestResultMapper(baseURL: baseURL)
+
         let result: Anime = tryMapping(mapper, data: data)
 
         XCTAssertEqual(result.id, 36_296)

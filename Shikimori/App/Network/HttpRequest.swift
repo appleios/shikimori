@@ -5,6 +5,10 @@
 
 import Foundation
 
+struct HTTPError: Error {
+    let statusCode: Int
+}
+
 class HttpRequest<DomainType>: NetworkRequest {
 
     let urlRequest: URLRequest
@@ -48,11 +52,11 @@ class HttpRequest<DomainType>: NetworkRequest {
                             errorDescription += "\nResponse Data: \(contents)"
                         }
                         print(errorDescription)
-                        promise.reject(AppError.fatal(data: data, response: (response as! HTTPURLResponse)))
+                        promise.reject(AppError.fatal(data: data, response: response))
                     }
                 }
             } else {
-                promise.reject(AppError.fatal(data: data, response: (response as! HTTPURLResponse)))
+                promise.reject(AppError.fatal(data: data, response: response))
             }
         }
 

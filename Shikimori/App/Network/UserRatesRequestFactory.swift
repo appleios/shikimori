@@ -23,7 +23,7 @@ class UserRatesRequestFactory: EndpointRequestFactory {
             URLQueryItem(name: "user_id", value: "\(userID)"),
             URLQueryItem(name: "target_type", value: targetType.rawValue),
             URLQueryItem(name: "status", value: status.rawValue),
-        ])
+        ])! // swiftlint:disable:this force_unwrapping
 
         let request: URLRequest = requestFactory.get(url, accessToken: session.token.accessToken)
 

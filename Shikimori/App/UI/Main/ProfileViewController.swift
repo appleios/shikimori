@@ -128,7 +128,9 @@ class ProfileViewController: UITableViewController {
         ]
 
         if let userP = self.userP, userP.isResolved() {
-            let user = userP.value!
+
+            let user = userP.value! // swiftlint:disable:this force_unwrapping
+
             if let stats = user.stats {
                 if let anime = stats.anime {
                     cellPresenters.append(ProfileStatisticCellPresenter(
@@ -170,8 +172,11 @@ class ProfileViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let presenter = presenters[indexPath.row]
+
+        // swiftlint:disable:next force_unwrapping
         let cell = tableView.dequeueReusableCell(withIdentifier: presenter.tableViewSupport.reuseIdentifier)!
         presenter.tableViewSupport.configureTableViewCell(cell)
+
         return cell
     }
 

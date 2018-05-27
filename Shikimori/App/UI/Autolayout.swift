@@ -11,7 +11,9 @@ extension UIView {
     func autoPinToSuperviewEdges() {
         assert(Thread.isMainThread)
 
+        // swiftlint:disable:next force_unwrapping
         let container = self.superview!
+
         self.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
         self.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
         self.topAnchor.constraint(equalTo: container.topAnchor).isActive = true

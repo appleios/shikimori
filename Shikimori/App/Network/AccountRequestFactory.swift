@@ -9,7 +9,8 @@ class AccountRequestFactory: EndpointRequestFactory {
 
     func getAccount(session: Session) -> HttpRequest<Account> {
 
-        let request: URLRequest = requestFactory.get(urlBuilder.url(withPath: "/api/users/whoami"),
+        let url = urlBuilder.url(withPath: "/api/users/whoami")! // swiftlint:disable:this force_unwrapping
+        let request: URLRequest = requestFactory.get(url,
                 accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,

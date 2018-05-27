@@ -36,7 +36,8 @@ class TokenRequestFactory: EndpointRequestFactory {
     }
 
     private func requestWithForm(form: [String: String]) -> HttpRequest<SessionToken> {
-        var request: URLRequest = requestFactory.post(urlBuilder.url(withPath: "/oauth/token"))
+        let url = urlBuilder.url(withPath: "/oauth/token")! // swiftlint:disable:this force_unwrapping
+        var request: URLRequest = requestFactory.post(url)
 
         let boundary = "BOUNDARY"
         let formEncoder = FormEncoder(boundary: boundary)
@@ -71,10 +72,13 @@ class TokenRequestFactory: EndpointRequestFactory {
 class TokenRequestResultMapper: DefaultNetworkRequestResultMapper<UserTokenResult, SessionToken> {
 
     override func convert(_ result: UserTokenResult) throws -> SessionToken {
+        // swiftlint:disable:next force_unwrapping
+        let tokenType = SessionToken.TokenType(rawValue: result.tokenType)!
+
         return SessionToken(accessToken: result.accessToken,
                 refreshToken: result.refreshToken,
                 createdAt: result.createdAt,
                 expireDate: result.createdAt + TimeInterval(result.expiresIn),
-                tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
+                tokenType: tokenType)
     }
 }

@@ -40,7 +40,7 @@ class ServiceAccessLayer {
 
     init(appConfigProvider: AppConfigProvider = AppConfigProvider()) {
         self.appConfigProvider = appConfigProvider
-        self.appConfig = appConfigProvider.config!
+        self.appConfig = appConfigProvider.config! // swiftlint:disable:this force_unwrapping
         self.requestFactory = RequestFactory(userAgent: appConfig.appName)
         self.urlSession = URLSession(configuration: URLSessionConfiguration.default)
     }
@@ -52,7 +52,7 @@ class ServiceAccessLayer {
             URLQueryItem(name: "client_id", value: config.clientID),
             URLQueryItem(name: "redirect_uri", value: config.redirectURI),
             URLQueryItem(name: "response_type", value: "code"),
-        ])
+        ])! // swiftlint:disable:this force_unwrapping
 
         return requestFactory.get(url)
     }

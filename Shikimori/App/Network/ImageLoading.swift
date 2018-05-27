@@ -16,10 +16,12 @@ protocol ImageLoading {
 extension ImageLoading {
 
     var image: UIImage? {
-        if imageP.isFulfilled() {
-            return imageP.value!
+        switch imageP.state {
+        case .fulfilled(let value):
+            return value
+        default:
+            return self.placeholder
         }
-        return self.placeholder
     }
 
 }
@@ -33,8 +35,12 @@ protocol ImageCache {
 class ImageLoadingHelper {
 
     static func getImage(atURL url: URL) -> UIImage? {
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        guard let image = UIImage(data: data) else { return nil }
+        guard let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+        guard let image = UIImage(data: data) else {
+            return nil
+        }
         return image
     }
 
@@ -74,7 +80,7 @@ class PersistentImageCache: ImageCache {
     private func saveOnDiskImage(locatedAtURL url: URL, targetURL: URL) throws {
         try createImagesDirectoryIfNeeded()
 
-        var isDirectory = ObjCBool(booleanLiteral: false)
+        var isDirectory: ObjCBool = false
         if fileManager.fileExists(atPath: targetURL.path, isDirectory: &isDirectory) {
             try fileManager.removeItem(at: targetURL)
         }
@@ -82,7 +88,7 @@ class PersistentImageCache: ImageCache {
     }
 
     private func createImagesDirectoryIfNeeded() throws {
-        var isDirectory = ObjCBool(booleanLiteral: false)
+        var isDirectory: ObjCBool = false
         if fileManager.fileExists(atPath: imagesDirectoryURL.path, isDirectory: &isDirectory) {
             if !isDirectory.boolValue {
                 try fileManager.removeItem(at: imagesDirectoryURL)
@@ -133,11 +139,16 @@ class ImageDownloadOperation: ImageLoading {
             }
 
             if let response = response as? HTTPURLResponse, let url = url {
-                sSelf.handleSuccess(response: response, url: url)
+                if response.statusCode == 200 {
+                    sSelf.handleSuccess(response: response, url: url)
+                } else {
+                    imageP.reject(HTTPError(statusCode: response.statusCode))
+                }
             } else if let error = error {
                 imageP.reject(error)
             } else {
-                imageP.cancel() // TODO strange case
+                imageP.cancel()
+                fatalError("unexpected behaviour: either it should be OK and correct data, either should be error")
             }
         }
 
@@ -150,8 +161,9 @@ class ImageDownloadOperation: ImageLoading {
     }
 
     private func handleSuccess(response: HTTPURLResponse, url: URL) {
-        guard response.statusCode == 200 else { fatalError("unexpected case") }
-        guard let image = ImageLoadingHelper.getImage(atURL: url) else { fatalError("unexpected case") } // TODO correctly handle
+        guard let image = ImageLoadingHelper.getImage(atURL: url) else {
+            fatalError("unexpected case") // TODO correctly handle
+        }
 
         imageCache.saveImage(locatedAtURL: url, withFilename: filename)
         imageP.fulfill(image)

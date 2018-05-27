@@ -36,8 +36,8 @@ class UserRequestFactory: EndpointRequestFactory {
 
     func getUser(byID userID: Int, session: Session) -> HttpRequest<User> {
 
-        let request: URLRequest = requestFactory.get(urlBuilder.url(withPath: "/api/users/\(userID)"),
-                accessToken: session.token.accessToken)
+        let url = urlBuilder.url(withPath: "/api/users/\(userID)")! // swiftlint:disable:this force_unwrapping
+        let request: URLRequest = requestFactory.get(url, accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
                 mapper: UserRequestResultMapper(),
@@ -52,9 +52,14 @@ class UserRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Use
     override func convert(_ result: UserResult) throws -> User {
         let stats = userStatsFromResult(result.stats)
 
+        var avatar: URL? = nil
+        if let avatarRaw = result.avatar, let avatarURL = URL(string: avatarRaw) {
+            avatar = avatarURL
+        }
+
         return User(id: result.id,
                 nickname: result.nickname,
-                avatar: result.avatar != nil ? URL(string: result.avatar!) : nil,
+                avatar: avatar,
                 stats: stats)
     }
 
@@ -71,6 +76,8 @@ class UserRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Use
     }
 
     typealias StatResult = UserResult.StatsResult.StatusesResult.StatResult
+
+    // swiftlint:disable:next discouraged_optional_collection
     private func userStatisticsFromStatusesResult(_ statuses: [StatResult]?) -> UserStatistics.Statistics? {
         guard let statuses = statuses else {
             return nil

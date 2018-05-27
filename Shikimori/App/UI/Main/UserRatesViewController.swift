@@ -9,7 +9,7 @@ import UIKit
 class UserRatesViewController: UITableViewController {
 
     var userRatesP: Promise<[UserRates]>?
-    var session: Session?
+    var session: Session!
 
     var sal = ServiceAccessLayer()
     var animesP: [Int: Promise<Anime>] = [:]
@@ -31,21 +31,25 @@ class UserRatesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let userRates = self.userRatesP!.value!
+        // swiftlint:disable:next force_unwrapping
+        let userRates = userRatesP!.value!
         let rate: UserRates = userRates[indexPath.row]
 
+        // swiftlint:disable:next force_unwrapping
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         cell.textLabel?.text = "\(rate.targetId)"
 
         var animeP = animesP[indexPath.row]
         if animeP == nil {
+            let request = sal.getAnime(byID: rate.targetId, session: session)
 
-            let request = sal.getAnime(byID: rate.targetId, session: session!)
-            animeP = request.load()
-            animeP!.then { [weak self] _ in
+            let loadP = request.load()
+            loadP.then { [weak self] _ in
                 self?.tableView.reloadData()
             }
-            animesP[indexPath.row] = animeP
+
+            animeP = loadP
+            animesP[indexPath.row] = loadP
         }
         if let animeP = animeP {
             if animeP.isFulfilled() {
