@@ -37,15 +37,13 @@ class UserRatesRequestFactory: EndpointRequestFactory {
 
 class UserRatesRequestResultMapper: DefaultNetworkRequestResultMapper<[UserRatesResult], [UserRates]> {
 
-    init() {
-        super.init(converter: ClosureSalToDomainConverter({ (result: [UserRatesResult]) in
-            return try result.map {
-                guard let targetType = UserRates.TargetType(rawValue: $0.targetType) else {
-                    throw NSError(domain: "", code: 1) // TODO
-                }
-                return UserRates(targetId: $0.targetId, targetType: targetType)
+    override func convert(_ result: [UserRatesResult]) throws -> [UserRates] {
+        return try result.map {
+            guard let targetType = UserRates.TargetType(rawValue: $0.targetType) else {
+                throw NSError(domain: "", code: 1) // TODO
             }
-         }))
+            return UserRates(targetId: $0.targetId, targetType: targetType)
+        }
     }
 
 }

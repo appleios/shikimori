@@ -49,15 +49,8 @@ class UserRequestFactory: EndpointRequestFactory {
 
 class UserRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, User> {
 
-    init() {
-        super.init(converter: UserSalToDomainConverter())
-    }
-}
-
-private class UserSalToDomainConverter: SalToDomainConverter<UserResult, User> {
-
     override func convert(_ result: UserResult) throws -> User {
-        let stats = userStatsFromResult(result.stats) // TODO [investigate] there should exist more swift way to write this kind of expressions
+        let stats = userStatsFromResult(result.stats)
 
         return User(id: result.id,
                 nickname: result.nickname,
@@ -97,5 +90,4 @@ private class UserSalToDomainConverter: SalToDomainConverter<UserResult, User> {
         let stat: [StatResult] = statsDescription.filter { $0.name == status.rawValue }
         return stat.first?.size ?? 0
     }
-
 }

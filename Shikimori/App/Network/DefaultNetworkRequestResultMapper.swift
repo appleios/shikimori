@@ -44,8 +44,26 @@ class SalToDomainConverter<SalType, DomainType> {
 
 }
 
-class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResultMapper<DomainType>
+class AbstractNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResultMapper<DomainType>
         where SalType: Decodable {
+
+    override func mapToDomain(_ data: Data) throws -> DomainType {
+        return try convert(try decode(data))
+    }
+
+    internal func decode(_ data: Data) throws -> SalType {
+        fatalError("not implemented")
+    }
+
+    internal func convert(_ result: SalType) throws -> DomainType {
+        fatalError("not implemented")
+    }
+
+}
+
+class DefaultNetworkRequestResultMapper<SalType, DomainType>: AbstractNetworkRequestResultMapper<SalType, DomainType>
+        where SalType: Decodable
+{
 
     class JsonResultDecoder: NetworkDataDecoder<SalType> {
 
@@ -69,40 +87,18 @@ class DefaultNetworkRequestResultMapper<SalType, DomainType>: NetworkRequestResu
 
     }
 
-    typealias Mapping = (_ result: SalType) throws -> DomainType
-    internal class ClosureSalToDomainConverter: SalToDomainConverter<SalType, DomainType> {
-
-        var mapping: Mapping
-
-        init(_ mapping: @escaping Mapping) {
-            self.mapping = mapping
-        }
-
-        override func convert(_ result: SalType) throws -> DomainType {
-            return try self.mapping(result)
-        }
-
-    }
-
     let decoder: NetworkDataDecoder<SalType>
-    let converter: SalToDomainConverter<SalType, DomainType>
 
-    init(converter: SalToDomainConverter<SalType, DomainType>,
-         decoder: NetworkDataDecoder<SalType> = JsonResultDecoder()) {
+    init(_ decoder: NetworkDataDecoder<SalType> = JsonResultDecoder()) {
         self.decoder = decoder
-        self.converter = converter
     }
 
-    override func mapToDomain(_ data: Data) throws -> DomainType {
-        return try convert(try decode(data))
-    }
-
-    internal func decode(_ data: Data) throws -> SalType {
+    override func decode(_ data: Data) throws -> SalType {
         return try decoder.decode(data)
     }
 
-    internal func convert(_ result: SalType) throws -> DomainType {
-        return try converter.convert(result)
+    override func convert(_ result: SalType) throws -> DomainType {
+        fatalError("not implemented")
     }
 
 }

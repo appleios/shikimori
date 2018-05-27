@@ -30,7 +30,11 @@ class BaseMappingTests: XCTestCase {
 
     func tryMapping<T>(_ mapper: NetworkRequestResultMapper<T>, data: Data) -> T {
         var tryResult: T?
-        XCTAssertNoThrow({ tryResult = try mapper.mapToDomain(data) })
+        do {
+            tryResult = try mapper.mapToDomain(data)
+        } catch {
+            fatalError("Failed to decode")
+        }
 
         guard let result = tryResult else {
             fatalError("Mapping result is nil")

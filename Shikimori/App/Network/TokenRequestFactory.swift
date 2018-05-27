@@ -70,13 +70,11 @@ class TokenRequestFactory: EndpointRequestFactory {
 
 class TokenRequestResultMapper: DefaultNetworkRequestResultMapper<UserTokenResult, SessionToken> {
 
-    init() {
-        super.init(converter: ClosureSalToDomainConverter({ (result: UserTokenResult) in
-            return SessionToken(accessToken: result.accessToken,
-                    refreshToken: result.refreshToken,
-                    createdAt: result.createdAt,
-                    expireDate: result.createdAt + TimeInterval(result.expiresIn),
-                    tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
-        }))
+    override func convert(_ result: UserTokenResult) throws -> SessionToken {
+        return SessionToken(accessToken: result.accessToken,
+                refreshToken: result.refreshToken,
+                createdAt: result.createdAt,
+                expireDate: result.createdAt + TimeInterval(result.expiresIn),
+                tokenType: SessionToken.TokenType(rawValue: result.tokenType)!)
     }
 }

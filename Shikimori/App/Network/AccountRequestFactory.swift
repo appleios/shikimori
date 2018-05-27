@@ -22,12 +22,10 @@ class AccountRequestFactory: EndpointRequestFactory {
 
 class AccountRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Account> {
 
-    init() {
-        super.init(converter: ClosureSalToDomainConverter({ (result: UserResult) in
-            let userMapper = UserRequestResultMapper()
-            let user: User = try userMapper.convert(result)
-            return Account(user: user)
-        }))
+    override func convert(_ result: UserResult) throws -> Account {
+        let userMapper = UserRequestResultMapper()
+        let user: User = try userMapper.convert(result)
+        return Account(user: user)
     }
 
 }

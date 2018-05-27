@@ -20,7 +20,7 @@
 		1EDE2270CA95717237A9E45D /* Anime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE257888D926144B4EDB29 /* Anime.swift */; };
 		1EDE230AB1D269FB7DE2B23C /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE21F0A3B5F7EB623D9D97 /* HttpRequest.swift */; };
 		1EDE23994B51E84A58AD48A1 /* KeyValuePersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE24B5E4280C4D0448C1FF /* KeyValuePersistentStorage.swift */; };
-		1EDE246006B6F43F2CE007FB /* AnimeEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2E2809E164266CF3B84A /* AnimeEndpointTests.swift */; };
+		1EDE244225C85E33029EA91C /* AnimeRequestResultMapperFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EDE24693ADA99F15727A2E3 /* AnimeRequestResultMapperFixture.json */; };
 		1EDE24889E8166854C4BCE1C /* AccountProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2BDC2C62179E4D8EB4EA /* AccountProvider.swift */; };
 		1EDE24F5FFFDB070BDB26638 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2C880D4DDE9C33C86C8F /* AuthViewController.swift */; };
 		1EDE25C62612326F92BD5F89 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE2A7AFB934475B671CFC9 /* URLBuilder.swift */; };
@@ -48,6 +48,7 @@
 		1EDE2D782B57F4CF269516D5 /* ImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE213502EEBB9B95AF14EE /* ImageLoading.swift */; };
 		1EDE2E32B45B18C94E4F5D3A /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE27C0EC545DE688A0BB5F /* Promise.swift */; };
 		1EDE2EA391830D09E87D5F47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE29DD7C2309485E49D68B /* AppDelegate.swift */; };
+		1EDE2EB7341BF151210EEE48 /* AnimeRequestResultMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE240CF2782537D22DC8CF /* AnimeRequestResultMapperTests.swift */; };
 		1EDE2EFD330D63749A14773B /* TokenRequestResultMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE26E92196DD29AC45F75D /* TokenRequestResultMapperTests.swift */; };
 		1EDE2F3C6DAB437DEE46B288 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE28416375A369634A8AAB /* User.swift */; };
 		C412AA4F2091CB4200ECC3AB /* Auth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C412AA4E2091CB4200ECC3AB /* Auth.plist */; };
@@ -80,6 +81,8 @@
 		1EDE2208C36FEBAB05507989 /* UserRatesEndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRatesEndpointTests.swift; sourceTree = "<group>"; };
 		1EDE22EE86F23DEFAA6148B1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1EDE2343A58F502E2E4DF0CF /* AuthCodeStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCodeStorage.swift; sourceTree = "<group>"; };
+		1EDE240CF2782537D22DC8CF /* AnimeRequestResultMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeRequestResultMapperTests.swift; sourceTree = "<group>"; };
+		1EDE24693ADA99F15727A2E3 /* AnimeRequestResultMapperFixture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AnimeRequestResultMapperFixture.json; sourceTree = "<group>"; };
 		1EDE24B5E4280C4D0448C1FF /* KeyValuePersistentStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValuePersistentStorage.swift; sourceTree = "<group>"; };
 		1EDE24B781BA8B33A9432203 /* SessionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProvider.swift; sourceTree = "<group>"; };
 		1EDE24BE0ED70D3E900D71ED /* SessionToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionToken.swift; sourceTree = "<group>"; };
@@ -112,7 +115,6 @@
 		1EDE2CEA5AD80EDF0995C942 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
 		1EDE2E1CB59F095AD2A8C966 /* SessionProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionProviderTests.swift; sourceTree = "<group>"; };
-		1EDE2E2809E164266CF3B84A /* AnimeEndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeEndpointTests.swift; sourceTree = "<group>"; };
 		1EDE2E31A1678B4A5FA23EBD /* UserRatesEndpointFixture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserRatesEndpointFixture.json; sourceTree = "<group>"; };
 		1EDE2F14F274805B43F6DB1F /* UserRequestResultMapperFixture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserRequestResultMapperFixture.json; sourceTree = "<group>"; };
 		1EDE2F62A9EC8D97D9D245A1 /* ServiceAccessLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAccessLayer.swift; sourceTree = "<group>"; };
@@ -159,7 +161,6 @@
 				1EDE20222F2070A7677F864A /* Info.plist */,
 				1EDE2E0C6DF0832776D38CCE /* PromiseTests.swift */,
 				1EDE2E1CB59F095AD2A8C966 /* SessionProviderTests.swift */,
-				1EDE2E2809E164266CF3B84A /* AnimeEndpointTests.swift */,
 				1EDE2C99311E1A4A88834D1D /* Mappers */,
 			);
 			path = ShikimoriTests;
@@ -264,6 +265,8 @@
 				1EDE2F14F274805B43F6DB1F /* UserRequestResultMapperFixture.json */,
 				1EDE2728D386FA06EBF7DC4C /* BaseMappingTests.swift */,
 				1EDE2E31A1678B4A5FA23EBD /* UserRatesEndpointFixture.json */,
+				1EDE240CF2782537D22DC8CF /* AnimeRequestResultMapperTests.swift */,
+				1EDE24693ADA99F15727A2E3 /* AnimeRequestResultMapperFixture.json */,
 			);
 			name = Mappers;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 			files = (
 				1EDE28E4EC3C59006288E9F1 /* UserRequestResultMapperFixture.json in Resources */,
 				1EDE2259AAAD922C74BB3039 /* UserRatesEndpointFixture.json in Resources */,
+				1EDE244225C85E33029EA91C /* AnimeRequestResultMapperFixture.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,11 +503,11 @@
 			files = (
 				1EDE2C6A63BD1F0199BBEC62 /* PromiseTests.swift in Sources */,
 				1EDE205E3AEDA23707883B8A /* SessionProviderTests.swift in Sources */,
-				1EDE246006B6F43F2CE007FB /* AnimeEndpointTests.swift in Sources */,
 				1EDE2BCAAA7B45BC01D7FAF6 /* UserRequestResultMapperTests.swift in Sources */,
 				1EDE2BC374BC776B3E772E32 /* UserRatesEndpointTests.swift in Sources */,
 				1EDE2EFD330D63749A14773B /* TokenRequestResultMapperTests.swift in Sources */,
 				1EDE2B2176DA89585C6AD31C /* BaseMappingTests.swift in Sources */,
+				1EDE2EB7341BF151210EEE48 /* AnimeRequestResultMapperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

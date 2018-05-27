@@ -33,15 +33,18 @@ class AnimeRequestFactory: EndpointRequestFactory {
         let url = urlBuilder.url(withPath: "/api/animes/\(animeID)")
         let request: URLRequest = requestFactory.get(url, accessToken: session.token.accessToken)
 
+        // swiftlint:disable:next force_unwrapping
+        let baseURL = urlBuilder.url(withPath: "")!
+
         return HttpRequest(urlRequest: request,
-                mapper: AnimeRequestResultMapper(baseURL: urlBuilder.url(withPath: "")!), // TODO pass urlBuilder?
+                mapper: AnimeRequestResultMapper(baseURL: baseURL),
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
 
 }
 
-class AnimeRequestResultMapper: DefaultNetworkRequestResultMapper<AnimeResult, Anime> {
+class AnimeRequestResultMapper: AbstractNetworkRequestResultMapper<AnimeResult, Anime> {
 
     static func dateFormatterForISO8601() -> DateFormatter {
         let dateFormatter = DateFormatter()
@@ -50,44 +53,33 @@ class AnimeRequestResultMapper: DefaultNetworkRequestResultMapper<AnimeResult, A
         return dateFormatter
     }
 
-    // TODO fix ugly duplication
-    class JsonResultDecoder2: NetworkDataDecoder<AnimeResult> {
-
-        // TODO get JSONDecoder from single entry among all points
-        static var defaultJSONDecoder: JSONDecoder {
-            let decoder = JSONDecoder()
-            let dateFormatter = dateFormatterForISO8601()
-            decoder.dateDecodingStrategy = .formatted(dateFormatter)
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            return decoder
-        }
-
-        var jsonDecoder: JSONDecoder
-
-        init(jsonDecoder: JSONDecoder = defaultJSONDecoder) {
-            self.jsonDecoder = jsonDecoder
-        }
-
-        override func decode(_ data: Data) throws -> AnimeResult {
-            return try jsonDecoder.decode(AnimeResult.self, from: data)
-        }
-
+    static var defaultJSONDecoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        let dateFormatter = dateFormatterForISO8601()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
     }
+
+    let baseURL: URL
 
     init(baseURL: URL) {
-
-        super.init(converter: ClosureSalToDomainConverter({ (result: AnimeResult) in
-            return Anime(id: result.id,
-                    name: result.name,
-                    russian: result.russian,
-                    originalImageURL: URL(string: result.image.original, relativeTo: baseURL)!,
-                    previewImageURL: URL(string: result.image.preview, relativeTo: baseURL)!,
-                    url: URL(string: result.url, relativeTo: baseURL)!,
-                    kind: Anime.Kind(rawValue: result.kind)!,
-                    status: result.status,
-                    nextEpisodeAt: result.nextEpisodeAt)
-
-        }), decoder: JsonResultDecoder2())
+        self.baseURL = baseURL
     }
 
+    override func decode(_ data: Data) throws -> AnimeResult {
+        return try AnimeRequestResultMapper.defaultJSONDecoder.decode(AnimeResult.self, from: data)
+    }
+
+    override func convert(_ result: AnimeResult) throws -> Anime {
+        return Anime(id: result.id,
+                name: result.name,
+                russian: result.russian,
+                originalImageURL: URL(string: result.image.original, relativeTo: baseURL)!,
+                previewImageURL: URL(string: result.image.preview, relativeTo: baseURL)!,
+                url: URL(string: result.url, relativeTo: baseURL)!,
+                kind: Anime.Kind(rawValue: result.kind)!,
+                status: result.status,
+                nextEpisodeAt: result.nextEpisodeAt)
+    }
 }
