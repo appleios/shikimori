@@ -5,11 +5,10 @@
 
 import Foundation
 
-
 struct SessionToken: Codable, Equatable {
 
     enum TokenType: String, Codable {
-        case bearer = "bearer"
+        case bearer
     }
 
     let accessToken: String

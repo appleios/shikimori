@@ -6,13 +6,11 @@
 import UIKit
 import WebKit
 
-
 protocol AuthViewControllerDelegate: class {
 
     func authViewController(_ viewController: AuthViewController, didCompleteWithAuthCode authCode: String)
 
 }
-
 
 class AuthViewController: UIViewController, WKNavigationDelegate {
 
@@ -22,8 +20,13 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet weak var goForwardItem: UIBarButtonItem!
 
     static func viewController(delegate: AuthViewControllerDelegate?) -> UIViewController {
-        let navigationController: UINavigationController = UIStoryboard(name: "Auth", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        let viewController: AuthViewController = navigationController.viewControllers.first as! AuthViewController
+        let initialViewController = UIStoryboard(name: "Auth", bundle: nil).instantiateInitialViewController()
+
+        guard let navigationController: UINavigationController = initialViewController as? UINavigationController,
+              let viewController: AuthViewController = navigationController.viewControllers.first as? AuthViewController
+        else {
+            fatalError("Auth.storyboard contains incorrect initial view controller")
+        }
         viewController.delegate = delegate
         return navigationController
     }
@@ -43,18 +46,18 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         webView.navigationDelegate = self
         self.webView = webView
 
-        let request = service.authRequest()
+        let request = service.getAuth()
         webView.load(request)
 
         progressView.progress = 0
         updateNavigationItems()
     }
 
-    @IBAction func goBack(_ sender: Any) {
+    @IBAction private func goBack(_ sender: Any) {
         self.webView.goBack()
     }
 
-    @IBAction func goForward(_ sender: Any) {
+    @IBAction private func goForward(_ sender: Any) {
         self.webView.goForward()
     }
 
@@ -63,7 +66,10 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         self.goForwardItem.isEnabled = self.webView.canGoForward
     }
 
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
+    {
         if let url = navigationAction.request.url {
             let pathComponents: [String] = url.pathComponents
             if pathComponents.count > 3
@@ -78,7 +84,10 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         decisionHandler(.allow)
     }
 
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationResponse: WKNavigationResponse,
+                 decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void)
+    {
         decisionHandler(.allow)
     }
 
@@ -110,7 +119,9 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
     }
 
     // TODO implement in order to get credential for Proxy, etc
-    // func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    // func webView(_ webView: WKWebView,
+    //  didReceive challenge: URLAuthenticationChallenge,
+    // completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
     // }
 
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {

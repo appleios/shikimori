@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 struct Session: Codable, Equatable {
 
     let token: SessionToken
@@ -71,16 +70,14 @@ class SessionProvider {
 
     func getSession() throws -> Promise<Session> {
         let strategy: SessionProviderFetchStrategy =
-                self.fetchStrategy(forSessionP: self.sessionP, currentSession: self.currentSession)
+                fetchStrategy(forSessionP: sessionP, currentSession: currentSession)
 
         switch strategy {
         case .refresh(let previousSession):
             refresh(expiredSession: previousSession)
-            break
 
         case .fetch:
-            try self.fetch()
-            break
+            try fetch()
 
         case .nothing:
             break
@@ -89,10 +86,8 @@ class SessionProvider {
             throw error
         }
 
-        // TODO suggest better chaining API
-        let p = Promise<Session>()
-        self.sessionP!.chain(p)
-        return p
+        // swiftlint:disable:next force_unwrapping
+        return sessionP!.chained
     }
 
     private func fetch() throws {
@@ -124,18 +119,20 @@ class SessionProvider {
     }
 
     private func loadToken(authCode: String) -> Promise<SessionToken> {
-        let request = service.sessionTokenRequest(authCode: authCode)
+        let request = service.getSessionToken(authCode: authCode)
         self.request = request
         return request.load()
     }
 
     private func refreshToken(refreshToken: String) -> Promise<SessionToken> {
-        let request = service.sessionRefreshTokenRequest(refreshToken: refreshToken)
+        let request = service.getSessionRefreshToken(refreshToken: refreshToken)
         self.request = request
         return request.load()
     }
 
-    internal func fetchStrategy(forSessionP sessionP: Promise<Session>?, currentSession: Session?) -> SessionProviderFetchStrategy {
+    internal func fetchStrategy(forSessionP sessionP: Promise<Session>?,
+                                currentSession: Session?) -> SessionProviderFetchStrategy
+    {
         return FetchStrategyCalculator().fetchStrategy(forSessionP: sessionP, currentSession: currentSession)
     }
 
@@ -144,7 +141,9 @@ class SessionProvider {
 
     private let persistentStorage: KeyValuePersistentStorage<Session>
 
-    init(service: ServiceAccessLayer = ServiceAccessLayer(), authCodeStorage: AuthCodeStorage = AuthCodeStorage.default) {
+    init(service: ServiceAccessLayer = ServiceAccessLayer(),
+         authCodeStorage: AuthCodeStorage = AuthCodeStorage.default)
+    {
         self.service = service
         self.authCodeStorage = authCodeStorage
         self.persistentStorage = KeyValuePersistentStorage<Session>.archiverStorage(withKey: "Session")
@@ -165,24 +164,35 @@ class SessionProvider {
         }
     }
 
-    @objc func handleAuthCodeChange() {
+    @objc
+    func handleAuthCodeChange() {
         do {
             try fetch()
         } catch {
+            fatalError("unexpected case")
         }
     }
 
     struct FetchStrategyCalculator {
 
-        func fetchStrategy(forSessionP sessionP: Promise<Session>?, currentSession: Session?) -> SessionProviderFetchStrategy {
+        func fetchStrategy(forSessionP sessionP: Promise<Session>?,
+                           currentSession: Session?) -> SessionProviderFetchStrategy
+        {
             if sessionP == nil {
                 return refreshStrategyOrNil(forSession: currentSession) ?? SessionProviderFetchStrategy.fetch
             }
-            return strategy(forUnwrapped: sessionP!, currentSession: currentSession) ?? SessionProviderFetchStrategy.fetch
+
+            // swiftlint:disable:next force_unwrapping
+            if let strategy = strategy(forUnwrapped: sessionP!, currentSession: currentSession) {
+                return strategy
+            }
+
+            return SessionProviderFetchStrategy.fetch
         }
 
-        private func strategy(forUnwrapped sessionP: Promise<Session>, currentSession session: Session?) -> SessionProviderFetchStrategy? {
-
+        private func strategy(forUnwrapped sessionP: Promise<Session>,
+                              currentSession session: Session?) -> SessionProviderFetchStrategy?
+        {
             switch sessionP.state {
             case .fulfilled(let session):
                 return refreshStrategyOrNil(forSession: session) ?? SessionProviderFetchStrategy.nothing
@@ -206,20 +216,21 @@ class SessionProvider {
 
             switch error {
             case .invalidToken:
-                if session != nil {
-                    return SessionProviderFetchStrategy.refresh(previousSession: session!)
+                if let session = session {
+                    return SessionProviderFetchStrategy.refresh(previousSession: session)
                 }
             case .invalidGrant:
                 return SessionProviderFetchStrategy.fail(error: .authorizationRequired)
-            default: // TODO handle other error types (!)
-                break
+
+            default:
+                fatalError("unexpected error")
             }
             return nil
         }
 
         private func refreshStrategyOrNil(forSession session: Session?) -> SessionProviderFetchStrategy? {
-            if session != nil && session!.token.isExpired(){
-                return SessionProviderFetchStrategy.refresh(previousSession: session!)
+            if let session = session, session.token.isExpired() {
+                return SessionProviderFetchStrategy.refresh(previousSession: session)
             }
             return nil
         }

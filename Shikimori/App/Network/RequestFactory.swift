@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class RequestFactory {
 
     let userAgent: String
@@ -15,18 +14,27 @@ class RequestFactory {
     }
 
     enum HTTPMethod: String {
-        case GET = "GET"
-        case POST = "POST"
+        case GET
+        case POST
     }
 
-    func request(_ method: HTTPMethod, url: URL?, accessToken: String? = nil) -> URLRequest {
-        var r = URLRequest(url: url!)
+    func get(_ url: URL, accessToken: String? = nil) -> URLRequest {
+        return request(.GET, url: url, accessToken: accessToken)
+    }
+
+    func post(_ url: URL, accessToken: String? = nil) -> URLRequest {
+        return request(.POST, url: url, accessToken: accessToken)
+    }
+
+    func request(_ method: HTTPMethod, url: URL, accessToken: String? = nil) -> URLRequest {
+        var r = URLRequest(url: url)
         r.httpMethod = method.rawValue
         r.setValue("User-Agent", forHTTPHeaderField: userAgent)
-        r.setValue("*/*", forHTTPHeaderField: "Accept") // TODO accept json
+        r.setValue("application/json", forHTTPHeaderField: "Accept")
         if let accessToken = accessToken {
             r.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         return r
     }
+
 }

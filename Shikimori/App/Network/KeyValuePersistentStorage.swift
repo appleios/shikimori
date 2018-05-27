@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class KeyValuePersistentStorage<T> where T: Codable {
 
     static func userDefaultsStorage<T>(withKey key: String) -> UserDefaultsKeyValuePersistentStorage<T> {
@@ -17,6 +16,7 @@ class KeyValuePersistentStorage<T> where T: Codable {
     }
 
     let key: String
+
     init(key: String) {
         self.key = key
     }
@@ -48,7 +48,6 @@ class KeyValuePersistentStorage<T> where T: Codable {
     }
 }
 
-
 class UserDefaultsKeyValuePersistentStorage<T>: KeyValuePersistentStorage<T> where T: Codable {
 
     override func storeValue(value: T, forKey key: String) {
@@ -76,7 +75,6 @@ class UserDefaultsKeyValuePersistentStorage<T>: KeyValuePersistentStorage<T> whe
 
 }
 
-
 class ArchiverKeyValuePersistentStorage<T>: KeyValuePersistentStorage<T> where T: Codable {
 
     override func storeValue(value: T, forKey key: String) {
@@ -88,7 +86,9 @@ class ArchiverKeyValuePersistentStorage<T>: KeyValuePersistentStorage<T> where T
     }
 
     override func loadValue(forKey key: String) -> T? {
-        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePathForKey(key)) as? Data else { return nil }
+        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: self.filePathForKey(key)) as? Data else {
+            return nil
+        }
 
         do {
             return try PropertyListDecoder().decode(T.self, from: data)

@@ -1,17 +1,16 @@
 //
-//  MainViewController.swift
-//  Shikimori
-//
-//  Created by Aziz L on 25.04.2018.
-//  Copyright © 2018 Aziz L. All rights reserved.
+// Created by Aziz L on 25.04.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
 import UIKit
 
-
 class MainViewController: UIViewController {
 
     let accountProvider = AccountProvider.main
+    lazy var authHelper: AuthHelper = {
+        return AuthHelper(viewController: self)
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +36,18 @@ class MainViewController: UIViewController {
 
         let accountP = self.accountProvider.getAccount(sessionP: sessionP)
         accountP.then { [weak self] (account: Account) in
-            guard let sSelf = self else { return }
+            guard let sSelf = self else {
+                return
+            }
 
-            DispatchQueue.main.async {
-                let viewController = ProfileViewController.viewController(account: account)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 1000)) {
+                guard let session: Session = sessionP.value else {
+                    return
+                }
+
+                let viewController = ProfileViewController.viewController(account: account, session: session)
+
+                // swiftlint:disable:next force_unwrapping
                 sSelf.navigationController!.show(viewController, sender: nil)
             }
         }
@@ -51,14 +58,12 @@ class MainViewController: UIViewController {
         }
     }
 
-    @objc func handleSessionChange() {
+    @objc
+    func handleSessionChange() {
+
     }
 
-    @IBAction func openMenu(_ sender: Any) {
-        
-    }
+    @IBAction private func openMenu(_ sender: Any) {
 
-    lazy var authHelper: AuthHelper = {
-        return AuthHelper(viewController: self)
-    }()
+    }
 }

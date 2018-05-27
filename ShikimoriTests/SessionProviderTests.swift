@@ -1,15 +1,11 @@
 //
-//  SessionProviderTests.swift
-//  Shikimori
-//
-//  Created by Aziz Latipov on 27.04.2018.
-//  Copyright © 2018 Aziz L. All rights reserved.
+// Created by Aziz Latipov on 27.04.2018.
+// Copyright (c) 2018 Aziz L. All rights reserved.
 //
 
-import XCTest
 import Foundation
 @testable import Shikimori
-
+import XCTest
 
 class SessionProviderTests: XCTestCase {
 
@@ -110,8 +106,7 @@ class SessionProviderTests: XCTestCase {
     }
 
     private func assertNoRespectCurrent(withSessionP sessionP: Promise<Session>,
-                                        expectedResult: SessionProvider.SessionProviderFetchStrategy)
-    {
+                                        expectedResult: SessionProvider.SessionProviderFetchStrategy) {
         assert(withSessionP: sessionP,
                 currentSession: nil,
                 expectedResult: expectedResult)
@@ -127,8 +122,7 @@ class SessionProviderTests: XCTestCase {
 
     private func assert(withSessionP sessionP: Promise<Session>?,
                         currentSession session: Session?,
-                        expectedResult: SessionProvider.SessionProviderFetchStrategy)
-    {
+                        expectedResult: SessionProvider.SessionProviderFetchStrategy) {
         let strategy: SessionProvider.SessionProviderFetchStrategy =
                 sessionProvider.fetchStrategy(forSessionP: sessionP, currentSession: session)
 

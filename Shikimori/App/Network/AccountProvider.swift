@@ -5,6 +5,11 @@
 
 import Foundation
 
+struct Account {
+
+    let user: User
+
+}
 
 class AccountProvider {
 
@@ -20,9 +25,8 @@ class AccountProvider {
             fetch(sessionP: sessionP)
         }
 
-        let p = Promise<Account>()
-        accountP!.chain(p)
-        return p
+        // swiftlint:disable:next force_unwrapping // accountP can not be nil after fetch(sessionP:)
+        return accountP!.chained
     }
 
     private func fetch(sessionP: Promise<Session>) {
@@ -46,7 +50,7 @@ class AccountProvider {
     }
 
     private func loadAccount(session: Session) -> Promise<Account> {
-        let request = service.accountRequest(session: session)
+        let request = service.getAccount(session: session)
         self.request = request
         return request.load()
     }

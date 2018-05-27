@@ -5,43 +5,59 @@
 
 import Foundation
 
+struct HTTPError: Error {
+    let statusCode: Int
+}
 
-class HttpRequest<T>: Request {
+class HttpRequest<DomainType>: NetworkRequest {
 
     let urlRequest: URLRequest
     let urlSession: URLSession
-    let mapper: HttpMapper<T>
-    let errorMapper: HttpMapper<AppError>
+    let mapper: NetworkRequestResultMapper<DomainType>
+    let errorMapper: AppErrorMapper
 
-    private (set) var promise: Promise<T>?
-    private var task: URLSessionTask?
+    private var promise: Promise<DomainType>?
+    private weak var task: URLSessionTask?
 
-    init(urlRequest: URLRequest, mapper: HttpMapper<T>, errorMapper: HttpMapper<AppError>, urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
+    init(urlRequest: URLRequest,
+         mapper: NetworkRequestResultMapper<DomainType>,
+         errorMapper: AppErrorMapper,
+         urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         self.urlRequest = urlRequest
         self.mapper = mapper
         self.errorMapper = errorMapper
         self.urlSession = urlSession
     }
 
-    func load() -> Promise<T> {
-        let promise = Promise<T>()
+    func load() -> Promise<DomainType> {
+        guard !isLoading() else {
+            fatalError("already loading")
+        }
+
+        let promise = Promise<DomainType>()
         let handler = { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error = error {
                 let appError = AppError.network(underlyingError: error)
                 promise.reject(appError)
-                return
-            }
-            if let data = data {
-                if let result: T = try? self.mapper.decode(data) {
+            } else if let data = data {
+                do {
+                    let result: DomainType = try self.mapper.mapToDomain(data)
                     promise.fulfill(result)
-                    return
+                } catch {
+                    if let result: AppError = try? self.errorMapper.decode(data) {
+                        promise.reject(result)
+                    } else {
+                        var errorDescription = "ERROR: \(error.localizedDescription)"
+                        if let contents = String(data: data, encoding: .utf8) {
+                            errorDescription += "\nResponse Data: \(contents)"
+                        }
+                        print(errorDescription)
+                        promise.reject(AppError.fatal(data: data, response: response))
+                    }
                 }
-                if let result: AppError = try? self.errorMapper.decode(data) {
-                    promise.reject(result)
-                    return
-                }
+            } else {
+                promise.reject(AppError.fatal(data: data, response: response))
             }
-            promise.reject(AppError.fatal(data: data, response: (response as! HTTPURLResponse)))
         }
 
         let task: URLSessionDataTask = self.urlSession.dataTask(with: self.urlRequest, completionHandler: handler)
@@ -49,19 +65,18 @@ class HttpRequest<T>: Request {
 
         self.promise = promise
         self.task = task
-        return getPromise()!
+        return promise.chained
+    }
+
+    func isLoading() -> Bool {
+        return self.task != nil
     }
 
     func cancel() {
-        self.promise?.cancel()
         self.task?.cancel()
     }
 
-    func getPromise() -> Promise<T>? {
-        guard let promise = promise else { return nil }
-
-        let p = Promise<T>()
-        promise.chain(p)
-        return p
+    func getResult() -> Promise<DomainType>? {
+        return self.promise?.chained
     }
 }

@@ -1,0 +1,72 @@
+disabled_rules:
+  - operator_whitespace
+  - private_outlet
+  - opening_brace
+  - todo
+opt_in_rules:
+  - empty_count
+  - force_unwrapping
+  - switch_case_on_newline
+  - strict_fileprivate
+  - sorted_first_last
+  - redundant_nil_coalescing
+  - prohibited_super_call
+  - private_action
+  - override_in_extension
+  - overridden_super_call
+  - operator_usage_whitespace
+  - object_literal
+  - number_separator
+  - multiline_arguments
+  - multiline_parameters
+  - lower_acl_than_parent
+  - literal_expression_end_indentation
+  - let_var_whitespace
+  - first_where
+  - file_header
+  - fatal_error_message
+  - extension_access_modifier
+  - empty_string
+  - discouraged_optional_collection
+  - discouraged_optional_boolean
+  - discouraged_direct_init
+  - contains_over_first_not_nil
+  - conditional_returns_on_newline
+  - closure_end_indentation
+  - attributes
+  - array_init
+  - yoda_condition
+  - sorted_imports
+  - trailing_comma
+line_length: 120
+type_body_length:
+  warning: 300
+  error: 400
+function_parameter_count:
+  warning: 6
+  error: 10
+trailing_comma:
+  mandatory_comma: true
+number_separator:
+  minimum_length: 5
+identifier_name:
+  min_length: 1
+file_header:
+  required_pattern: "\\/{2}\n\\/{2} Created by [a-zA-Z ]+ on \\d{2}\\.\\d{2}\\.\\d{4}\\.\n\\/{2} Copyright \\(c\\) \\d{4} [a-zA-Z ]+. All rights reserved.\n\\/{2}"
+excluded:
+  - Carthage/
+  - Frameworks/
+  - Library/Strings.swift
+  - bin/strings.swift
+reporter: "csv"
+custom_rules:
+  localized_lensing:
+    name: "Localized Lensing"
+    regex: '\.~\s+Strings\s*\.'
+    message: "Capture calls to `Strings` functions using `%~ { _ in Strings... }`"
+    severity: error
+  record_mode_prohibited:
+    name: "Record Mode Prohibited"
+    regex: "recordMode = true"
+    message: "Do not use `recordMode = true`."
+    severity: warning

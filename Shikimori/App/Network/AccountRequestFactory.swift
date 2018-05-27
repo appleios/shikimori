@@ -5,41 +5,28 @@
 
 import Foundation
 
-
 class AccountRequestFactory: EndpointRequestFactory {
 
     func getAccount(session: Session) -> HttpRequest<Account> {
 
-        let components = urlFactory.components(withPath: "/api/users/whoami")
-        let request: URLRequest = requestFactory.request(.GET, url: components.url, accessToken: session.token.accessToken)
+        let url = urlBuilder.url(withPath: "/api/users/whoami")! // swiftlint:disable:this force_unwrapping
+        let request: URLRequest = requestFactory.get(url,
+                accessToken: session.token.accessToken)
 
         return HttpRequest(urlRequest: request,
-                mapper: AccountMapper(jsonDecoder: jsonDecoder),
+                mapper: AccountRequestResultMapper(),
                 errorMapper: AppErrorMapper(jsonDecoder: jsonDecoder),
                 urlSession: urlSession)
     }
 
 }
 
+class AccountRequestResultMapper: DefaultNetworkRequestResultMapper<UserResult, Account> {
 
-class AccountMapper: HttpMapper<Account> {
-
-    struct Result: Codable {
-        var id: Int
-        var nickname: String
-        var avatar: String
-    }
-
-    let jsonDecoder: JSONDecoder
-
-    init(jsonDecoder: JSONDecoder) {
-        self.jsonDecoder = jsonDecoder
-        super.init()
-    }
-
-    override func decode(_ data: Data) throws -> Account {
-        let result = try jsonDecoder.decode(Result.self, from: data)
-        return Account(id: result.id, nickname: result.nickname, avatar: URL(string: result.avatar))
+    override func convert(_ result: UserResult) throws -> Account {
+        let userMapper = UserRequestResultMapper()
+        let user: User = try userMapper.convert(result)
+        return Account(user: user)
     }
 
 }

@@ -5,11 +5,19 @@
 
 import Foundation
 
-
-struct Account {
+struct User {
 
     let id: Int
     let nickname: String
     let avatar: URL?
+    let stats: UserStatistics?
+
+}
+
+struct UserStatistics {
+    typealias Statistics = [UserRates.Status: Int]
+
+    let anime: Statistics?
+    let manga: Statistics?
 
 }
