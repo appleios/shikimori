@@ -127,7 +127,7 @@ class ProfileViewController: UITableViewController {
             headerCellPresenter,
         ]
 
-        if let userP = self.userP, userP.isResolved() {
+        if let userP = self.userP, userP.isFulfilled() {
 
             let user = userP.value! // swiftlint:disable:this force_unwrapping
 
