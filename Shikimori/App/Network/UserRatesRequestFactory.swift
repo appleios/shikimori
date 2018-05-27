@@ -38,10 +38,9 @@ class UserRatesRequestFactory: EndpointRequestFactory {
 class UserRatesRequestResultMapper: DefaultNetworkRequestResultMapper<[UserRatesResult], [UserRates]> {
 
     override func convert(_ result: [UserRatesResult]) throws -> [UserRates] {
-        return try result.map {
-            guard let targetType = UserRates.TargetType(rawValue: $0.targetType) else {
-                throw NSError(domain: "", code: 1) // TODO
-            }
+        return result.map {
+            // swiftlint:disable:next force_unwrapping
+            let targetType = UserRates.TargetType(rawValue: $0.targetType)!
             return UserRates(targetId: $0.targetId, targetType: targetType)
         }
     }
