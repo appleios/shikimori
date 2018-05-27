@@ -50,6 +50,14 @@ struct ProfileStatisticCellPresenter: CellPresenter, CellPresenterTableViewSuppo
     let value: Int
     let status: UserRates.Status
 
+    init(name: String, statistics: UserStatistics.Statistics, status: UserRates.Status) {
+        self.name = name
+        self.status = status
+
+        // swiftlint:disable:next force_unwrapping
+        self.value = statistics[status]!
+    }
+
     var tableViewSupport: CellPresenterTableViewSupport {
         return self
     }
@@ -80,11 +88,14 @@ class ProfileViewController: UITableViewController {
     var sal = ServiceAccessLayer()
     var userP: Promise<User>?
 
-    var presenters: [CellPresenter]?
+    var presenters: [CellPresenter] = []
 
     static func viewController(account: Account, session: Session) -> ProfileViewController {
-        let viewController: ProfileViewController =
-                UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! ProfileViewController
+        guard let viewController: ProfileViewController =
+                UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as? ProfileViewController
+        else {
+            fatalError("Profile.storyboard initial view controller is of incorrect type")
+        }
 
         viewController.account = account
         viewController.session = session
@@ -98,8 +109,9 @@ class ProfileViewController: UITableViewController {
         self.reloadDataIfNeeded()
 
         let userRequest = sal.getUser(byID: self.account.user.id, session: self.session)
-        self.userP = userRequest.load()
-        self.userP!.then { [weak self] _ in
+        let userP: Promise<User> = userRequest.load()
+        self.userP = userP
+        userP.then { [weak self] _ in
             DispatchQueue.main.async {
                 self?.reloadDataIfNeeded()
             }
@@ -119,17 +131,20 @@ class ProfileViewController: UITableViewController {
             let user = userP.value!
             if let stats = user.stats {
                 if let anime = stats.anime {
-                    cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Watching", comment: ""), // TODO add method humanReadableTitle() for enum
-                                                                        value: anime[UserRates.Status.watching]!,
-                                                                        status: UserRates.Status.watching)) // TODO get stats by status
+                    cellPresenters.append(ProfileStatisticCellPresenter(
+                            name: NSLocalizedString("Watching", comment: ""),
+                            statistics: anime,
+                            status: UserRates.Status.watching))
 
-                    cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Completed", comment: ""),
-                                                                        value: anime[UserRates.Status.completed]!,
-                                                                        status: UserRates.Status.completed)) // TODO get stats by status
+                    cellPresenters.append(ProfileStatisticCellPresenter(
+                            name: NSLocalizedString("Completed", comment: ""),
+                            statistics: anime,
+                            status: UserRates.Status.completed))
 
-                    cellPresenters.append(ProfileStatisticCellPresenter(name: NSLocalizedString("Dropped", comment: ""),
-                                                                        value: anime[UserRates.Status.dropped]!,
-                                                                        status: UserRates.Status.dropped)) // TODO get stats by status
+                    cellPresenters.append(ProfileStatisticCellPresenter(
+                            name: NSLocalizedString("Dropped", comment: ""),
+                            statistics: anime,
+                            status: UserRates.Status.dropped))
                 }
             }
         }
@@ -150,18 +165,18 @@ class ProfileViewController: UITableViewController {
     // MARK: - TableView DataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.presenters?.count ?? 0
+        return self.presenters.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let presenter = presenters![indexPath.row]
+        let presenter = presenters[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: presenter.tableViewSupport.reuseIdentifier)!
         presenter.tableViewSupport.configureTableViewCell(cell)
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let presenter = presenters![indexPath.row]
+        let presenter = presenters[indexPath.row]
         if presenter is ProfileStatisticCellPresenter {
             self.performSegue(withIdentifier: ProfileViewController.toUserRatesSegueIdentifier, sender: presenter)
         }
@@ -169,8 +184,11 @@ class ProfileViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ProfileViewController.toUserRatesSegueIdentifier {
-            let presenter = sender as! ProfileStatisticCellPresenter
-            let viewController = segue.destination as! UserRatesViewController
+            guard let presenter = sender as? ProfileStatisticCellPresenter,
+                  let viewController = segue.destination as? UserRatesViewController
+            else {
+                fatalError("unable to cast")
+            }
 
             let request: HttpRequest<[UserRates]> = sal.getUserRates(byID: account.user.id,
                                                                            status: presenter.status,
