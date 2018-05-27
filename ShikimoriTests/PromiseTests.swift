@@ -101,6 +101,7 @@ class PromiseTests: XCTestCase {
         p.reject(error)
         p.fulfill(10)
 
+        // swiftlint:disable:next force_cast
         XCTAssertEqual(p.error as! TestError, error)
         XCTAssertNil(p.value)
     }
